@@ -116,7 +116,7 @@ oms.addListener('click', function(marker) {
 });
 
 document.getElementById("zoom_level").innerHTML = "Zoom " + map.getZoom();
-document.getElementById("date_select").innerHTML = "03/2015";
+document.getElementById("date_select").innerHTML = "04/2015";
 
 map.on('zoomend', function() {
 		document.getElementById("zoom_level").innerHTML = "Zoom " + this.getZoom();
@@ -188,6 +188,7 @@ function redraw(index_hist){
 	for (var i=polylinesA.length-1; i>=0; i--){
 		var flag_keep=false;
 		if(polylinesA[i].dat.code_lien in l_result.liens){
+			polylinesA[i].setStyle({dashArray: dash_stat[l_result.liens[polylinesA[i].dat.code_lien].stat]});
 			delete l_result.liens[polylinesA[i].dat.code_lien]
 			if(polylinesA[i].getPopup()==undefined){
 				polylinesA[i].setStyle({weight: fact_epaisseur*epaisseur});
@@ -532,7 +533,7 @@ function date_moins(){
 function date_plus(){
 	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
 	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-	if(l_annee<2015 || (l_annee==2015 && le_mois<03)){
+	if(l_annee<2015 || (l_annee==2015 && le_mois<04)){
 		if(le_mois=="12"){
 			le_mois="01";
 			l_annee=parseInt(l_annee) + 1;
