@@ -34,19 +34,11 @@ la_div_globale.appendChild(la_div_support)
 la_div_globale.appendChild(la_div_ant)
 la_div_globale.appendChild(la_div_no_support)
 la_div_support.onmouseenter = function(e){
-	var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
-	for(var i=0; i<popup_wraps.length; i++){
-		popup_wraps[i].style.opacity="0.5";
-	}
 	for (var i=0; i<poly_du_sup.length; i++){
 		poly_du_sup[i].setStyle({weight: 3.5});
 	}
 }
 la_div_support.onmouseleave = function(e){
-	var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
-	for(var i=0; i<popup_wraps.length; i++){
-		popup_wraps[i].style.opacity="1";
-	}
 	for (var i=0; i<poly_du_sup.length; i++){
 		poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
 	}
@@ -56,18 +48,6 @@ for(var i=0; i<4; i++){
 	divs_ope[i]=document.createElement("div");
 	tabs_ope[i]=document.createElement("table");
 	la_div_ant.appendChild(divs_ope[i]);
-	tabs_ope[i].onmouseenter=function(){
-		var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
-		for(var k=0; k<popup_wraps.length; k++){
-			popup_wraps[k].style.opacity="0.5";
-		}
-	}
-	tabs_ope[i].onmouseleave=function(){
-		var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
-		for(var k=0; k<popup_wraps.length; k++){
-			popup_wraps[k].style.opacity="1";
-		}
-	}
 }
 
 layer_osm = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {	
@@ -337,7 +317,7 @@ function ajax(){
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
 	url = base_url + "liens.php?limit=" + nb_limit + "&op_code=" + op_code + "&bande_code=" + bande_code + "&status=" + status + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
-	console.log(url);
+	//console.log(url);
 	return url;
  }
 
@@ -447,6 +427,7 @@ function build_popup_mark_s_2(marker,isopen){
 		td2.className="td_num";
 		td3.innerHTML=s_result.antennes[i][2] + "°";
 		td3.className="td_num";
+		tr.ant_azimut=parseFloat(s_result.antennes[i][2]);
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		tr.appendChild(td3);
@@ -460,6 +441,12 @@ function build_popup_mark_s_2(marker,isopen){
 			}
 			e.target.style.backgroundColor=col_op_pow[e.target.n_ope];
 			e.target.style.color="white";
+			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
+				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
+				for(var k=0; k<popup_wraps.length; k++){
+					popup_wraps[k].style.opacity="0.55";
+				}
+			}
 		}
 		tr.onmouseleave = function(e){
 			for (var k=0; k<poly_du_sup.length; k++){
@@ -467,6 +454,12 @@ function build_popup_mark_s_2(marker,isopen){
 			}
 			e.target.style.backgroundColor="white";
 			e.target.style.color=col_op_pow[e.target.n_ope];
+			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
+				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
+				for(var k=0; k<popup_wraps.length; k++){
+					popup_wraps[k].style.opacity="1";
+				}
+			}
 		}
 		rows_ope[Math.log(s_result.antennes[i][4])/Math.log(2)-1].push(tr);
 	}

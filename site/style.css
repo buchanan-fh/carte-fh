@@ -115,6 +115,7 @@ td{
 	text-align:right;
 }
 .t_ant{
+	border-collapse:collapse;
 	width:100%;
 	font-size:11px;
 }
@@ -131,10 +132,8 @@ td{
 	padding: 1px;
 	text-align: left;
 	border-radius: 7px;
-	/*opacity:0.6;*/
 }
 .leaflet-popup-content {
-	/*opacity:0.5;*/
 	margin: 10px 10px;
 	line-height: 1.2;
 }
