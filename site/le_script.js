@@ -414,7 +414,6 @@ function build_popup_mark_s_2(marker,isopen){
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
 		tr.style.color=col_op_pow[s_result.antennes[i][4]]
-		tr.style.backgroundColor="white"
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -445,7 +444,7 @@ function build_popup_mark_s_2(marker,isopen){
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				for(var k=0; k<popup_wraps.length; k++){
-					popup_wraps[k].style.opacity="0.55";
+					popup_wraps[k].style.background = "rgba(255, 255, 255, 0.55)";
 				}
 			}
 		}
@@ -453,12 +452,12 @@ function build_popup_mark_s_2(marker,isopen){
 			for (var k=0; k<poly_du_sup.length; k++){
 				poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
 			}
-			e.target.style.backgroundColor="white";
+			e.target.style.backgroundColor="transparent";
 			e.target.style.color=col_op_pow[e.target.n_ope];
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				for(var k=0; k<popup_wraps.length; k++){
-					popup_wraps[k].style.opacity="1";
+					popup_wraps[k].style.background = "white";
 				}
 			}
 		}
