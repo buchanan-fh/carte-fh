@@ -507,39 +507,43 @@ function check_no_bande(){
 function date_moins(){
 	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
 	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-	if(l_annee>2015 || (l_annee==2015 && le_mois>01)){
-		if(le_mois=="01"){
-			le_mois="12";
-			l_annee=parseInt(l_annee) - 1;
+	if(le_mois=="01"){
+		le_mois="12";
+		l_annee=parseInt(l_annee) - 1;
+	}else{
+		if(le_mois<11){
+			le_mois= "0" + (parseInt(le_mois)-1);
 		}else{
-			if(le_mois<11){
-				le_mois= "0" + (parseInt(le_mois)-1);
-			}else{
-				le_mois=parseInt(le_mois) - 1;
-			}
+			le_mois=parseInt(le_mois) - 1;
 		}
-		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
-		ajax();
 	}
+	document.getElementById("button_plus").disabled=false;
+	if(le_mois=="01" && l_annee=="2015"){
+		document.getElementById("button_moins").disabled=true;
+	}
+	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
+	ajax();
 }
 
 function date_plus(){
 	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
 	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-	if(l_annee<2015 || (l_annee==2015 && le_mois<04)){
-		if(le_mois=="12"){
-			le_mois="01";
-			l_annee=parseInt(l_annee) + 1;
+	if(le_mois=="12"){
+		le_mois="01";
+		l_annee=parseInt(l_annee) + 1;
+	}else{
+		if(le_mois<9){
+			le_mois= "0" + (parseInt(le_mois)+1);
 		}else{
-			if(le_mois<9){
-				le_mois= "0" + (parseInt(le_mois)+1);
-			}else{
-				le_mois=parseInt(le_mois) + 1;
-			}
+			le_mois=parseInt(le_mois) + 1;
 		}
-		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
-		ajax();
 	}
+	document.getElementById("button_moins").disabled=false;
+	if(le_mois=="04" && l_annee=="2015"){
+		document.getElementById("button_plus").disabled=true;
+	}
+	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
+	ajax();
 }
 
 function affichage_credits(){

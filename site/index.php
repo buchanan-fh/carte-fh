@@ -116,9 +116,9 @@ if(isset($_GET["op_init"])){
 		<div class="box_left"> 
 			<table class="tab_col">
 				<tr>
-					<td class="ligne_plus"><input type="button" value="<<" onclick="date_moins()"></td>
+					<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()"></td>
 					<td class="ligne_plus" id="date_select"></td>
-					<td class="ligne_plus"><input type="button" value=">>" onclick="date_plus()"></td>
+					<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" disabled></td>
 				</tr>
 			</table>
 		</div>
