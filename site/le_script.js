@@ -66,7 +66,8 @@ map = L.map( 'map_canvas', {
     minZoom: 5,
 	closePopupOnClick: false,
 	layers: [layer_osm],
-	zoomControl: false
+	zoomControl: false,
+	keyboard: false
 });
 map.fitBounds([[41,-5.7],[51.5,10]]);
 L.control.scale().addTo(map);
@@ -268,7 +269,7 @@ function ajax(){
 	if(hist_url.indexOf(url)>-1){
 		redraw(hist_url.indexOf(url));
 	}else{
-		if(hist_url.length>=3){
+		if(hist_url.length>=4){
 			hist_url.pop();
 			hist_result.pop();
 		}
@@ -551,5 +552,15 @@ function affichage_credits(){
 		document.getElementById('credits').style.display='none'
 	}else{
 		document.getElementById('credits').style.display='block'
+	}
+}
+
+function touche_clavier(e){
+	//console.log(e);
+	if(e.keyCode==37 && document.getElementById("button_moins").disabled==false){
+		date_moins();
+	}
+	if(e.keyCode==39 && document.getElementById("button_plus").disabled==false){
+		date_plus();
 	}
 }
