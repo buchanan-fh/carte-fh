@@ -25,7 +25,7 @@ if(isset($_GET["op_init"])){
 	<script src="Control.OSMGeocoder.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onkeydown="touche_clavier(event)">
 	<div id="map_canvas"></div>
 	<div id="controle_right"> 
 		<div class="box_right"> 
