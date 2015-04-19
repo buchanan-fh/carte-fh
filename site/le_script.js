@@ -119,7 +119,7 @@ ajax();
 function redraw(index_hist){
 	document.getElementById("loading").style.backgroundColor = "orange";
 	var time_start=Date.now();
-	var l_result=hist_result[index_hist];
+	var l_result=JSON.parse(hist_result[index_hist]);
 	var mark_aff=[];
 	
 	for (var i=marksA.length-1; i>=0; i--){
@@ -266,16 +266,20 @@ function ajax(){
 	document.getElementById("loading").style.backgroundColor = "orange";
 	document.getElementById("controle_left").style.maxHeight=(document.documentElement.clientHeight - 110) + "px";
 	document.getElementById("controle_right").style.maxHeight=(document.documentElement.clientHeight - 110) + "px";
+	
     var url=build_url_liens();
-	if(hist_url.indexOf(url)>-1){
-		redraw(hist_url.indexOf(url));
+	var key_hist=array_search(url,hist_url);
+	if(key_hist!=false){
+		redraw(key_hist);
 	}else{
-		if(hist_url.length>=4){
-			hist_url.pop();
-			hist_result.pop();
+		ind_req+=1;
+		if(Object.keys(hist_url).length>=4){
+			var r_a_supp = Object.keys(hist_url).shift();
+			delete hist_url[r_a_supp];
+			delete hist_result[r_a_supp];
 		}
-		hist_url.unshift(url);
-		hist_result.unshift("");
+		hist_url["r"+ind_req]=url;
+		hist_result["r"+ind_req]="";
 		var xhr=null;
 		if (window.XMLHttpRequest) { 
 			xhr = new XMLHttpRequest();
@@ -284,18 +288,16 @@ function ajax(){
 		{
 			xhr = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState==4){
 				json_parse=JSON.parse(xhr.responseText);
-				if(json_parse.ind_req==ind_req || json_parse.ind_req==-1){
-					hist_result[0] = json_parse;
-					redraw(0);
+				hist_result[json_parse.ind_req] = xhr.responseText;
+				if(json_parse.ind_req==("r"+ind_req)){
+					redraw("r"+ind_req);
 				}
 			}
 		}
-		ind_req+=1;
-		xhr.open("GET", url + "&req=" + ind_req, true);
+		xhr.open("GET", url + "&req=r" + ind_req, true);
 		xhr.send(null);
 	}
 }
@@ -567,4 +569,48 @@ function touche_clavier(e){
 	if(e.keyCode==39 && document.getElementById("button_plus").disabled==false){
 		date_plus();
 	}
+}
+
+function array_search(needle, haystack, argStrict) {
+  //  discuss at: http://phpjs.org/functions/array_search/
+  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  //    input by: Brett Zamir (http://brett-zamir.me)
+  // bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  //  depends on: array
+  //        test: skip
+  //   example 1: array_search('zonneveld', {firstname: 'kevin', middle: 'van', surname: 'zonneveld'});
+  //   returns 1: 'surname'
+  //   example 2: ini_set('phpjs.return_phpjs_arrays', 'on');
+  //   example 2: var ordered_arr = array({3:'value'}, {2:'value'}, {'a':'value'}, {'b':'value'});
+  //   example 2: var key = array_search(/val/g, ordered_arr); // or var key = ordered_arr.search(/val/g);
+  //   returns 2: '3'
+
+  var strict = !! argStrict,
+    key = '';
+
+  if (haystack && typeof haystack === 'object' && haystack.change_key_case) { // Duck-type check for our own array()-created PHPJS_Array
+    return haystack.search(needle, argStrict);
+  }
+  if (typeof needle === 'object' && needle.exec) { // Duck-type for RegExp
+    if (!strict) { // Let's consider case sensitive searches as strict
+      var flags = 'i' + (needle.global ? 'g' : '') +
+        (needle.multiline ? 'm' : '') +
+        (needle.sticky ? 'y' : ''); // sticky is FF only
+      needle = new RegExp(needle.source, flags);
+    }
+    for (key in haystack) {
+      if (needle.test(haystack[key])) {
+        return key;
+      }
+    }
+    return false;
+  }
+
+  for (key in haystack) {
+    if ((strict && haystack[key] === needle) || (!strict && haystack[key] == needle)) {
+      return key;
+    }
+  }
+
+  return false;
 }

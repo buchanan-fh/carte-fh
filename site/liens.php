@@ -142,7 +142,7 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 	$final_result->nb_ant_max = 0;
 	$final_result->nb_ant_min = 0;
 	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
-	$final_result->ind_req = -1;
+	$final_result->ind_req = $_GET["req"];
 	echo json_encode($final_result);
 }
 
