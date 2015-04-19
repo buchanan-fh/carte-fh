@@ -15,6 +15,7 @@ marksA=[];
 poly_du_sup=[];
 hist_result=[];
 hist_url=[];
+ind_req=0;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
@@ -118,7 +119,7 @@ ajax();
 function redraw(index_hist){
 	document.getElementById("loading").style.backgroundColor = "orange";
 	var time_start=Date.now();
-	var l_result=JSON.parse(hist_result[index_hist]);
+	var l_result=hist_result[index_hist];
 	var mark_aff=[];
 	
 	for (var i=marksA.length-1; i>=0; i--){
@@ -284,13 +285,17 @@ function ajax(){
 			xhr = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = function(){
 			if (xhr.readyState==4){
-				hist_result[0] = xhr.responseText;
-				redraw(0);
+				json_parse=JSON.parse(xhr.responseText);
+				if(json_parse.ind_req==ind_req || json_parse.ind_req==-1){
+					hist_result[0] = json_parse;
+					redraw(0);
+				}
 			}
-		};
-		xhr.open("GET", url, true);
+		}
+		ind_req+=1;
+		xhr.open("GET", url + "&req=" + ind_req, true);
 		xhr.send(null);
 	}
 }
