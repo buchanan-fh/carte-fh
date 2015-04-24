@@ -125,19 +125,19 @@ if(isset($_GET["op_init"])){
 		<div class="box_left"> 
 			<table class="tab_col">
 				<tr>
-					<td><input type="checkbox" id="check_op_0" onclick="ajax()" <?php echo $etat_init[1]; ?>></td>
+					<td><input type="checkbox" id="check_op_1" onclick="ajax()" <?php echo $etat_init[1]; ?>></td>
 					<td><span class="leg" id="leg_of">&#x25FC;</span> Orange</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_1" onclick="ajax()" <?php echo $etat_init[2]; ?>></td>
+					<td><input type="checkbox" id="check_op_2" onclick="ajax()" <?php echo $etat_init[2]; ?>></td>
 					<td><span class="leg" id="leg_sfr">&#x25FC;</span> SFR</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_2" onclick="ajax()" <?php echo $etat_init[3]; ?>></td>
+					<td><input type="checkbox" id="check_op_3" onclick="ajax()" <?php echo $etat_init[3]; ?>></td>
 					<td><span class="leg" id="leg_bt">&#x25FC;</span> Bouygues Telecom</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_3" onclick="ajax()" <?php echo $etat_init[4]; ?>></td>
+					<td><input type="checkbox" id="check_op_4" onclick="ajax()" <?php echo $etat_init[4]; ?>></td>
 					<td><span class="leg" id="leg_fm">&#x25FC;</span> Free</td>
 				</tr>
 			</table>

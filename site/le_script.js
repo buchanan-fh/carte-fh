@@ -1,7 +1,5 @@
-col_op=['#ED7B00','#ED0000','#0067ED','#6A6A6A'];
-col_op_pow={};
-col_op_pow["1"]='#FFFFFF';col_op_pow["2"]='#ED7B00';col_op_pow["4"]='#ED0000';col_op_pow["8"]='#0067ED';col_op_pow["16"]='#6A6A6A';
-nom_ope=["Orange","SFR","Bouygues Telecom","Free"];
+col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A'];
+nom_ope=["","Orange","SFR","Bouygues Telecom","Free"];
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
@@ -45,7 +43,7 @@ la_div_support.onmouseleave = function(e){
 	}
 }
 
-for(var i=0; i<4; i++){
+for(var i=1; i<5; i++){
 	divs_ope[i]=document.createElement("div");
 	tabs_ope[i]=document.createElement("table");
 	la_div_ant.appendChild(divs_ope[i]);
@@ -93,7 +91,7 @@ map.on("baselayerchange", function(e){
 });
 
 oms = new OverlappingMarkerSpiderfier(map,{keepSpiderfied:true, nearbyDistance:10});
-oms.addListener('click', function(marker) {
+oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
@@ -161,7 +159,7 @@ function redraw(index_hist){
 		}
 		for (var i=marksA.length-1; i>=0; i--){
 			marksA[i].setRadius(t_a*marksA[i].dat.nb_ant+t_b);
-			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:col_op_pow[Math.pow(2,marksA[i].dat.prop)], fillOpacity:"1"})
+			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:col_op[marksA[i].dat.prop], fillOpacity:"1"})
 		}
 	}
 	L.layerGroup(mark_aff).addTo(map);
@@ -303,12 +301,12 @@ function ajax(){
 }
  
  function build_url_liens(){
-	var op_code=0;
+	var op_liste=[];
 	var bande_code=0;
 	var status=0;
 	var nb_limit=150;
-	for(var i=0; i<4; i++){
-		if (document.getElementById("check_op_" + i).checked==true){op_code+=Math.pow(2,i);}
+	for(var i=1; i<5; i++){
+		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
 	}
 	for(var i=0; i<16; i++){
 		if (document.getElementById("check_bande_" + i).checked==true){bande_code+=Math.pow(2,i);}
@@ -324,17 +322,17 @@ function ajax(){
 	if (document.getElementById('check_couples').checked==true){status+=1;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "liens.php?limit=" + nb_limit + "&op_code=" + op_code + "&bande_code=" + bande_code + "&status=" + status + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&status=" + status + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
 	//console.log(url);
 	return url;
  }
 
 function build_url_support(no_sup){
-	var op_code=0;
+	var op_liste=[];
 	var bande_code=0;
 	var status=0;
-	for(var i=0; i<4; i++){
-		if (document.getElementById("check_op_" + i).checked==true){op_code+=Math.pow(2,i+1);}
+	for(var i=1; i<5; i++){
+		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
 	}
 	for(var i=0; i<16; i++){
 		if (document.getElementById("check_bande_" + i).checked==true){bande_code+=Math.pow(2,i);}
@@ -345,7 +343,7 @@ function build_url_support(no_sup){
 	if (document.getElementById('check_couples').checked==true){status+=1;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "supports.php?no_sup=" + String(no_sup) + "&op_code=" + op_code + "&bande_code=" + bande_code + "&status=" + status + "&date=" + la_date;
+	url = base_url + "supports.php?no_sup=" + String(no_sup) + "&op_liste=" + op_liste.join("|") + "&bande_code=" + bande_code + "&status=" + status + "&date=" + la_date;
 	//console.log(url);
 	return url;
 }
@@ -409,7 +407,7 @@ function build_popup_mark_s_2(marker,isopen){
 	}
 	la_div_support.innerHTML= "<div class=\"p_titre\">" + s_result.type + "</div><div class=\"p_adresse\">" + s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune + "</div>";
 	la_div_no_support.innerHTML="<div class=\"p_num_sup\">" + s_result.nom_prop + " ("+ s_result.no_sup + ")</div>";
-	for(var i=0; i<4; i++){
+	for(var i=1; i<5; i++){
 		rows_ope[i]=[];
 		while (divs_ope[i].hasChildNodes()) {
 			divs_ope[i].removeChild(divs_ope[i].lastChild);
@@ -420,7 +418,7 @@ function build_popup_mark_s_2(marker,isopen){
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
-		tr.style.color=col_op_pow[s_result.antennes[i][4]]
+		tr.style.color=col_op[s_result.antennes[i][4]]
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -446,7 +444,7 @@ function build_popup_mark_s_2(marker,isopen){
 					poly_du_sup[j].setStyle({weight: 3.5});
 				}
 			}
-			e.target.style.backgroundColor=col_op_pow[e.target.n_ope];
+			e.target.style.backgroundColor=col_op[e.target.n_ope];
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
@@ -460,7 +458,7 @@ function build_popup_mark_s_2(marker,isopen){
 				poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
 			}
 			e.target.style.backgroundColor="transparent";
-			e.target.style.color=col_op_pow[e.target.n_ope];
+			e.target.style.color=col_op[e.target.n_ope];
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				for(var k=0; k<popup_wraps.length; k++){
@@ -468,9 +466,9 @@ function build_popup_mark_s_2(marker,isopen){
 				}
 			}
 		}
-		rows_ope[Math.log(s_result.antennes[i][4])/Math.log(2)-1].push(tr);
+		rows_ope[s_result.antennes[i][4]].push(tr);
 	}
-	for(var i=0; i<4; i++){
+	for(var i=1; i<5; i++){
 		if(rows_ope[i].length>0){
 			divs_ope[i].innerHTML="<div class=\"p_titre\">"+nom_ope[i]+" ("+ rows_ope[i].length +")</div>";
 			divs_ope[i].className="p_div";

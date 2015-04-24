@@ -15,10 +15,10 @@ $final_result = new StdClass();
 if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 
 	$nom_tile=get_nom_tile($_GET["west"],$_GET["east"],$_GET["north"],$_GET["south"]);
+	$op_liste=explode("|",$_GET["op_liste"]);
 	
-	$temoin_op=1;
-	for($i_ope=0;$i_ope<4;$i_ope++){
-		if($_GET["op_code"] & $temoin_op){
+	for($i_ope=1;$i_ope<5;$i_ope++){
+		if(in_array($i_ope,$op_liste)){
 			if(file_exists($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json")){
 				$le_fichier=fopen($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json","r");
 				$last_sups=array();
@@ -47,9 +47,8 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 				fclose($le_fichier);
 			}
 		}
-		$temoin_op <<= 1;
 	}
-	
+
 	foreach($all_sup as $sup_tab){
 		$nb_ant_sup[]=$sup_tab["nb_ant"];
 	}
@@ -75,9 +74,8 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 	unset($keys);
 	
 	$d_min=7*28284/pow(2,(int)$_GET["zoom"]+8);	
-	$temoin_op=1;
-	for($i_ope=0;$i_ope<4;$i_ope++){
-		if($_GET["op_code"] & $temoin_op){
+	for($i_ope=1;$i_ope<5;$i_ope++){
+		if(in_array($i_ope,$op_liste)){
 			if(file_exists($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json")){
 				$le_fichier=fopen($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json","r");
 				while(!feof($le_fichier)){
@@ -111,7 +109,6 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 				fclose($le_fichier);
 			}
 		}
-		$temoin_op <<= 1;
 	}
 	
 	if((count($short_links)+count($final_links))<=(3*(int)$_GET["limit"])){
