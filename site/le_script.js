@@ -58,9 +58,14 @@ layer_arcgis = L.tileLayer( 'https://server.arcgisonline.com/ArcGIS/rest/service
 	attribution: 'Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AEX, Getmapping, Aerogrid, IGN, IGP, swisstopo, and the GIS User Community',
 	opacity: "1"
 });
+layer_arcgis_topo = L.tileLayer( 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Sources: Esri, HERE, DeLorme, TomTom, Intermap, increment P Corp., GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), swisstopo, MapmyIndia, © OpenStreetMap contributors, and the GIS User Community',
+	opacity: "1"
+});
 base_layers = {
 	"OSM": layer_osm,
-	"ESRI World Imagery": layer_arcgis
+	"ESRI World Imagery": layer_arcgis,
+	"ESRI World Topo": layer_arcgis_topo
 };
 map = L.map( 'map_canvas', {
     minZoom: 5,
