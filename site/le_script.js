@@ -93,7 +93,7 @@ map.on("baselayerchange", function(e){
 	}else{
 		fact_epaisseur=1;
 	}
-	redraw(0);
+	redraw("r"+ind_req);
 });
 
 oms = new OverlappingMarkerSpiderfier(map,{keepSpiderfied:true, nearbyDistance:10});
