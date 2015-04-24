@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 
 $t_start=microtime(true);
 
+$nb_ope=9;
 $tab_dates_ok=array("201501","201502","201503","201504");
 $all_links = array();
 $short_links = array();
@@ -17,7 +18,7 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 	$nom_tile=get_nom_tile($_GET["west"],$_GET["east"],$_GET["north"],$_GET["south"]);
 	$op_liste=explode("|",$_GET["op_liste"]);
 	
-	for($i_ope=1;$i_ope<5;$i_ope++){
+	for($i_ope=1;$i_ope<=$nb_ope;$i_ope++){
 		if(in_array($i_ope,$op_liste)){
 			if(file_exists($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json")){
 				$le_fichier=fopen($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json","r");
@@ -74,7 +75,7 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 	unset($keys);
 	
 	$d_min=7*28284/pow(2,(int)$_GET["zoom"]+8);	
-	for($i_ope=1;$i_ope<5;$i_ope++){
+	for($i_ope=1;$i_ope<=$nb_ope;$i_ope++){
 		if(in_array($i_ope,$op_liste)){
 			if(file_exists($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json")){
 				$le_fichier=fopen($_GET["date"]."/liens_".$nom_tile."_".$i_ope.".json","r");

@@ -1,4 +1,6 @@
-html { height: 100% }
+html {
+	height: 100%
+}
 body {
 	height: 100%;
 	margin: 0px;
@@ -17,11 +19,10 @@ body {
 	z-index:2;
 	position:absolute;
 	left:0px;
-	/*width:215px;*/
 	max-height:100%;
 	overflow:auto;
 	font-family:arial;
-	font-size:15px;
+	font-size:14px;
 }
 #controle_right{
 	z-index:2;
@@ -31,7 +32,7 @@ body {
 	max-height:100%;
 	overflow:auto;
 	font-family:arial;
-	font-size:15px;
+	font-size:14px;
 }
 td{
 	padding:2px;
@@ -50,6 +51,10 @@ td{
 }
 #status{
 	padding:0px;
+}
+#aff_restreint{
+	font-size:16px;
+	font-weight:bold;
 }
 #credits{
 	z-index:2;
@@ -73,12 +78,28 @@ td{
 	width:100%;
 	border-collapse:collapse;
 }
+.tab_col_sub{
+	width:90%;
+	border-collapse:collapse;
+	margin-left:auto;
+}
+#tab_autres_ope{
+	display:none;
+}
+.check_cell{
+	width:1px;
+}
 .ligne_plus{
 	height:20px;
 	text-align:center;
 }
 .radio_limit{
-	width:20%;
+	width:1px;
+}
+#toggle_autres_op{
+	text-align:center;
+	font-weight:bold;
+	cursor:pointer
 }
 #leg_of{
 	color:#ED7B00;
@@ -91,6 +112,9 @@ td{
 }
 #leg_fm{
 	color:#6A6A6A;
+}
+#leg_autres{
+	color:#339933;
 }
 .p_div_globale{
 	min-width:160px;

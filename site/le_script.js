@@ -1,5 +1,5 @@
-col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A'];
-nom_ope=["","Orange","SFR","Bouygues Telecom","Free"];
+col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933'];
+nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel","EDF","RTE"];
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
@@ -14,6 +14,7 @@ poly_du_sup=[];
 hist_result=[];
 hist_url=[];
 ind_req=0;
+nb_ope=9;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
@@ -43,7 +44,7 @@ la_div_support.onmouseleave = function(e){
 	}
 }
 
-for(var i=1; i<5; i++){
+for(var i=1; i<=nb_ope; i++){
 	divs_ope[i]=document.createElement("div");
 	tabs_ope[i]=document.createElement("table");
 	la_div_ant.appendChild(divs_ope[i]);
@@ -182,7 +183,7 @@ function redraw(index_hist){
 	}
 	for (var code_lien in l_result.liens){
 		if(l_result.liens.hasOwnProperty(code_lien)){
-			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: col_op[l_result.liens[code_lien].ope], opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat]});
+			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: col_op[Math.min(l_result.liens[code_lien].ope,5)], opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat]});
 			la_poly["dat"]=l_result.liens[code_lien];
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
@@ -203,7 +204,7 @@ function redraw(index_hist){
 					for (var k=0; k<e.target.dat.nos_ant.length; k++){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
-							div_ant.style.backgroundColor=col_op[e.target.dat.ope];
+							div_ant.style.backgroundColor=col_op[Math.min(e.target.dat.ope,5)];
 							div_ant.style.color="white";
 						}
 					}
@@ -216,7 +217,7 @@ function redraw(index_hist){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
 							div_ant.style.backgroundColor="white";
-							div_ant.style.color=col_op[e.target.dat.ope];
+							div_ant.style.color=col_op[Math.min(e.target.dat.ope,5)];
 						}
 					}
 				}
@@ -243,9 +244,7 @@ function redraw(index_hist){
 	
 	document.getElementById("aff_nb_liens").innerHTML = polylinesA.length + " liens affichés";
 	document.getElementById("aff_nb_supports").innerHTML = marksA.length + " supports affichés";
-	
-	document.getElementById("aff_restreint").style.fontWeight = "bold";
-	document.getElementById("aff_restreint").style.fontSize = "17px"
+
 	if(l_result.full==-1){
 		document.getElementById("aff_restreint").innerHTML = "Erreur";
 		document.getElementById("aff_restreint").style.color = "red";
@@ -305,8 +304,13 @@ function ajax(){
 	var bande_code=0;
 	var status=0;
 	var nb_limit=150;
-	for(var i=1; i<5; i++){
+	for(var i=1; i<=4; i++){
 		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+	}
+	if (document.getElementById("check_op_autres").checked==true){
+		for(var i=5; i<=nb_ope; i++){
+			if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+		}
 	}
 	for(var i=0; i<16; i++){
 		if (document.getElementById("check_bande_" + i).checked==true){bande_code+=Math.pow(2,i);}
@@ -331,7 +335,7 @@ function build_url_support(no_sup){
 	var op_liste=[];
 	var bande_code=0;
 	var status=0;
-	for(var i=1; i<5; i++){
+	for(var i=1; i<=nb_ope; i++){
 		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
 	}
 	for(var i=0; i<16; i++){
@@ -407,7 +411,7 @@ function build_popup_mark_s_2(marker,isopen){
 	}
 	la_div_support.innerHTML= "<div class=\"p_titre\">" + s_result.type + "</div><div class=\"p_adresse\">" + s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune + "</div>";
 	la_div_no_support.innerHTML="<div class=\"p_num_sup\">" + s_result.nom_prop + " ("+ s_result.no_sup + ")</div>";
-	for(var i=1; i<5; i++){
+	for(var i=1; i<=nb_ope; i++){
 		rows_ope[i]=[];
 		while (divs_ope[i].hasChildNodes()) {
 			divs_ope[i].removeChild(divs_ope[i].lastChild);
@@ -418,7 +422,7 @@ function build_popup_mark_s_2(marker,isopen){
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
-		tr.style.color=col_op[s_result.antennes[i][4]]
+		tr.style.color=col_op[Math.min(s_result.antennes[i][4],5)]
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -444,7 +448,7 @@ function build_popup_mark_s_2(marker,isopen){
 					poly_du_sup[j].setStyle({weight: 3.5});
 				}
 			}
-			e.target.style.backgroundColor=col_op[e.target.n_ope];
+			e.target.style.backgroundColor=col_op[Math.min(e.target.n_ope,5)];
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
@@ -458,7 +462,7 @@ function build_popup_mark_s_2(marker,isopen){
 				poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
 			}
 			e.target.style.backgroundColor="transparent";
-			e.target.style.color=col_op[e.target.n_ope];
+			e.target.style.color=col_op[Math.min(e.target.n_ope,5)];
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				for(var k=0; k<popup_wraps.length; k++){
@@ -468,7 +472,7 @@ function build_popup_mark_s_2(marker,isopen){
 		}
 		rows_ope[s_result.antennes[i][4]].push(tr);
 	}
-	for(var i=1; i<5; i++){
+	for(var i=1; i<=nb_ope; i++){
 		if(rows_ope[i].length>0){
 			divs_ope[i].innerHTML="<div class=\"p_titre\">"+nom_ope[i]+" ("+ rows_ope[i].length +")</div>";
 			divs_ope[i].className="p_div";
@@ -560,12 +564,34 @@ function affichage_credits(){
 }
 
 function touche_clavier(e){
-	//console.log(e);
 	if(e.keyCode==37 && document.getElementById("button_moins").disabled==false){
 		date_moins();
 	}
 	if(e.keyCode==39 && document.getElementById("button_plus").disabled==false){
 		date_plus();
+	}
+}
+
+function click_autres_ope(){
+	if(document.getElementById("check_op_autres").checked==true){
+		for(var i=5; i<=nb_ope; i++){
+			document.getElementById("check_op_" + i).disabled=false;
+		}
+	}else{
+		for(var i=5; i<=nb_ope; i++){
+			document.getElementById("check_op_" + i).disabled=true;
+		}
+	}
+	ajax()
+}
+
+function toggle_autres_ope(){
+	if(document.getElementById("tab_autres_ope").style.display=="block"){
+		document.getElementById("tab_autres_ope").style.display="none";
+		document.getElementById("toggle_autres_op").innerHTML="+"
+	}else{
+		document.getElementById("tab_autres_ope").style.display="block";
+		document.getElementById("toggle_autres_op").innerHTML="-"
 	}
 }
 

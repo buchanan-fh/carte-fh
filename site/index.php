@@ -1,9 +1,14 @@
 <?php
-$etat_init=array("checked","checked","checked","checked","checked");
+$nb_ope=9;
+$etat_init=array();
+for($i=0;$i<=$nb_ope;$i++){
+	$etat_init[]="checked";
+}
+//$etat_init=array("checked","checked","checked","checked","checked","checked","checked");
 if(isset($_GET["op_init"])){
 	$_GET["op_init"]=(int)$_GET["op_init"];
 	$temoin_op=1;
-	for($i=0;$i<5;$i++){
+	for($i=0;$i<=$nb_ope;$i++){
 		if($_GET["op_init"] & $temoin_op){
 			$etat_init[$i]="checked";
 		}else{
@@ -125,20 +130,49 @@ if(isset($_GET["op_init"])){
 		<div class="box_left"> 
 			<table class="tab_col">
 				<tr>
-					<td><input type="checkbox" id="check_op_1" onclick="ajax()" <?php echo $etat_init[1]; ?>></td>
+					<td class="check_cell"><input type="checkbox" id="check_op_1" onclick="ajax()" <?php echo $etat_init[1]; ?>></td>
 					<td><span class="leg" id="leg_of">&#x25FC;</span> Orange</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_2" onclick="ajax()" <?php echo $etat_init[2]; ?>></td>
+					<td class="check_cell"><input type="checkbox" id="check_op_2" onclick="ajax()" <?php echo $etat_init[2]; ?>></td>
 					<td><span class="leg" id="leg_sfr">&#x25FC;</span> SFR</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_3" onclick="ajax()" <?php echo $etat_init[3]; ?>></td>
+					<td class="check_cell"><input type="checkbox" id="check_op_3" onclick="ajax()" <?php echo $etat_init[3]; ?>></td>
 					<td><span class="leg" id="leg_bt">&#x25FC;</span> Bouygues Telecom</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_op_4" onclick="ajax()" <?php echo $etat_init[4]; ?>></td>
+					<td class="check_cell"><input type="checkbox" id="check_op_4" onclick="ajax()" <?php echo $etat_init[4]; ?>></td>
 					<td><span class="leg" id="leg_fm">&#x25FC;</span> Free</td>
+				</tr>
+			</table>
+			<table class="tab_col">
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_autres" onclick="click_autres_ope()" checked></td>
+					<td><span class="leg" id="leg_autres">&#x25FC;</span> Autres</td>
+					<td id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
+				</tr>
+			</table>
+			<table class="tab_col_sub" id="tab_autres_ope">
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_5" onclick="ajax()" <?php echo $etat_init[5]; ?>></td>
+					<td>TDF</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_6" onclick="ajax()" <?php echo $etat_init[6]; ?>></td>
+					<td>Towercast</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_7" onclick="ajax()" <?php echo $etat_init[7]; ?>></td>
+					<td>Sté de Transport<br>audiovisuel</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_8" onclick="ajax()" <?php echo $etat_init[8]; ?>></td>
+					<td>EDF</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_9" onclick="ajax()" <?php echo $etat_init[9]; ?>></td>
+					<td>RTE</td>
 				</tr>
 			</table>
 		</div> 
