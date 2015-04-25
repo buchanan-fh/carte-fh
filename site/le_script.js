@@ -15,8 +15,8 @@ hist_result=[];
 hist_url=[];
 ind_req=0;
 nb_ope=12;
-base_url="http://127.0.0.1:5723/";
-//base_url="https://carte-fh.lafibre.info/";
+//base_url="http://127.0.0.1:5723/";
+base_url="https://carte-fh.lafibre.info/";
 
 la_div_globale = document.createElement("div");
 la_div_ant = document.createElement("div");
@@ -332,7 +332,7 @@ function ajax(){
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
 	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&status=" + status + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
-	console.log(url);
+	//console.log(url);
 	return url;
  }
 
