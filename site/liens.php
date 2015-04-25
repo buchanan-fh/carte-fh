@@ -34,11 +34,10 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 									for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
 										$code_sup="s".$tab_nos_sup[$i_sup];
 										if(isset($all_sup[$code_sup])){
-											$all_sup[$code_sup]["nb_ant"] += 1;
+											$all_sup[$code_sup] += 1;
 										}else{
-											$les_prop=explode(",",$les_champs[11]);
-											$all_sup[$code_sup] = array("coords" => array((float)$les_champs[0+2*$i_sup],(float)$les_champs[1+2*$i_sup],0), "nb_ant" => 1, "prop" => (int)$les_prop[$i_sup]);
-										}									
+											$all_sup[$code_sup] = 1;
+										}
 									}
 								}
 							}
@@ -50,11 +49,7 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 		}
 	}
 
-	foreach($all_sup as $sup_tab){
-		$nb_ant_sup[]=$sup_tab["nb_ant"];
-	}
-	array_multisort($nb_ant_sup,SORT_DESC,$all_sup);
-	unset($nb_ant_sup);
+	arsort($all_sup);
 	
 	$limitation_act=false;
 	$nb_limite=(int)$_GET["limit"];
@@ -63,11 +58,11 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 		$keys=array_keys($all_sup);
 		$nb_keys=count($keys);
 		for($i=0;$i<$nb_keys;++$i){
-			if($i>=$nb_limite && $all_sup[$keys[$i]]["nb_ant"]<$nb_ant_prec){
+			if($i>=$nb_limite && $all_sup[$keys[$i]]<$nb_ant_prec){
 				$limitation_act=true;
 				break;
 			}else{
-				$nb_ant_prec=$all_sup[$keys[$i]]["nb_ant"];
+				$nb_ant_prec=$all_sup[$keys[$i]];
 			}
 		}
 		$all_sup=array_slice($all_sup,0,$i,true);
@@ -85,7 +80,12 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 						$les_champs=explode("|",$la_ligne);
 						$tab_nos_sup=explode(",",$les_champs[9]);
 						for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-							if(isset($all_sup["s".$tab_nos_sup[$i_sup]])){
+							$code_sup="s".$tab_nos_sup[$i_sup];
+							if(isset($all_sup[$code_sup])){
+								if(isset($all_sup[$code_sup]["coords"])==false){
+									$les_prop=explode(",",$les_champs[11]);
+									$all_sup[$code_sup] = array("coords" => array((float)$les_champs[0+2*$i_sup],(float)$les_champs[1+2*$i_sup],0), "nb_ant" => $all_sup[$code_sup], "prop" => (int)$les_prop[$i_sup]);
+								}
 								if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET["west"],$_GET["east"],$_GET["north"],$_GET["south"])){
 									if (((int)$les_champs[7] & (int)$_GET["status"] & 12) && ((int)$les_champs[7] & (int)$_GET["status"] & 3)){
 										if ((int)$les_champs[6] & (int)$_GET["bande_code"]){
@@ -102,7 +102,6 @@ if(array_search($_GET["date"],$tab_dates_ok)!==FALSE){
 										}
 									}
 								}
-								break;
 							}
 						}
 					}
