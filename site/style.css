@@ -20,6 +20,7 @@ body {
 	position:absolute;
 	left:0px;
 	max-height:100%;
+	min-width:210px;
 	overflow:auto;
 	font-family:arial;
 	font-size:14px;
@@ -33,9 +34,6 @@ body {
 	overflow:auto;
 	font-family:arial;
 	font-size:14px;
-}
-td{
-	padding:2px;
 }
 .box_left{
 	border:solid 1px black;
@@ -86,12 +84,22 @@ td{
 #tab_autres_ope{
 	display:none;
 }
+#shortcut_autres_ope{
+	display:none;
+}
 .check_cell{
 	width:1px;
 }
 .ligne_plus{
 	height:20px;
 	text-align:center;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+.ligne_simple{
+	text-align:center;
+	padding-top:1px;
+	padding-bottom:1px;
 }
 .radio_limit{
 	width:1px;

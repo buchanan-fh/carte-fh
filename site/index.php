@@ -1,5 +1,5 @@
 <?php
-$nb_ope=9;
+$nb_ope=12;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
@@ -33,6 +33,15 @@ if(isset($_GET["op_init"])){
 <body onkeydown="touche_clavier(event)">
 	<div id="map_canvas"></div>
 	<div id="controle_right"> 
+		<div class="box_right"> 
+			<table class="tab_col">
+				<tr>
+					<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()"></td>
+					<td class="ligne_plus" id="date_select"></td>
+					<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" disabled></td>
+				</tr>
+			</table>
+		</div>
 		<div class="box_right"> 
 			<table class="tab_col">
 				<tr >
@@ -121,15 +130,6 @@ if(isset($_GET["op_init"])){
 		<div class="box_left"> 
 			<table class="tab_col">
 				<tr>
-					<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()"></td>
-					<td class="ligne_plus" id="date_select"></td>
-					<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" disabled></td>
-				</tr>
-			</table>
-		</div>
-		<div class="box_left"> 
-			<table class="tab_col">
-				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_1" onclick="ajax()" <?php echo $etat_init[1]; ?>></td>
 					<td><span class="leg" id="leg_of">&#x25FC;</span> Orange</td>
 				</tr>
@@ -153,6 +153,12 @@ if(isset($_GET["op_init"])){
 					<td id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
 				</tr>
 			</table>
+			<table class="tab_col" id="shortcut_autres_ope">
+				<tr >
+					<td class="ligne_plus"><input type="button" id="check_all_autres_op" value="Tous" onclick="check_all_autres_op()"></td>
+					<td class="ligne_plus"><input type="button" id="check_no_autre_op" value="Aucun" onclick="check_no_autre_op()"></td>
+				</tr>
+			</table>
 			<table class="tab_col_sub" id="tab_autres_ope">
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_5" onclick="ajax()" <?php echo $etat_init[5]; ?>></td>
@@ -173,6 +179,18 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_9" onclick="ajax()" <?php echo $etat_init[9]; ?>></td>
 					<td>RTE</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_10" onclick="ajax()" <?php echo $etat_init[10]; ?>></td>
+					<td>SNCF Réseau</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_11" onclick="ajax()" <?php echo $etat_init[11]; ?>></td>
+					<td>Direction Des<br>Routes</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_12" onclick="ajax()" <?php echo $etat_init[12]; ?>></td>
+					<td>SANEF</td>
 				</tr>
 			</table>
 		</div> 
@@ -221,10 +239,10 @@ if(isset($_GET["op_init"])){
 					<td colspan="2" class="ligne_plus" id="aff_restreint"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="ligne_plus" id="aff_nb_liens"></td>
+					<td colspan="2" class="ligne_simple" id="aff_nb_liens"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="ligne_plus" id="aff_nb_supports"></td>
+					<td colspan="2" class="ligne_simple" id="aff_nb_supports"></td>
 				</tr>
 			</table>
 		</div>
