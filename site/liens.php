@@ -10,6 +10,7 @@ $all_links = array();
 $short_links = array();
 $final_links = array();
 $all_sup = array();
+$all_sup_nb_ant = array();
 $nb_ant_sup = array();
 $final_result = new StdClass();
 
