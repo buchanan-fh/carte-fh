@@ -1,10 +1,9 @@
 <?php
-$nb_ope=12;
+$nb_ope=14;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
 }
-//$etat_init=array("checked","checked","checked","checked","checked","checked","checked");
 if(isset($_GET["op_init"])){
 	$_GET["op_init"]=(int)$_GET["op_init"];
 	$temoin_op=1;
@@ -191,6 +190,14 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_12" onclick="ajax()" <?php echo $etat_init[12]; ?>></td>
 					<td>SANEF</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_13" onclick="ajax()" <?php echo $etat_init[13]; ?>></td>
+					<td>CEREMA</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_14" onclick="ajax()" <?php echo $etat_init[14]; ?>></td>
+					<td>Réseau privé</td>
 				</tr>
 			</table>
 		</div> 
