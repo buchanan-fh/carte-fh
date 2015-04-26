@@ -1,5 +1,5 @@
 <?php
-$nb_ope=14;
+$nb_ope=20;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
@@ -198,6 +198,30 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_14" onclick="ajax()" <?php echo $etat_init[14]; ?>></td>
 					<td>Réseau privé</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_15" onclick="ajax()" <?php echo $etat_init[15]; ?>></td>
+					<td>Axione Limousin</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_16" onclick="ajax()" <?php echo $etat_init[16]; ?>></td>
+					<td>IMTS</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_17" onclick="ajax()" <?php echo $etat_init[17]; ?>></td>
+					<td>Altitude Infra.</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_18" onclick="ajax()" <?php echo $etat_init[18]; ?>></td>
+					<td>17 Numérique</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_19" onclick="ajax()" <?php echo $etat_init[19]; ?>></td>
+					<td>Axione</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_20" onclick="ajax()" <?php echo $etat_init[20]; ?>></td>
+					<td>SARTEL</td>
 				</tr>
 			</table>
 		</div> 

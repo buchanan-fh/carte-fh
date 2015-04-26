@@ -1,5 +1,5 @@
 col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933'];
-nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel","EDF","RTE","SNCF Réseau","Direction Des Routes","SANEF","CEREMA","Réseau privé"];
+nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel","EDF","RTE","SNCF Réseau","Direction Des Routes","SANEF","CEREMA","Réseau privé","Axione Limousin","IMTS","Altitude Infra.","17 Numérique","Axione","SARTEL"];
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
@@ -14,7 +14,7 @@ poly_du_sup=[];
 hist_result=[];
 hist_url=[];
 ind_req=0;
-nb_ope=14;
+nb_ope=20;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
