@@ -1,5 +1,5 @@
 <?php
-$nb_ope=20;
+$nb_ope=26;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
@@ -222,6 +222,30 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_20" onclick="ajax()" <?php echo $etat_init[20]; ?>></td>
 					<td>SARTEL</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_21" onclick="ajax()" <?php echo $etat_init[21]; ?>></td>
+					<td>Eurek@</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_22" onclick="ajax()" <?php echo $etat_init[22]; ?>></td>
+					<td>Medialys</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_23" onclick="ajax()" <?php echo $etat_init[23]; ?>></td>
+					<td>NiverTel</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_24" onclick="ajax()" <?php echo $etat_init[24]; ?>></td>
+					<td>Completel</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_25" onclick="ajax()" <?php echo $etat_init[25]; ?>></td>
+					<td>SDNum</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_26" onclick="ajax()" <?php echo $etat_init[26]; ?>></td>
+					<td>R'LAN</td>
 				</tr>
 			</table>
 		</div> 
