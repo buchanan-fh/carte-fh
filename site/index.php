@@ -1,5 +1,5 @@
 <?php
-$nb_ope=26;
+$nb_ope=51;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
@@ -196,56 +196,156 @@ if(isset($_GET["op_init"])){
 					<td>CEREMA</td>
 				</tr>
 				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_14" onclick="ajax()" <?php echo $etat_init[14]; ?>></td>
-					<td>Réseau privé</td>
-				</tr>
-				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_15" onclick="ajax()" <?php echo $etat_init[15]; ?>></td>
-					<td>Axione Limousin</td>
+					<td class="check_cell"><input type="checkbox" id="check_op_24" onclick="ajax()" <?php echo $etat_init[24]; ?>></td>
+					<td>Completel</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_16" onclick="ajax()" <?php echo $etat_init[16]; ?>></td>
 					<td>IMTS</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_26" onclick="ajax()" <?php echo $etat_init[26]; ?>></td>
+					<td>R'LAN</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_33" onclick="ajax()" <?php echo $etat_init[33]; ?>></td>
+					<td>SYSOCO</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_39" onclick="ajax()" <?php echo $etat_init[39]; ?>></td>
+					<td>Talco Languedoc</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_40" onclick="ajax()" <?php echo $etat_init[40]; ?>></td>
+					<td>Alsatis Réseaux</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_41" onclick="ajax()" <?php echo $etat_init[41]; ?>></td>
+					<td>Wizeo</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_42" onclick="ajax()" <?php echo $etat_init[42]; ?>></td>
+					<td>REG.I.E.S</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_44" onclick="ajax()" <?php echo $etat_init[44]; ?>></td>
+					<td>GRAM</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_45" onclick="ajax()" <?php echo $etat_init[45]; ?>></td>
+					<td>Comm. Infra. UK LTD</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_46" onclick="ajax()" <?php echo $etat_init[46]; ?>></td>
+					<td>Global Connect</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_47" onclick="ajax()" <?php echo $etat_init[47]; ?>></td>
+					<td>Decyben</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_48" onclick="ajax()" <?php echo $etat_init[48]; ?>></td>
+					<td>e-tera</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_49" onclick="ajax()" <?php echo $etat_init[49]; ?>></td>
+					<td>Gigalis</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_50" onclick="ajax()" <?php echo $etat_init[50]; ?>></td>
+					<td>Optline Service</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_51" onclick="ajax()" <?php echo $etat_init[51]; ?>></td>
+					<td>Hub Telecom</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_14" onclick="ajax()" <?php echo $etat_init[14]; ?>></td>
+					<td>Réseau privé</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_17" onclick="ajax()" <?php echo $etat_init[17]; ?>></td>
-					<td>Altitude Infra.</td>
+					<td>(14, 31, 35, 61, 79,<br>85) Altitude Infra.</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_15" onclick="ajax()" <?php echo $etat_init[15]; ?>></td>
+					<td>(19, 23, 87) Axione<br>Limousin</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_29" onclick="ajax()" <?php echo $etat_init[29]; ?>></td>
+					<td>(07, 26) ADTIM</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_27" onclick="ajax()" <?php echo $etat_init[27]; ?>></td>
+					<td>(12) Net Aveyron</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_18" onclick="ajax()" <?php echo $etat_init[18]; ?>></td>
-					<td>17 Numérique</td>
+					<td>(17) 17 Numérique</td>
 				</tr>
 				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_19" onclick="ajax()" <?php echo $etat_init[19]; ?>></td>
-					<td>Axione</td>
-				</tr>
-				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_20" onclick="ajax()" <?php echo $etat_init[20]; ?>></td>
-					<td>SARTEL</td>
+					<td class="check_cell"><input type="checkbox" id="check_op_28" onclick="ajax()" <?php echo $etat_init[28]; ?>></td>
+					<td>(18) Cher haut débit</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_21" onclick="ajax()" <?php echo $etat_init[21]; ?>></td>
-					<td>Eurek@</td>
+					<td>(27) Eurek@</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_19" onclick="ajax()" <?php echo $etat_init[19]; ?>></td>
+					<td>(29) Axione</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_43" onclick="ajax()" <?php echo $etat_init[43]; ?>></td>
+					<td>(37) TMN</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_30" onclick="ajax()" <?php echo $etat_init[30]; ?>></td>
+					<td>(39) CG 39</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_22" onclick="ajax()" <?php echo $etat_init[22]; ?>></td>
-					<td>Medialys</td>
-				</tr>
-				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_23" onclick="ajax()" <?php echo $etat_init[23]; ?>></td>
-					<td>NiverTel</td>
-				</tr>
-				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_24" onclick="ajax()" <?php echo $etat_init[24]; ?>></td>
-					<td>Completel</td>
+					<td>(45) Medialys</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_25" onclick="ajax()" <?php echo $etat_init[25]; ?>></td>
-					<td>SDNum</td>
+					<td>(47) SDNum</td>
 				</tr>
 				<tr>
-					<td class="check_cell"><input type="checkbox" id="check_op_26" onclick="ajax()" <?php echo $etat_init[26]; ?>></td>
-					<td>R'LAN</td>
+					<td class="check_cell"><input type="checkbox" id="check_op_31" onclick="ajax()" <?php echo $etat_init[31]; ?>></td>
+					<td>(49) Melis@</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_32" onclick="ajax()" <?php echo $etat_init[32]; ?>></td>
+					<td>(55) Net 55</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_23" onclick="ajax()" <?php echo $etat_init[23]; ?>></td>
+					<td>(58) NiverTel</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_34" onclick="ajax()" <?php echo $etat_init[34]; ?>></td>
+					<td>(64) IRIS 64</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_35" onclick="ajax()" <?php echo $etat_init[35]; ?>></td>
+					<td>(65) HPN</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_36" onclick="ajax()" <?php echo $etat_init[36]; ?>></td>
+					<td>(67) Net 67</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_20" onclick="ajax()" <?php echo $etat_init[20]; ?>></td>
+					<td>(72) SARTEL</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_37" onclick="ajax()" <?php echo $etat_init[37]; ?>></td>
+					<td>(77) Sem@for</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_38" onclick="ajax()" <?php echo $etat_init[38]; ?>></td>
+					<td>(86) Bollore Telecom</td>
 				</tr>
 			</table>
 		</div> 

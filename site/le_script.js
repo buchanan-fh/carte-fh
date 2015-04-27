@@ -1,7 +1,10 @@
 col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933'];
 nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
 "EDF","RTE","SNCF Réseau","Direction Des Routes","SANEF","CEREMA","Réseau privé","Axione Limousin",
-"IMTS","Altitude Infra.","17 Numérique","Axione","SARTEL","Eurek@","Medialys","NiverTel","Completel","SDNum","R'LAN"];
+"IMTS","Altitude Infra.","17 Numérique","Axione","SARTEL","Eurek@","Medialys","NiverTel","Completel","SDNum","R'LAN",
+"Net Aveyron","Cher haut débit","ADTIM","CG 39","Melis@","Net 55","SYSOCO","IRIS 64","HPN","Net 67","Sem@for",
+"Bollore Telecom","Talco Languedoc","Alsatis Réseaux","Wizeo","REG.I.E.S","TMN","GRAM","Comm Infra. UK LTD",
+"Global Connect","Decyben","e-tera","Gigalis","Optline service","Hub Telecom"];
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
@@ -16,7 +19,7 @@ poly_du_sup=[];
 hist_result=[];
 hist_url=[];
 ind_req=0;
-nb_ope=26;
+nb_ope=51;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
