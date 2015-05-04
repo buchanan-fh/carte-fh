@@ -228,7 +228,7 @@ function redraw(index_hist){
 					for (var k=0; k<e.target.dat.nos_ant.length; k++){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
-							div_ant.style.backgroundColor="white";
+							div_ant.style.backgroundColor="transparent";
 							div_ant.style.color=col_op[Math.min(e.target.dat.ope,5)];
 						}
 					}
