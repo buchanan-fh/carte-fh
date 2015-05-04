@@ -128,6 +128,7 @@ map.on('moveend', function() {
 ajax();
 
 function redraw(index_hist){
+	index_hist=index_hist || ("r"+ind_req);
 	document.getElementById("loading").style.backgroundColor = "orange";
 	var time_start=Date.now();
 	var l_result=JSON.parse(hist_result[index_hist]);
