@@ -1,5 +1,5 @@
 <?php
-$nb_ope=51;
+$nb_ope=66;
 $etat_init=array();
 for($i=0;$i<=$nb_ope;$i++){
 	$etat_init[]="checked";
@@ -244,6 +244,14 @@ if(isset($_GET["op_init"])){
 					<td>Decyben</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_60" onclick="ajax()" <?php echo $etat_init[60]; ?>></td>
+					<td>Custom Connect MW B.V.</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_65" onclick="ajax()" <?php echo $etat_init[65]; ?>></td>
+					<td>Latent Networks</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_48" onclick="ajax()" <?php echo $etat_init[48]; ?>></td>
 					<td>e-tera</td>
 				</tr>
@@ -260,24 +268,60 @@ if(isset($_GET["op_init"])){
 					<td>Hub Telecom</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_52" onclick="ajax()" <?php echo $etat_init[52]; ?>></td>
+					<td>Sat Consult</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_55" onclick="ajax()" <?php echo $etat_init[55]; ?>></td>
+					<td>Nomotech</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_58" onclick="ajax()" <?php echo $etat_init[58]; ?>></td>
+					<td>Vannes agglo numérique</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_64" onclick="ajax()" <?php echo $etat_init[64]; ?>></td>
+					<td>ITAS TIM</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_14" onclick="ajax()" <?php echo $etat_init[14]; ?>></td>
 					<td>Réseau privé</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_66" onclick="ajax()" <?php echo $etat_init[66]; ?>></td>
+					<td>Station étrangère</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_17" onclick="ajax()" <?php echo $etat_init[17]; ?>></td>
 					<td>(14, 31, 35, 61, 79,<br>85) Altitude Infra.</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_56" onclick="ajax()" <?php echo $etat_init[56]; ?>></td>
+					<td>(03, 15, 43, 63) ATHD</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_15" onclick="ajax()" <?php echo $etat_init[15]; ?>></td>
 					<td>(19, 23, 87) Axione<br>Limousin</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_53" onclick="ajax()" <?php echo $etat_init[53]; ?>></td>
+					<td>(21, 71, 89) Net Bourgogne</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_29" onclick="ajax()" <?php echo $etat_init[29]; ?>></td>
 					<td>(07, 26) ADTIM</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_54" onclick="ajax()" <?php echo $etat_init[54]; ?>></td>
+					<td>(08) CG 08</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_27" onclick="ajax()" <?php echo $etat_init[27]; ?>></td>
 					<td>(12) Net Aveyron</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_59" onclick="ajax()" <?php echo $etat_init[59]; ?>></td>
+					<td>(14) Tutor Calvados</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_18" onclick="ajax()" <?php echo $etat_init[18]; ?>></td>
@@ -286,6 +330,10 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_28" onclick="ajax()" <?php echo $etat_init[28]; ?>></td>
 					<td>(18) Cher haut débit</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_63" onclick="ajax()" <?php echo $etat_init[63]; ?>></td>
+					<td>(22) Armor connectic</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_21" onclick="ajax()" <?php echo $etat_init[21]; ?>></td>
@@ -312,8 +360,16 @@ if(isset($_GET["op_init"])){
 					<td>(47) SDNum</td>
 				</tr>
 				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_61" onclick="ajax()" <?php echo $etat_init[61]; ?>></td>
+					<td>(48) Net 48</td>
+				</tr>
+				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_31" onclick="ajax()" <?php echo $etat_init[31]; ?>></td>
 					<td>(49) Melis@</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_62" onclick="ajax()" <?php echo $etat_init[62]; ?>></td>
+					<td>(50) Manche numérique</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_32" onclick="ajax()" <?php echo $etat_init[32]; ?>></td>
@@ -342,6 +398,10 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_37" onclick="ajax()" <?php echo $etat_init[37]; ?>></td>
 					<td>(77) Sem@for</td>
+				</tr>
+				<tr>
+					<td class="check_cell"><input type="checkbox" id="check_op_57" onclick="ajax()" <?php echo $etat_init[57]; ?>></td>
+					<td>(84) Vaucluse numérique</td>
 				</tr>
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_38" onclick="ajax()" <?php echo $etat_init[38]; ?>></td>
