@@ -424,7 +424,7 @@ if(isset($_GET["op_init"])){
 					<td>Liens r&eacute;solus</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox" id="check_singles" onclick="ajax()"></td>
+					<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
 					<td>Liens non r&eacute;solus</td>
 				</tr>
 				<tr>
