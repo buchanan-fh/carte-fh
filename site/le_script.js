@@ -109,7 +109,7 @@ oms.addListener('click', function(marker){
 });
 
 document.getElementById("zoom_level").innerHTML = "Zoom " + map.getZoom();
-document.getElementById("date_select").innerHTML = "04/2015";
+document.getElementById("date_select").innerHTML = "05/2015";
 
 map.on('zoomend', function() {
 		document.getElementById("zoom_level").innerHTML = "Zoom " + this.getZoom();
@@ -348,8 +348,13 @@ function build_url_support(no_sup){
 	var op_liste=[];
 	var bande_code=0;
 	var status=0;
-	for(var i=1; i<=nb_ope; i++){
+	for(var i=1; i<=4; i++){
 		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+	}
+	if (document.getElementById("check_op_autres").checked==true){
+		for(var i=5; i<=nb_ope; i++){
+			if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+		}
 	}
 	for(var i=0; i<16; i++){
 		if (document.getElementById("check_bande_" + i).checked==true){bande_code+=Math.pow(2,i);}
@@ -574,7 +579,7 @@ function date_plus(){
 		}
 	}
 	document.getElementById("button_moins").disabled=false;
-	if(le_mois=="04" && l_annee=="2015"){
+	if(le_mois=="05" && l_annee=="2015"){
 		document.getElementById("button_plus").disabled=true;
 	}
 	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
