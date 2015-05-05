@@ -624,8 +624,29 @@ function toggle_autres_ope(){
 	}else{
 		document.getElementById("tab_autres_ope").style.display="table";
 		document.getElementById("shortcut_autres_ope").style.display="table";
-		document.getElementById("shortcut_autres_ope").style.width="100%";
 		document.getElementById("toggle_autres_op").innerHTML="-"
+	}
+}
+
+function toggle_bandes(){
+	if(document.getElementById("tab_bandes").style.display=="table"){
+		document.getElementById("tab_bandes").style.display="none";
+		document.getElementById("shortcut_bandes").style.display="none";
+		document.getElementById("toggle_bandes").innerHTML="+"
+	}else{
+		document.getElementById("tab_bandes").style.display="table";
+		document.getElementById("shortcut_bandes").style.display="table";
+		document.getElementById("toggle_bandes").innerHTML="-"
+	}
+}
+
+function toggle_lim_aff(){
+	if(document.getElementById("tab_lim_aff").style.display=="table"){
+		document.getElementById("tab_lim_aff").style.display="none";
+		document.getElementById("toggle_lim_aff").innerHTML="+"
+	}else{
+		document.getElementById("tab_lim_aff").style.display="table";
+		document.getElementById("toggle_lim_aff").innerHTML="-"
 	}
 }
 

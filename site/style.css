@@ -29,7 +29,7 @@ body {
 	z-index:2;
 	position:absolute;
 	right:0px;
-	width:170px;
+	min-width:190px;
 	max-height:100%;
 	overflow:auto;
 	font-family:arial;
@@ -81,10 +81,7 @@ body {
 	border-collapse:collapse;
 	margin-left:auto;
 }
-#tab_autres_ope{
-	display:none;
-}
-#shortcut_autres_ope{
+.tab_cache{
 	display:none;
 }
 .check_cell{
@@ -104,10 +101,11 @@ body {
 .radio_limit{
 	width:1px;
 }
-#toggle_autres_op{
+.toggle{
 	text-align:center;
 	font-weight:bold;
-	cursor:pointer
+	cursor:pointer;
+	width:15px;
 }
 #leg_of{
 	color:#ED7B00;

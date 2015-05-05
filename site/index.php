@@ -41,14 +41,20 @@ if(isset($_GET["op_init"])){
 				</tr>
 			</table>
 		</div>
-		<div class="box_right"> 
+		<div class="box_right">
 			<table class="tab_col">
+				<tr>
+					<td class="ligne_plus">Bande de fréquence</td>
+					<td class="toggle" id="toggle_bandes" onclick="toggle_bandes()">+</td>
+				</tr>
+			</table>
+			<table class="tab_col tab_cache" id="shortcut_bandes">
 				<tr >
 					<td class="ligne_plus"><input type="button" id="check_all_bandes" value="Toutes" onclick="check_all_bandes()"></td>
 					<td class="ligne_plus"><input type="button" id="check_no_bande" value="Aucune" onclick="check_no_bande()"></td>
 				</tr>
 			</table>
-			<table class="tab_col">
+			<table class="tab_col tab_cache" id="tab_bandes">
 				<tr>
 					<td><input type="checkbox" id="check_bande_0" onclick="ajax()" checked></td>
 					<td>X</td>
@@ -115,6 +121,30 @@ if(isset($_GET["op_init"])){
 				</tr>
 			</table>
 		</div>
+		<div class="box_right">
+			<table class="tab_col">
+				<tr>
+					<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
+					<td>Liens activés</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
+					<td>Liens non activés</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
+					<td>Liens r&eacute;solus</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
+					<td>Liens non r&eacute;solus</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
+					<td>Supports</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<div id="controle_left"> 
 		<div class="box_left" id="status"> 
@@ -123,6 +153,39 @@ if(isset($_GET["op_init"])){
 					<td width="20%" id="loading"></td>
 					<td width="60%" id="zoom_level" align="center"></td>
 					<td width="20%" id="info" align="center" onclick="affichage_credits();"><img id="img_info" src="info.png" alt="i"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="box_left">
+			<table class="tab_col">
+				<tr>
+					<td class="ligne_plus">Limitation d'affichage</td>
+					<td class="toggle" id="toggle_lim_aff" onclick="toggle_lim_aff()">+</td>
+				</tr>
+			</table>
+			<table class="tab_col tab_cache" id="tab_lim_aff">
+				<tr>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_150" onclick="ajax()"></td>
+					<td>Après 150 supports</td>
+				</tr>
+				<tr>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_300" onclick="ajax()" checked></td>
+					<td>Après 300 supports</td>
+				</tr>
+				<tr>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_600" onclick="ajax()"></td>
+					<td>Après 600 supports</td>
+				</tr>
+			</table>
+			<table class="tab_col">
+				<tr>
+					<td colspan="2" class="ligne_plus" id="aff_restreint"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="ligne_simple" id="aff_nb_liens"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="ligne_simple" id="aff_nb_supports"></td>
 				</tr>
 			</table>
 		</div>
@@ -149,16 +212,16 @@ if(isset($_GET["op_init"])){
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_autres" onclick="click_autres_ope()" checked></td>
 					<td><span class="leg" id="leg_autres">&#x25FC;</span> Autres</td>
-					<td id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
+					<td class="toggle" id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
 				</tr>
 			</table>
-			<table class="tab_col" id="shortcut_autres_ope">
+			<table class="tab_col tab_cache" id="shortcut_autres_ope">
 				<tr >
 					<td class="ligne_plus"><input type="button" id="check_all_autres_op" value="Tous" onclick="check_all_autres_op()"></td>
 					<td class="ligne_plus"><input type="button" id="check_no_autre_op" value="Aucun" onclick="check_no_autre_op()"></td>
 				</tr>
 			</table>
-			<table class="tab_col_sub" id="tab_autres_ope">
+			<table class="tab_col_sub tab_cache" id="tab_autres_ope">
 				<tr>
 					<td class="check_cell"><input type="checkbox" id="check_op_5" onclick="ajax()" <?php echo $etat_init[5]; ?>></td>
 					<td>TDF</td>
@@ -409,58 +472,6 @@ if(isset($_GET["op_init"])){
 				</tr>
 			</table>
 		</div> 
-		<div class="box_left">
-			<table class="tab_col">
-				<tr>
-					<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
-					<td>Liens activés</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
-					<td>Liens non activés</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
-					<td>Liens r&eacute;solus</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
-					<td>Liens non r&eacute;solus</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
-					<td>Supports</td>
-				</tr>
-			</table>
-		</div> 
-		<div class="box_left">
-			<table class="tab_col">
-				<tr>
-					<td colspan="2" class="ligne_plus">Limitation d'affichage</td>
-				</tr>
-				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_150" onclick="ajax()"></td>
-					<td>Après 150 supports</td>
-				</tr>
-				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_300" onclick="ajax()" checked></td>
-					<td>Après 300 supports</td>
-				</tr>
-				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_600" onclick="ajax()"></td>
-					<td>Après 600 supports</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="ligne_plus" id="aff_restreint"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="ligne_simple" id="aff_nb_liens"></td>
-				</tr>
-				<tr>
-					<td colspan="2" class="ligne_simple" id="aff_nb_supports"></td>
-				</tr>
-			</table>
-		</div>
 	</div>
 	<div id="credits" onclick="affichage_credits();">
 	Cette carte est réalisée à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
