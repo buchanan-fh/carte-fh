@@ -22,6 +22,7 @@ hist_result=[];
 hist_url=[];
 ind_req=0;
 nb_ope=66;
+current_lim=300;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
@@ -332,6 +333,8 @@ function ajax(){
 		nb_limit=600
 	}else if(document.getElementById("limit_300").checked==true){
 		nb_limit=300
+	}else if(document.getElementById("limit_0").checked==true){
+		nb_limit=0
 	}
 	if (document.getElementById('check_non_act').checked==true){status+=8;}
 	if (document.getElementById('check_act').checked==true){status+=4;}
@@ -648,6 +651,16 @@ function toggle_lim_aff(){
 		document.getElementById("tab_lim_aff").style.display="table";
 		document.getElementById("toggle_lim_aff").innerHTML="-"
 	}
+}
+
+function shure_all(){
+	answer=confirm("Ce choix peut ralentir fortement la navigation. Continuer ?")
+	if(answer){
+		current_lim=0;
+	}else{
+		document.getElementById("limit_"+current_lim).checked=true;
+	}	
+	ajax();
 }
 
 function array_search(needle, haystack, argStrict) {

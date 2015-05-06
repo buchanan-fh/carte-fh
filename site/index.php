@@ -165,16 +165,20 @@ if(isset($_GET["op_init"])){
 			</table>
 			<table class="tab_col tab_cache" id="tab_lim_aff">
 				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_150" onclick="ajax()"></td>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_150" onclick="current_lim=150;ajax();"></td>
 					<td>Après 150 supports</td>
 				</tr>
 				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_300" onclick="ajax()" checked></td>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_300" onclick="current_lim=300;ajax();" checked></td>
 					<td>Après 300 supports</td>
 				</tr>
 				<tr>
-					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_600" onclick="ajax()"></td>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_600" onclick="current_lim=600;ajax();"></td>
 					<td>Après 600 supports</td>
+				</tr>
+				<tr>
+					<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_0" onclick="shure_all()"></td>
+					<td>Pas de limite</td>
 				</tr>
 			</table>
 			<table class="tab_col">

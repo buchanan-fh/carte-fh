@@ -53,7 +53,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 	
 	$limitation_act=false;
 	$nb_limite=(int)$_GET['limit'];
-	if($nb_limite<count($all_sup)){
+	if($nb_limite<count($all_sup) && $nb_limite>0){
 		$nb_ant_prec=0;
 		$keys=array_keys($all_sup);
 		$nb_keys=count($keys);
