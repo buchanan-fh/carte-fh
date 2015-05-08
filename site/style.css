@@ -57,7 +57,7 @@ body {
 #credits{
 	z-index:2;
 	position:absolute;
-	margin-left:210px;
+	margin-left:240px;
 	margin-top:10px;
 	width:300px;
 	border:solid 1px black;
@@ -66,10 +66,25 @@ body {
 	display:none;
 	font-family:arial;
 	font-size:15px;
-	
 }
-#img_info{
+#choix_zone{
+	z-index:2;
+	position:absolute;
+	margin-left:240px;
+	margin-top:10px;
+	width:300px;
+	border:solid 1px black;
+	background-color:white;
+	padding:5px;
+	display:none;
+	font-family:arial;
+	font-size:15px;
+}
+.img_click{
 	vertical-align:middle;
+	cursor:pointer
+}
+.clickable{
 	cursor:pointer
 }
 .tab_col{

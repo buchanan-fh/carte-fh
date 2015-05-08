@@ -1,4 +1,4 @@
-liste_col=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933'];
+liste_col=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933','#E11C78','#ED3529'];
 current_zone="";
 
 nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
@@ -8,7 +8,10 @@ nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de 
 "Bollore Telecom","Talco Languedoc","Alsatis Réseaux","Wizeo","REG.I.E.S","TMN","GRAM","Comm Infra. UK LTD",
 "Global Connect","Decyben","e-tera","Gigalis","Optline service","Hub Telecom","Sat Consult","Net Bourgogne","CG 08",
 "Nomotech","ATHD","Vaucluse numérique","Vannes agglo numérique","Tutor Calvados","Custom Connect MW B.V.",
-"Net 48","Manche numérique","Armor connectic","ITAS TIM","Latent Networks","Station étrangère"];
+"Net 48","Manche numérique","Armor connectic","ITAS TIM","Latent Networks","Station étrangère","Mediaserv","Digicel",
+"CNES","SRR","Gouv. Polynésie française (DGEN)","Gouv. Nouvelle Calédonie (OPT)","Outremer Telecom",
+"La Réunion numérique","Guyane Numérique","Dauphin Telecom","Martinique numérique","SPLANG","STOI","VITI SAS",
+"PMT/Vodafone","WLL","BPT","SPM Telecom"];
 
 nom_ope_leg=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
 "EDF","RTE","SNCF Réseau","Direction Des<br>Routes","SANEF","CEREMA","Réseau privé","(19, 23, 87) Axione<br>Limousin",
@@ -18,20 +21,27 @@ nom_ope_leg=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté
 "Wizeo","REG.I.E.S","(37) TMN","GRAM","Comm Infra. UK LTD","Global Connect","Decyben","e-tera","Gigalis","Optline service","Hub Telecom",
 "Sat Consult","(21, 71, 89) Net Bourgogne","(08) CG 08","Nomotech","(03, 15, 43, 63) ATHD","(84) Vaucluse numérique",
 "Vannes agglo numérique","(14) Tutor Calvados","Custom Connect MW B.V.","(48) Net 48","(50) Manche numérique","(22) Armor connectic",
-"ITAS TIM","Latent Networks","Station étrangère"];
+"ITAS TIM","Latent Networks","Station étrangère","Mediaserv","Digicel","CNES","SRR","Gouv. Polynésie française (DGEN)",
+"Gouv. Nouvelle Calédonie (OPT)","Outremer Telecom","La Réunion numérique","Guyane Numérique","Dauphin Telecom",
+"Martinique numérique","SPLANG","STOI","VITI SAS","PMT/Vodafone","WLL","BPT","SPM Telecom"];
 
-couleur_main_ope=[]
-couleur_main_ope[1]=liste_col[1]
-couleur_main_ope[2]=liste_col[2]
-couleur_main_ope[3]=liste_col[3]
-couleur_main_ope[4]=liste_col[4]
+couleur_main_ope=[];
+couleur_main_ope[0]=liste_col[0];
+couleur_main_ope[1]=liste_col[1];
+couleur_main_ope[2]=liste_col[2];
+couleur_main_ope[3]=liste_col[3];
+couleur_main_ope[4]=liste_col[4];
+couleur_main_ope[73]=liste_col[6];
+couleur_main_ope[68]=liste_col[7];
 
 liste_ope_zones=[];
-liste_ope_zones["fr_metro"]={bounds:[[41,-5.7],[51.5,10]], main:[1,2,3,4], other:[5,6,7,8,9,10,11,12,13,24,16,26,33,39,40,41,42,44,45,46,47,60,65,48,49,50,51,52,
+liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:[1,2,3,4], other:[5,6,7,8,9,10,11,12,13,24,16,26,33,39,40,41,42,44,45,46,47,60,65,48,49,50,51,52,
 55,58,64,14,66,17,56,15,53,29,54,27,59,18,28,63,21,19,43,30,22,25,61,31,62,32,23,34,35,36,20,37,57,38]}
+liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:[1,73,68], other:[5,7,8,67,14]}
+
 
 liste_ope={};
-for(i=1;i<nom_ope.length+1;i++){
+for(i=0;i<nom_ope.length+1;i++){
 	if(i in couleur_main_ope){
 		couleur_ope=couleur_main_ope[i];
 	}else{
@@ -41,10 +51,16 @@ for(i=1;i<nom_ope.length+1;i++){
 }
 
 function build_interface(zone,select_ope){
+	document.getElementById('choix_zone').style.display='none';
 	current_zone=zone;
+	document.getElementById("nom_zone").innerHTML=liste_ope_zones[zone].nom_zone;
 	var tab_main = document.getElementById("tab_ope_main");
 	while (tab_main.firstChild) {
 		tab_main.removeChild(tab_main.firstChild);
+	}
+	var tab_other = document.getElementById("tab_autres_ope");
+	while (tab_other.firstChild) {
+		tab_other.removeChild(tab_other.firstChild);
 	}
 	if(select_ope!==undefined){
 		var tab_select_ope=select_ope.split("|");
@@ -100,5 +116,12 @@ function build_interface(zone,select_ope){
 	}
 	
 	map.fitBounds(liste_ope_zones[zone].bounds);
-	ajax();
+}
+
+function choix_zone(){
+	if(document.getElementById('choix_zone').style.display=='block'){
+		document.getElementById('choix_zone').style.display='none';
+	}else{
+		document.getElementById('choix_zone').style.display='block';
+	}
 }

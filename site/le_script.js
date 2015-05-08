@@ -64,7 +64,7 @@ map = L.map( 'map_canvas', {
 	zoomControl: false,
 	keyboard: false
 });
-map.fitBounds([[41,-5.7],[51.5,10]]);
+//map.fitBounds([[41,-5.7],[51.5,10]]);
 L.control.scale().addTo(map);
 le_zoom_controle=L.control.zoom({position:"bottomleft"})
 le_zoom_controle.addTo(map);
@@ -83,7 +83,9 @@ map.on("baselayerchange", function(e){
 	}else{
 		fact_epaisseur=1;
 	}
+	if(ind_req>0){
 	redraw("r"+ind_req);
+	}
 });
 
 oms = new OverlappingMarkerSpiderfier(map,{keepSpiderfied:true, nearbyDistance:10});
@@ -154,7 +156,7 @@ function redraw(index_hist){
 		}
 		for (var i=marksA.length-1; i>=0; i--){
 			marksA[i].setRadius(t_a*marksA[i].dat.nb_ant+t_b);
-			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:liste_col[marksA[i].dat.prop], fillOpacity:"1"})
+			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:liste_ope[marksA[i].dat.prop].color, fillOpacity:"1"})
 		}
 	}
 	L.layerGroup(mark_aff).addTo(map);

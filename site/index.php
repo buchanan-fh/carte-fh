@@ -143,9 +143,9 @@ if(isset($_GET["zone"])){
 		<div class="box_left" id="status"> 
 			<table class="tab_col">
 				<tr>
-					<td width="20%" id="loading"></td>
-					<td width="60%" id="zoom_level" align="center"></td>
-					<td width="20%" id="info" align="center" onclick="affichage_credits();"><img id="img_info" src="info.png" alt="i"></td>
+					<td class="ligne_plus" width="20%" id="loading"></td>
+					<td class="ligne_plus" width="60%" id="zoom_level" align="center"></td>
+					<td class="ligne_plus" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i"></td>
 				</tr>
 			</table>
 		</div>
@@ -186,7 +186,15 @@ if(isset($_GET["zone"])){
 				</tr>
 			</table>
 		</div>
-		<div class="box_left"> 
+		<div class="box_left">
+			<table class="tab_col">
+				<tr>
+					<td class="ligne_plus" width="80%" id="nom_zone"></td>
+					<td class="ligne_plus" width="20%" align="center" onclick="choix_zone();"><img class="img_click" src="world.png" alt="w"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="box_left">
 			<table class="tab_col" id="tab_ope_main"></table>
 			<table class="tab_col">
 				<tr>
@@ -206,6 +214,10 @@ if(isset($_GET["zone"])){
 	</div>
 	<div id="credits" onclick="affichage_credits();">
 	Cette carte est réalisée à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
+	</div>
+	<div id="choix_zone">
+	<span class="clickable" onclick="build_interface('fr_metro')">France métropolitaine</span><br>
+	<span class="clickable" onclick="build_interface('fr_971')">Guadeloupe (971)</span>
 	</div>
 	<script type="application/javascript" src="ope_zones.js"></script> 
 	<script type="application/javascript" src="le_script.js"></script> 
