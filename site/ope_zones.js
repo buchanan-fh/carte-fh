@@ -60,7 +60,7 @@ for(i=0;i<nom_ope.length+1;i++){
 	liste_ope[i]={name:nom_ope[i], name_leg:nom_ope_leg[i], color:couleur_ope};
 }
 
-function build_interface(zone,select_ope){
+function build_interface(fit,zone,select_ope){
 	document.getElementById('choix_zone').style.display='none';
 	current_zone=zone;
 	document.getElementById("nom_zone").innerHTML=liste_ope_zones[zone].nom_zone;
@@ -124,8 +124,24 @@ function build_interface(zone,select_ope){
 		tabs_ope[liste_ope_zones[zone].other[i]]=document.createElement("table");
 		la_div_ant.appendChild(divs_ope[liste_ope_zones[zone].other[i]]);
 	}
-	
-	map.fitBounds(liste_ope_zones[zone].bounds);
+	if(fit){
+		map.fitBounds(liste_ope_zones[zone].bounds);
+	}
+}
+
+function auto_build_interface(map_bounds){
+	var overlapped_zones=[];
+	for(var zone in liste_ope_zones){
+		if(liste_ope_zones.hasOwnProperty(zone)){
+			if(overlap(liste_ope_zones[zone].bounds,map_bounds)){
+				overlapped_zones.push(zone);
+			}
+		}
+	}
+	if(overlapped_zones.length==1 && current_zone!=overlapped_zones[0]){
+		console.log("Switching to "+overlapped_zones[0]);
+		build_interface(false,overlapped_zones[0]);
+	}
 }
 
 function choix_zone(){
@@ -134,4 +150,10 @@ function choix_zone(){
 	}else{
 		document.getElementById('choix_zone').style.display='block';
 	}
+}
+
+function overlap(z,m_bounds){
+	var m=[[m_bounds.getSouthWest().lat,m_bounds.getSouthWest().lng],[m_bounds.getNorthEast().lat,m_bounds.getNorthEast().lng]];
+	var separe=(z[0][1]>m[1][1])||(z[1][1]<m[0][1])||(z[0][0]>m[1][0])||(z[1][0]<m[0][0]);
+	return(!separe)
 }

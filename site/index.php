@@ -17,7 +17,7 @@ if(isset($_GET["zone"])){
 	<script src="Control.OSMGeocoder.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body onkeydown="touche_clavier(event)" onload="build_interface(<?php
+<body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
 	echo "'".$zone."'";
 	if(isset($_GET["op_init"])){
 		echo ",'".$_GET["op_init"]."'";
@@ -189,7 +189,7 @@ if(isset($_GET["zone"])){
 		<div class="box_left">
 			<table class="tab_col">
 				<tr>
-					<td class="ligne_plus" width="80%" id="nom_zone"></td>
+					<td class="ligne_plus" width="80%" id="nom_zone" onclick="choix_zone();"></td>
 					<td class="ligne_plus" width="20%" align="center" onclick="choix_zone();"><img class="img_click" src="world.png" alt="w"></td>
 				</tr>
 			</table>
@@ -216,17 +216,17 @@ if(isset($_GET["zone"])){
 	Cette carte est réalisée à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
 	</div>
 	<div id="choix_zone">
-	<span class="clickable" onclick="build_interface('fr_metro')">France métropolitaine</span><br>
-	<span class="clickable" onclick="build_interface('fr_971')">Guadeloupe (971)</span><br>
-	<span class="clickable" onclick="build_interface('fr_972')">Martinique (972)</span><br>
-	<span class="clickable" onclick="build_interface('fr_973')">Guyane (973)</span><br>
-	<span class="clickable" onclick="build_interface('fr_974')">La Réunion (974)</span><br>
-	<span class="clickable" onclick="build_interface('fr_975')">Saint-Pierre-et-Miquelon (975)</span><br>
-	<span class="clickable" onclick="build_interface('fr_976')">Mayotte (976)</span><br>
-	<span class="clickable" onclick="build_interface('fr_9778')">Saint-Barthélemy (977)/Saint-Martin (978)</span><br>
-	<span class="clickable" onclick="build_interface('fr_986')">Wallis-et-Futuna (986)</span><br>
-	<span class="clickable" onclick="build_interface('fr_987')">Polynésie française (987)</span><br>
-	<span class="clickable" onclick="build_interface('fr_988')">Nouvelle-Calédonie (988)</span>
+	<span class="clickable" onclick="build_interface(true,'fr_metro')">France métropolitaine</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_971')">Guadeloupe (971)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_972')">Martinique (972)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_973')">Guyane (973)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_974')">La Réunion (974)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_975')">Saint-Pierre-et-Miquelon (975)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_976')">Mayotte (976)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_9778')">Saint-Barthélemy (977)/Saint-Martin (978)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_986')">Wallis-et-Futuna (986)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_987')">Polynésie française (987)</span><br>
+	<span class="clickable" onclick="build_interface(true,'fr_988')">Nouvelle-Calédonie (988)</span>
 	</div>
 	<script type="application/javascript" src="ope_zones.js"></script> 
 	<script type="application/javascript" src="le_script.js"></script> 

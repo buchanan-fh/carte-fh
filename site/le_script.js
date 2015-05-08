@@ -62,9 +62,9 @@ map = L.map( 'map_canvas', {
 	closePopupOnClick: false,
 	layers: [layer_osm],
 	zoomControl: false,
-	keyboard: false
+	keyboard: false,
+	noWrap: true
 });
-//map.fitBounds([[41,-5.7],[51.5,10]]);
 L.control.scale().addTo(map);
 le_zoom_controle=L.control.zoom({position:"bottomleft"})
 le_zoom_controle.addTo(map);
@@ -107,6 +107,7 @@ map.on('zoomend', function() {
 		}
 	});
 map.on('moveend', function() {
+	auto_build_interface(map.getBounds());
 	ajax();
 	});
 
