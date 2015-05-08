@@ -1,12 +1,3 @@
-col_op=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933'];
-nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
-"EDF","RTE","SNCF Réseau","Direction Des Routes","SANEF","CEREMA","Réseau privé","Axione Limousin",
-"IMTS","Altitude Infra.","17 Numérique","Axione","SARTEL","Eurek@","Medialys","NiverTel","Completel","SDNum","R'LAN",
-"Net Aveyron","Cher haut débit","ADTIM","CG 39","Melis@","Net 55","SYSOCO","IRIS 64","HPN","Net 67","Sem@for",
-"Bollore Telecom","Talco Languedoc","Alsatis Réseaux","Wizeo","REG.I.E.S","TMN","GRAM","Comm Infra. UK LTD",
-"Global Connect","Decyben","e-tera","Gigalis","Optline service","Hub Telecom","Sat Consult","Net Bourgogne","CG 08",
-"Nomotech","ATHD","Vaucluse numérique","Vannes agglo numérique","Tutor Calvados","Custom Connect MW B.V.",
-"Net 48","Manche numérique","Armor connectic","ITAS TIM","Latent Networks","Station étrangère"];
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
@@ -21,7 +12,6 @@ poly_du_sup=[];
 hist_result=[];
 hist_url=[];
 ind_req=0;
-nb_ope=66;
 current_lim=300;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
@@ -33,9 +23,7 @@ la_div_no_support = document.createElement("div");
 la_div_globale.className="p_div_globale";
 la_div_support.className="p_div";
 la_div_ant.className="p_div";
-divs_ope=[];
-tabs_ope=[];
-rows_ope=[];
+
 la_div_ant.style.overflowY="auto";
 la_div_ant.style.overflowX="hidden";
 la_div_globale.appendChild(la_div_support)
@@ -50,12 +38,6 @@ la_div_support.onmouseleave = function(e){
 	for (var i=0; i<poly_du_sup.length; i++){
 		poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
 	}
-}
-
-for(var i=1; i<=nb_ope; i++){
-	divs_ope[i]=document.createElement("div");
-	tabs_ope[i]=document.createElement("table");
-	la_div_ant.appendChild(divs_ope[i]);
 }
 
 layer_osm = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {	
@@ -125,8 +107,6 @@ map.on('zoomend', function() {
 map.on('moveend', function() {
 	ajax();
 	});
-	
-ajax();
 
 function redraw(index_hist){
 	index_hist=index_hist || ("r"+ind_req);
@@ -174,7 +154,7 @@ function redraw(index_hist){
 		}
 		for (var i=marksA.length-1; i>=0; i--){
 			marksA[i].setRadius(t_a*marksA[i].dat.nb_ant+t_b);
-			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:col_op[marksA[i].dat.prop], fillOpacity:"1"})
+			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:liste_col[marksA[i].dat.prop], fillOpacity:"1"})
 		}
 	}
 	L.layerGroup(mark_aff).addTo(map);
@@ -197,7 +177,7 @@ function redraw(index_hist){
 	}
 	for (var code_lien in l_result.liens){
 		if(l_result.liens.hasOwnProperty(code_lien)){
-			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: col_op[Math.min(l_result.liens[code_lien].ope,5)], opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat]});
+			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[l_result.liens[code_lien].ope].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat]});
 			la_poly["dat"]=l_result.liens[code_lien];
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
@@ -218,7 +198,7 @@ function redraw(index_hist){
 					for (var k=0; k<e.target.dat.nos_ant.length; k++){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
-							div_ant.style.backgroundColor=col_op[Math.min(e.target.dat.ope,5)];
+							div_ant.style.backgroundColor=liste_ope[e.target.dat.ope].color;
 							div_ant.style.color="white";
 						}
 					}
@@ -231,7 +211,7 @@ function redraw(index_hist){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
 							div_ant.style.backgroundColor="transparent";
-							div_ant.style.color=col_op[Math.min(e.target.dat.ope,5)];
+							div_ant.style.color=liste_ope[e.target.dat.ope].color;
 						}
 					}
 				}
@@ -318,12 +298,12 @@ function ajax(){
 	var bande_code=0;
 	var status=0;
 	var nb_limit=150;
-	for(var i=1; i<=4; i++){
-		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
+		if(document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].main[i]);}
 	}
 	if (document.getElementById("check_op_autres").checked==true){
-		for(var i=5; i<=nb_ope; i++){
-			if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+			if(document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].other[i]);}
 		}
 	}
 	for(var i=0; i<16; i++){
@@ -351,12 +331,12 @@ function build_url_support(no_sup){
 	var op_liste=[];
 	var bande_code=0;
 	var status=0;
-	for(var i=1; i<=4; i++){
-		if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
+		if(document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].main[i]);}
 	}
 	if (document.getElementById("check_op_autres").checked==true){
-		for(var i=5; i<=nb_ope; i++){
-			if (document.getElementById("check_op_" + i).checked==true){op_liste.push(i);}
+		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+			if(document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].other[i]);}
 		}
 	}
 	for(var i=0; i<16; i++){
@@ -397,7 +377,7 @@ function build_popup_link(event){
 	if (event.target.dat.stat & 2){
 		texte_syst_bande += ", non résolu";
 	}
-	var le_texte_popup="<b>" + texte_syst_bande + "</b><br>" + nom_ope[event.target.dat.ope] + "<br>" + event.target.dat.lon + "  km";
+	var le_texte_popup="<b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + event.target.dat.lon + "  km";
 	event.target.bindPopup(le_texte_popup,{autoPan:false});
 	event.target.openPopup(event.latlng);
 }
@@ -432,10 +412,16 @@ function build_popup_mark_s_2(marker,isopen){
 	}
 	la_div_support.innerHTML= "<div class=\"p_titre\">" + s_result.type + "</div><div class=\"p_adresse\">" + s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune + "</div>";
 	la_div_no_support.innerHTML="<div class=\"p_num_sup\">" + s_result.nom_prop + " ("+ s_result.no_sup + ")</div>";
-	for(var i=1; i<=nb_ope; i++){
-		rows_ope[i]=[];
-		while (divs_ope[i].hasChildNodes()) {
-			divs_ope[i].removeChild(divs_ope[i].lastChild);
+	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
+		rows_ope[liste_ope_zones[current_zone].main[i]]=[];
+		while (divs_ope[liste_ope_zones[current_zone].main[i]].hasChildNodes()) {
+			divs_ope[liste_ope_zones[current_zone].main[i]].removeChild(divs_ope[liste_ope_zones[current_zone].main[i]].lastChild);
+		}
+	}
+	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+		rows_ope[liste_ope_zones[current_zone].other[i]]=[];
+		while (divs_ope[liste_ope_zones[current_zone].other[i]].hasChildNodes()) {
+			divs_ope[liste_ope_zones[current_zone].other[i]].removeChild(divs_ope[liste_ope_zones[current_zone].other[i]].lastChild);
 		}
 	}
 	for(var i=0; i<s_result.antennes.length; i++){
@@ -443,7 +429,7 @@ function build_popup_mark_s_2(marker,isopen){
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
 		var td3 = document.createElement("td");
-		tr.style.color=col_op[Math.min(s_result.antennes[i][4],5)]
+		tr.style.color=liste_ope[s_result.antennes[i][4]].color;
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -469,7 +455,7 @@ function build_popup_mark_s_2(marker,isopen){
 					poly_du_sup[j].setStyle({weight: 3.5});
 				}
 			}
-			e.target.style.backgroundColor=col_op[Math.min(e.target.n_ope,5)];
+			e.target.style.backgroundColor=liste_ope[e.target.n_ope].color;
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
@@ -483,7 +469,7 @@ function build_popup_mark_s_2(marker,isopen){
 				poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
 			}
 			e.target.style.backgroundColor="transparent";
-			e.target.style.color=col_op[Math.min(e.target.n_ope,5)];
+			e.target.style.color=liste_ope[e.target.n_ope].color;
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				for(var k=0; k<popup_wraps.length; k++){
@@ -492,17 +478,31 @@ function build_popup_mark_s_2(marker,isopen){
 			}
 		}
 		rows_ope[s_result.antennes[i][4]].push(tr);
-	}
-	for(var i=1; i<=nb_ope; i++){
-		if(rows_ope[i].length>0){
-			divs_ope[i].innerHTML="<div class=\"p_titre\">"+nom_ope[i]+" ("+ rows_ope[i].length +")</div>";
-			divs_ope[i].className="p_div";
-			tabs_ope[i].innerHTML="";
-			tabs_ope[i].className="t_ant";
-			for(var j=0; j<rows_ope[i].length; j++){
-				tabs_ope[i].appendChild(rows_ope[i][j]);
+	}	
+	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
+		var no_ope=liste_ope_zones[current_zone].main[i];
+		if(rows_ope[no_ope].length>0){
+			divs_ope[no_ope].innerHTML="<div class=\"p_titre\">"+liste_ope[no_ope].name+" ("+ rows_ope[no_ope].length +")</div>";
+			divs_ope[no_ope].className="p_div";
+			tabs_ope[no_ope].innerHTML="";
+			tabs_ope[no_ope].className="t_ant";
+			for(var j=0; j<rows_ope[no_ope].length; j++){
+				tabs_ope[no_ope].appendChild(rows_ope[no_ope][j]);
 			}
-			divs_ope[i].appendChild(tabs_ope[i]);
+			divs_ope[no_ope].appendChild(tabs_ope[no_ope]);
+		}
+	}
+	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+		var no_ope=liste_ope_zones[current_zone].other[i];
+		if(rows_ope[no_ope].length>0){
+			divs_ope[no_ope].innerHTML="<div class=\"p_titre\">"+liste_ope[no_ope].name+" ("+ rows_ope[no_ope].length +")</div>";
+			divs_ope[no_ope].className="p_div";
+			tabs_ope[no_ope].innerHTML="";
+			tabs_ope[no_ope].className="t_ant";
+			for(var j=0; j<rows_ope[no_ope].length; j++){
+				tabs_ope[no_ope].appendChild(rows_ope[no_ope][j]);
+			}
+			divs_ope[no_ope].appendChild(tabs_ope[no_ope]);
 		}
 	}
 	la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.4))+"px";
@@ -535,14 +535,14 @@ function check_no_bande(){
 }
 
 function check_all_autres_op(){
-	for(var i=5; i<=nb_ope; i++){
-		document.getElementById("check_op_" + i).checked=true;
+	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=true;
 	}
 	ajax()
 }
 function check_no_autre_op(){
-	for(var i=5; i<=nb_ope; i++){
-		document.getElementById("check_op_" + i).checked=false;
+	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=false;
 	}
 	ajax()
 }
@@ -608,12 +608,12 @@ function touche_clavier(e){
 
 function click_autres_ope(){
 	if(document.getElementById("check_op_autres").checked==true){
-		for(var i=5; i<=nb_ope; i++){
-			document.getElementById("check_op_" + i).disabled=false;
+		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+			document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).disabled=false;
 		}
 	}else{
-		for(var i=5; i<=nb_ope; i++){
-			document.getElementById("check_op_" + i).disabled=true;
+		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
+			document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).disabled=true;
 		}
 	}
 	ajax()
