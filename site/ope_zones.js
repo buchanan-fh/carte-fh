@@ -13,7 +13,7 @@ nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de 
 "La Réunion numérique","Guyane Numérique","Dauphin Telecom","Martinique numérique","SPLANG","STOI","VITI SAS",
 "PMT/Vodafone","WLL","BPT","SPM Telecom"];
 
-nom_ope_leg=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
+nom_ope_leg=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport<br>audiovisuel",
 "EDF","RTE","SNCF Réseau","Direction Des<br>Routes","SANEF","CEREMA","Réseau privé","(19, 23, 87) Axione<br>Limousin",
 "IMTS","(14, 31, 35, 61, 79,<br>85) Altitude Infra.","(17) 17 Numérique","(29) Axione","(72) SARTEL","(27) Eurek@","(45) Medialys",
 "(58) NiverTel","Completel","(47) SDNum","R'LAN","(12) Net Aveyron","(18) Cher haut débit","(07, 26) ADTIM","(39) CG 39","(49) Melis@",
@@ -37,7 +37,7 @@ couleur_main_ope[68]=liste_col[7];
 liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:[1,2,3,4], other:[5,6,7,8,9,10,11,12,13,24,16,26,33,39,40,41,42,44,45,46,47,60,65,48,49,50,51,52,
 55,58,64,14,66,17,56,15,53,29,54,27,59,18,28,63,21,19,43,30,22,25,61,31,62,32,23,34,35,36,20,37,57,38]}
-liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:[1,73,68], other:[5,7,8,67,14]}
+liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:[1,73,68], other:[5,7,8,67,16,14]}
 
 
 liste_ope={};
