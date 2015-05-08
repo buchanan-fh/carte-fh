@@ -33,12 +33,22 @@ couleur_main_ope[3]=liste_col[3];
 couleur_main_ope[4]=liste_col[4];
 couleur_main_ope[73]=liste_col[6];
 couleur_main_ope[68]=liste_col[7];
+couleur_main_ope[70]=liste_col[2];
+couleur_main_ope[84]=liste_col[1];
 
 liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:[1,2,3,4], other:[5,6,7,8,9,10,11,12,13,24,16,26,33,39,40,41,42,44,45,46,47,60,65,48,49,50,51,52,
 55,58,64,14,66,17,56,15,53,29,54,27,59,18,28,63,21,19,43,30,22,25,61,31,62,32,23,34,35,36,20,37,57,38]}
 liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:[1,73,68], other:[5,7,8,67,16,14]}
-
+liste_ope_zones["fr_972"]={nom_zone:"Martinique (972)", bounds:[[14.35,-61.3],[14.9,-60.7]], main:[1,73,68], other:[5,7,67,16,14,77]}
+liste_ope_zones["fr_973"]={nom_zone:"Guyane (973)", bounds:[[2,-54.7],[5.9,-51.4]], main:[1,73,68], other:[5,7,8,69,75,78]}
+liste_ope_zones["fr_974"]={nom_zone:"La Réunion (974)", bounds:[[-21.43,55.15],[-20.83,55.9]], main:[1,70,73], other:[5,7,8,14,74,82]}
+liste_ope_zones["fr_975"]={nom_zone:"Saint-Pierre-et-Miquelon (975)", bounds:[[46.72,-56.50],[47.17,-56.08]], main:[1,84], other:[5]}
+liste_ope_zones["fr_976"]={nom_zone:"Mayotte (976)", bounds:[[-13.1,44.9],[-12.55,45.33]], main:[1,70,73], other:[5,8,79]}
+liste_ope_zones["fr_9778"]={nom_zone:"Saint-Barthélemy (977)", bounds:[[17.87,-63.17],[18.13,-62.78]], main:[1,68], other:[5,7,76,14,66]}
+liste_ope_zones["fr_986"]={nom_zone:"Wallis-et-Futuna (986)", bounds:[[-13.4,-176.3],[-13.17,-176.09]], main:[83], other:[]}
+liste_ope_zones["fr_987"]={nom_zone:"Polynésie française (987)", bounds:[[-28,-155],[-7,-134]], main:[71,80,81], other:[]}
+liste_ope_zones["fr_988"]={nom_zone:"Nouvelle-Calédonie (988)", bounds:[[-23,163.3],[-19.4,168.1]], main:[72], other:[]}
 
 liste_ope={};
 for(i=0;i<nom_ope.length+1;i++){

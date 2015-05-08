@@ -217,7 +217,16 @@ if(isset($_GET["zone"])){
 	</div>
 	<div id="choix_zone">
 	<span class="clickable" onclick="build_interface('fr_metro')">France métropolitaine</span><br>
-	<span class="clickable" onclick="build_interface('fr_971')">Guadeloupe (971)</span>
+	<span class="clickable" onclick="build_interface('fr_971')">Guadeloupe (971)</span><br>
+	<span class="clickable" onclick="build_interface('fr_972')">Martinique (972)</span><br>
+	<span class="clickable" onclick="build_interface('fr_973')">Guyane (973)</span><br>
+	<span class="clickable" onclick="build_interface('fr_974')">La Réunion (974)</span><br>
+	<span class="clickable" onclick="build_interface('fr_975')">Saint-Pierre-et-Miquelon (975)</span><br>
+	<span class="clickable" onclick="build_interface('fr_976')">Mayotte (976)</span><br>
+	<span class="clickable" onclick="build_interface('fr_9778')">Saint-Barthélemy (977)/Saint-Martin (978)</span><br>
+	<span class="clickable" onclick="build_interface('fr_986')">Wallis-et-Futuna (986)</span><br>
+	<span class="clickable" onclick="build_interface('fr_987')">Polynésie française (987)</span><br>
+	<span class="clickable" onclick="build_interface('fr_988')">Nouvelle-Calédonie (988)</span>
 	</div>
 	<script type="application/javascript" src="ope_zones.js"></script> 
 	<script type="application/javascript" src="le_script.js"></script> 
