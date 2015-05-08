@@ -115,7 +115,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 		}
 	}
 	
-	if((count($short_links)+count($final_links))<=(3*(int)$_GET['limit'])){
+	if(((count($short_links)+count($final_links))<=(3*(int)$_GET['limit']))||$_GET['limit']=="0"){
 		$final_links=array_merge($final_links,$short_links);
 	}else{
 		$limitation_act=true;
