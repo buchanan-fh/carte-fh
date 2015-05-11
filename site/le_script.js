@@ -462,8 +462,10 @@ function build_popup_mark_s_2(marker,isopen){
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
+				var popup_tip_wraps=document.getElementsByClassName("leaflet-popup-tip");
 				for(var k=0; k<popup_wraps.length; k++){
 					popup_wraps[k].style.background = "rgba(255, 255, 255, 0.55)";
+					popup_tip_wraps[k].style.background = "rgba(255, 255, 255, 0.55)";
 				}
 			}
 		}
@@ -475,8 +477,10 @@ function build_popup_mark_s_2(marker,isopen){
 			e.target.style.color=liste_ope[e.target.n_ope].color;
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
+				var popup_tip_wraps=document.getElementsByClassName("leaflet-popup-tip");
 				for(var k=0; k<popup_wraps.length; k++){
 					popup_wraps[k].style.background = "white";
+					popup_tip_wraps[k].style.background = "white";
 				}
 			}
 		}
