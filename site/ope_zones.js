@@ -91,6 +91,7 @@ function build_interface(fit,zone,select_ope){
 		tr.appendChild(td2);
 		document.getElementById("tab_ope_main").appendChild(tr);
 	}
+	document.getElementById("check_op_autres").checked=true;
 	for(i=0;i<liste_ope_zones[zone].other.length;++i){
 		if(tab_select_ope===undefined || (tab_select_ope.indexOf(String(liste_ope_zones[zone].other[i]))>-1)){
 			var init_state="checked";
