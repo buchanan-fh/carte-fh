@@ -37,6 +37,23 @@ if(isset($_GET["zone"])){
 		<div class="box_right">
 			<table class="tab_col">
 				<tr>
+					<td class="ligne_plus">Recherche par n°</td>
+					<td class="toggle" id="toggle_search" onclick="toggle_search()">+</td>
+				</tr>
+			</table>
+			<table class="tab_col tab_cache" id="tab_search">
+				<tr>
+					<td class="ligne_simple">Support:</td>
+				</tr>
+				<tr>
+					<td><input type="text" class="champ_recherche" id="no_sup_rech" onkeydown="if(event.keyCode==13){recherche_sup();}"></td>
+					<td onclick="recherche_sup()"><img class="img_click" src="loupe.png" alt="l"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="box_right">
+			<table class="tab_col">
+				<tr>
 					<td class="ligne_plus">Bande de fréquence</td>
 					<td class="toggle" id="toggle_bandes" onclick="toggle_bandes()">+</td>
 				</tr>

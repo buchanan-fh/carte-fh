@@ -13,6 +13,7 @@ hist_result=[];
 hist_url=[];
 ind_req=0;
 current_lim=300;
+var popup_to_draw;
 //base_url="http://127.0.0.1:5723/";
 base_url="https://carte-fh.lafibre.info/";
 
@@ -241,7 +242,17 @@ function redraw(index_hist){
 	
 	document.getElementById("aff_nb_liens").innerHTML = polylinesA.length + " liens affichés";
 	document.getElementById("aff_nb_supports").innerHTML = marksA.length + " supports affichés";
-
+	
+	if(popup_to_draw!=null){
+		for (var i=marksA.length-1; i>=0; i--){
+			if(marksA[i].dat.no_sup==popup_to_draw){
+				build_popup_mark_s(marksA[i],false);
+				break;
+			}
+		}
+		popup_to_draw=null;
+	}
+	
 	if(l_result.full==-1){
 		document.getElementById("aff_restreint").innerHTML = "Erreur";
 		document.getElementById("aff_restreint").style.color = "red";
@@ -330,7 +341,7 @@ function ajax(){
 	return url;
  }
 
-function build_url_support(no_sup){
+function build_url_support(no_sup,liste_ant){
 	var op_liste=[];
 	var bande_code=0;
 	var status=0;
@@ -351,7 +362,7 @@ function build_url_support(no_sup){
 	if (document.getElementById('check_couples').checked==true){status+=1;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "supports.php?no_sup=" + String(no_sup) + "&op_liste=" + op_liste.join("|") + "&bande_code=" + bande_code + "&status=" + status + "&date=" + la_date;
+	url = base_url + "supports.php?no_sup=" + String(no_sup) + "&liste_ant=" + liste_ant + "&op_liste=" + op_liste.join("|") + "&bande_code=" + bande_code + "&status=" + status + "&date=" + la_date;
 	//console.log(url);
 	return url;
 }
@@ -387,7 +398,7 @@ function build_popup_link(event){
 
 function build_popup_mark_s(marker,isopen) {
     var xhr=null;
-	var url=build_url_support(marker.dat.no_sup);
+	var url=build_url_support(marker.dat.no_sup,"1");
     if (window.XMLHttpRequest) { 
         xhr = new XMLHttpRequest();
     }
@@ -528,6 +539,55 @@ function close_popup_mark(event){
 	event.target.unbindPopup();
 }
 
+function recherche_sup(){
+	var coords;
+	no_sup=parseInt(document.getElementById("no_sup_rech").value);
+	for (var poly in polylinesA){
+		if(polylinesA.hasOwnProperty(poly)){
+			var sup_index=polylinesA[poly].dat.nos_sup.indexOf(no_sup);
+			if(sup_index>-1){
+				coords=polylinesA[poly].dat.coords[sup_index];
+				break;
+				console.log(no_sup);
+			}
+		}
+	}
+	if(coords!=undefined){
+		center_sup(no_sup,coords);
+	}else{
+		var xhr=null;
+		var url=build_url_support(no_sup,"0");
+		if (window.XMLHttpRequest) { 
+			xhr = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) 
+		{
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState==4){
+				var s_result=JSON.parse(xhr.responseText);
+				if(s_result.coords.length>1){
+					center_sup(s_result.no_sup,s_result.coords);
+				}
+			}
+		};
+		xhr.open("GET", url, true);
+		xhr.send(null);
+	}
+}
+function center_sup(no_sup,coords){
+	for(var i=0;i<liste_ope_zones[current_zone].main.length;++i){
+		document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked=true;
+	}
+	document.getElementById("check_op_autres").checked=true;
+	for(var i=0;i<liste_ope_zones[current_zone].other.length;++i){
+		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=true;
+	}
+	popup_to_draw=no_sup;
+	map.setView(coords,11);
+}
+
 function check_all_bandes(){
 	for(var i=0; i<16; i++){
 		document.getElementById("check_bande_" + i).checked=true;
@@ -657,6 +717,15 @@ function toggle_lim_aff(){
 	}else{
 		document.getElementById("tab_lim_aff").style.display="table";
 		document.getElementById("toggle_lim_aff").innerHTML="-"
+	}
+}
+function toggle_search(){
+	if(document.getElementById("tab_search").style.display=="table"){
+		document.getElementById("tab_search").style.display="none";
+		document.getElementById("toggle_search").innerHTML="+"
+	}else{
+		document.getElementById("tab_search").style.display="table";
+		document.getElementById("toggle_search").innerHTML="-"
 	}
 }
 

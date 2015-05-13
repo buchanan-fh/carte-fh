@@ -123,6 +123,10 @@ body {
 	cursor:pointer;
 	width:15px;
 }
+.champ_recherche{
+	margin-left:5px;
+	width:120px;
+}
 #leg_autres{
 	color:#339933;
 }
