@@ -587,6 +587,7 @@ function resize_photo(){
 		img_photo.style.height=String(parseInt(document.documentElement.clientHeight*0.5-70))+"px";
 		img_photo.style.width="auto";
 	}
+	img_photo.style.opacity="1"
 	img_photo.style.display="block";
 }
 

@@ -2,6 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
+$obj_sup = new StdClass();
 $flag_trouve_sup=false;
 if(file_exists($_GET["date"]."/supports.json")){
 	$le_fichier_sup=fopen($_GET["date"]."/supports.json","r");
