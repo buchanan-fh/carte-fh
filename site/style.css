@@ -130,6 +130,10 @@ body {
 #leg_autres{
 	color:#339933;
 }
+.p_link{
+	margin-left:10px;
+	margin-right:10px
+}
 .p_div_globale{
 	min-width:160px;
 }
@@ -141,16 +145,21 @@ body {
 	text-align:center;
 	font-weight:bold;
 	margin-bottom:2px;
-	margin-top:1px;
 }
 .p_adresse{
 	font-size:11px;
 	text-align:center;
-	max-width:200px;
+	margin:auto;
+}
+.p_photo{
+	margin-bottom:5px;
+	margin-top:5px;
 }
 .p_num_sup{
+	margin-top:6px;
+	padding-left:10px;
 	font-size:9px;
-	text-align:right;
+	text-align:left;
 }
 .t_ant{
 	border-collapse:collapse;
@@ -163,12 +172,18 @@ body {
 	white-space:nowrap;
 }
 .td_syst{
+	text-align:left;
 	white-space:nowrap;
+}
+.p_photo_sup{
+	margin-left:auto;
+	margin-right:auto;
+	display:none;
 }
 
 .leaflet-popup-content-wrapper {
 	padding: 1px;
-	text-align: left;
+	text-align: center;
 	border-radius: 7px;
 }
 .leaflet-popup-content {

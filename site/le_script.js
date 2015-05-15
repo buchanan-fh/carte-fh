@@ -20,16 +20,32 @@ base_url="https://carte-fh.lafibre.info/";
 la_div_globale = document.createElement("div");
 la_div_ant = document.createElement("div");
 la_div_support = document.createElement("div");
+la_div_titre = document.createElement("div");
+la_div_adresse = document.createElement("div");
+la_div_photo = document.createElement("div");
 la_div_no_support = document.createElement("div");
+la_div_clear = document.createElement("div");
+la_div_clear.style.clear="both";
+img_photo = document.createElement("img");
 la_div_globale.className="p_div_globale";
 la_div_support.className="p_div";
-la_div_ant.className="p_div";
-
+la_div_titre.className="p_titre";
+la_div_adresse.className="p_adresse";
+la_div_photo.className="p_photo";
+la_div_ant.className="p_div_ant";
+la_div_no_support.className="p_num_sup";
+img_photo.className="p_photo_sup";
 la_div_ant.style.overflowY="auto";
 la_div_ant.style.overflowX="hidden";
-la_div_globale.appendChild(la_div_support)
-la_div_globale.appendChild(la_div_ant)
-la_div_globale.appendChild(la_div_no_support)
+la_div_photo.appendChild(img_photo);
+la_div_support.appendChild(la_div_titre);
+la_div_support.appendChild(la_div_adresse);
+la_div_support.appendChild(la_div_photo);
+la_div_globale.appendChild(la_div_support);
+la_div_globale.appendChild(la_div_ant);
+la_div_globale.appendChild(la_div_no_support);
+la_div_globale.appendChild(la_div_clear);
+
 la_div_support.onmouseenter = function(e){
 	for (var i=0; i<poly_du_sup.length; i++){
 		poly_du_sup[i].setStyle({weight: 3.5});
@@ -40,7 +56,9 @@ la_div_support.onmouseleave = function(e){
 		poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
 	}
 }
-
+img_photo.onload=function(){
+	resize_photo();
+}
 layer_osm = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {	
 	attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
 	opacity: "0.7"
@@ -391,7 +409,7 @@ function build_popup_link(event){
 	if (event.target.dat.stat & 2){
 		texte_syst_bande += ", non résolu";
 	}
-	var le_texte_popup="<b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + event.target.dat.lon + "  km";
+	var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + event.target.dat.lon + "  km</div>";
 	event.target.bindPopup(le_texte_popup,{autoPan:false});
 	event.target.openPopup(event.latlng);
 }
@@ -418,14 +436,44 @@ function build_popup_mark_s(marker,isopen) {
 
 function build_popup_mark_s_2(marker,isopen){
 	var s_result=JSON.parse(supports_t);
+	
+	if(s_result.img_disp==1){
+		la_div_globale.insertBefore(la_div_ant,la_div_support);
+		la_div_adresse.style.maxWidth="230px";
+		la_div_globale.style.minWidth="425px";
+		la_div_ant.style.width="180px";
+		la_div_ant.style.cssFloat="right";
+		la_div_support.style.width="240px";
+		la_div_no_support.style.width="220px";
+		la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
+		if(img_photo.id==s_result.no_sup){
+			resize_photo();
+		}else{
+			//img_photo.src="/photos/"+s_result.no_sup+".jpg";
+			img_photo.src=base_url+s_result.img_url;
+			img_photo.id=s_result.no_sup;
+		}
+	}else{
+		la_div_globale.insertBefore(la_div_support,la_div_ant);
+		img_photo.style.display="none";
+		la_div_adresse.style.maxWidth="200px";
+		la_div_globale.style.minWidth="160px"
+		la_div_ant.style.width="100%";
+		la_div_ant.style.cssFloat="none";
+		la_div_support.style.width="100%";
+		la_div_no_support.style.width="100%";
+		la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
+	}
+	
 	poly_du_sup=[];
 	for (var i=0; i<polylinesA.length; i++){
 		if(polylinesA[i].dat.nos_sup.indexOf(parseInt(marker.dat.no_sup))>-1){
 			poly_du_sup.push(polylinesA[i]);
 		}
 	}
-	la_div_support.innerHTML= "<div class=\"p_titre\">" + s_result.type + "</div><div class=\"p_adresse\">" + s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune + "</div>";
-	la_div_no_support.innerHTML="<div class=\"p_num_sup\">" + s_result.nom_prop + " ("+ s_result.no_sup + ")</div>";
+	la_div_titre.innerHTML=s_result.type
+	la_div_adresse.innerHTML=s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune
+	la_div_no_support.innerHTML=s_result.nom_prop + " ("+ s_result.no_sup + ")";
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
 		rows_ope[liste_ope_zones[current_zone].main[i]]=[];
 		while (divs_ope[liste_ope_zones[current_zone].main[i]].hasChildNodes()) {
@@ -475,9 +523,10 @@ function build_popup_mark_s_2(marker,isopen){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				var popup_tip_wraps=document.getElementsByClassName("leaflet-popup-tip");
 				for(var k=0; k<popup_wraps.length; k++){
-					popup_wraps[k].style.background = "rgba(255, 255, 255, 0.55)";
-					popup_tip_wraps[k].style.background = "rgba(255, 255, 255, 0.55)";
+					popup_wraps[k].style.background = "rgba(255, 255, 255, 0.5)";
+					popup_tip_wraps[k].style.background = "rgba(255, 255, 255, 0.5)";
 				}
+				img_photo.style.opacity="0.3";
 			}
 		}
 		tr.onmouseleave = function(e){
@@ -493,6 +542,7 @@ function build_popup_mark_s_2(marker,isopen){
 					popup_wraps[k].style.background = "white";
 					popup_tip_wraps[k].style.background = "white";
 				}
+				img_photo.style.opacity="1";
 			}
 		}
 		rows_ope[s_result.antennes[i][4]].push(tr);
@@ -523,11 +573,21 @@ function build_popup_mark_s_2(marker,isopen){
 			divs_ope[no_ope].appendChild(tabs_ope[no_ope]);
 		}
 	}
-	la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.4))+"px";
+	
 	if(!isopen){
-		marker.bindPopup(la_div_globale,{autoPan:false});
+		marker.bindPopup(la_div_globale,{autoPan:false, maxWidth:600});
 		marker.openPopup();
 	}
+}
+function resize_photo(){
+	if(img_photo.width/img_photo.height >= 240/(document.documentElement.clientHeight*0.5-70)){
+		img_photo.style.width="220px";
+		img_photo.style.height="auto";
+	}else{
+		img_photo.style.height=String(parseInt(document.documentElement.clientHeight*0.5-70))+"px";
+		img_photo.style.width="auto";
+	}
+	img_photo.style.display="block";
 }
 
 function close_popup_mark(event){
