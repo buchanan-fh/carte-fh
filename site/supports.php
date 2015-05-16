@@ -24,7 +24,7 @@ if($flag_trouve_sup==true){
 		$img_url="";
 	}
 	$obj_sup->no_sup=(int)$les_champs[0];
-	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8],0);
+	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8]);
 	$obj_sup->img_disp=$img_disp;
 	$obj_sup->img_url=$img_url;
 	$obj_sup->adresse=$les_champs[1];

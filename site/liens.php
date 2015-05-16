@@ -22,7 +22,6 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 		if(in_array($i_ope,$op_liste)){
 			if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json')){
 				$le_fichier=fopen($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json','r');
-				$last_sups=array();
 				while(!feof($le_fichier)){
 					$la_ligne=fgets($le_fichier);
 					if(!empty($la_ligne)){
@@ -97,9 +96,9 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 													$code_lien=$les_champs[10].'_';
 												}
 												if((float)$les_champs[8]>=$d_min){
-													$final_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1],0),array((float)$les_champs[2],(float)$les_champs[3],0)), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'lon' => (int)$les_champs[8], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
+													$final_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'lon' => (int)$les_champs[8], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
 												}else{
-													$short_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1],0),array((float)$les_champs[2],(float)$les_champs[3],0)), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'lon' => (int)$les_champs[8], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
+													$short_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'lon' => (int)$les_champs[8], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
 												}
 												$flag_ajoute=true;
 											}
