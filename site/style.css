@@ -1,5 +1,5 @@
 html {
-	height: 100%
+	height: 100%;
 }
 body {
 	height: 100%;
@@ -8,13 +8,29 @@ body {
 	position:relative;
 	overflow:hidden;
 }
+#map_global{
+	position:relative;
+	height:100%;
+	width:auto;
+	overflow:hidden;
+}
+#detail_sup{
+	box-sizing: border-box;
+	float:right;
+	height:100%;
+	max-width:50%;
+	border:solid 1px black;
+	background-color:lightgray;
+	padding:10px;
+	font-family:arial;
+	display:none;
+}
 #map_canvas {
 	z-index:1;
 	height:100%;
 	width:100%;
 	position:absolute;
 }
-
 #controle_left{
 	z-index:2;
 	position:absolute;
@@ -83,10 +99,10 @@ body {
 }
 .img_click{
 	vertical-align:middle;
-	cursor:pointer
+	cursor:pointer;
 }
 .clickable{
-	cursor:pointer
+	cursor:pointer;
 }
 .tab_col{
 	width:100%;
@@ -132,7 +148,7 @@ body {
 }
 .p_link{
 	margin-left:10px;
-	margin-right:10px
+	margin-right:10px;
 }
 .p_div_globale{
 	min-width:160px;
@@ -142,6 +158,7 @@ body {
 	width:100%;
 }
 .p_titre{
+	font-size:12px;
 	text-align:center;
 	font-weight:bold;
 	margin-bottom:2px;
@@ -150,10 +167,6 @@ body {
 	font-size:11px;
 	text-align:center;
 	margin:auto;
-}
-.p_photo{
-	margin-bottom:5px;
-	margin-top:5px;
 }
 .p_num_sup{
 	margin-top:6px;
@@ -176,9 +189,30 @@ body {
 	white-space:nowrap;
 }
 .p_photo_sup{
+	margin-bottom:5px;
+	margin-top:5px;
 	margin-left:auto;
 	margin-right:auto;
 	display:none;
+}
+#d_sup{
+	box-sizing:border-box;
+	border:solid 1px black;
+	max-height:100%;
+	width:400px;
+	float:right;
+	padding:2px;
+}
+#d_ant{
+	margin-top:6px;
+	overflow:auto;
+}
+#photo_large{
+	box-sizing:border-box;
+	border:solid 1px black;
+	max-height:100%;
+	max-width:calc(100% - 410px);
+	margin-right:10px
 }
 
 .leaflet-popup-content-wrapper {

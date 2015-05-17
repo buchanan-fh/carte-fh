@@ -112,18 +112,30 @@ function build_interface(fit,zone,select_ope){
 	divs_ope=[];
 	tabs_ope=[];
 	rows_ope=[];
+	d_divs_ope=[];
+	d_tabs_ope=[];
+	d_rows_ope=[];
 	while (la_div_ant.firstChild){
 		la_div_ant.removeChild(la_div_ant.firstChild);
+	}
+	while (d_div_ant.firstChild){
+		d_div_ant.removeChild(d_div_ant.firstChild);
 	}
 	for(i=0;i<liste_ope_zones[zone].main.length;++i){
 		divs_ope[liste_ope_zones[zone].main[i]]=document.createElement("div");
 		tabs_ope[liste_ope_zones[zone].main[i]]=document.createElement("table");
 		la_div_ant.appendChild(divs_ope[liste_ope_zones[zone].main[i]]);
+		d_divs_ope[liste_ope_zones[zone].main[i]]=document.createElement("div");
+		d_tabs_ope[liste_ope_zones[zone].main[i]]=document.createElement("table");
+		d_div_ant.appendChild(d_divs_ope[liste_ope_zones[zone].main[i]]);
 	}
 	for(i=0;i<liste_ope_zones[zone].other.length;++i){
 		divs_ope[liste_ope_zones[zone].other[i]]=document.createElement("div");
 		tabs_ope[liste_ope_zones[zone].other[i]]=document.createElement("table");
 		la_div_ant.appendChild(divs_ope[liste_ope_zones[zone].other[i]]);
+		d_divs_ope[liste_ope_zones[zone].other[i]]=document.createElement("div");
+		d_tabs_ope[liste_ope_zones[zone].other[i]]=document.createElement("table");
+		d_div_ant.appendChild(d_divs_ope[liste_ope_zones[zone].other[i]]);
 	}
 	if(fit){
 		map.fitBounds(liste_ope_zones[zone].bounds);

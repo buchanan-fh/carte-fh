@@ -23,6 +23,10 @@ if($flag_trouve_sup==true){
 		$img_disp=0;
 		$img_url="";
 	}
+	/*
+	$img_disp=1;
+	$img_url="photos/1336335.jpg";
+	*/
 	$obj_sup->no_sup=(int)$les_champs[0];
 	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8]);
 	$obj_sup->img_disp=$img_disp;
@@ -59,7 +63,16 @@ if($_GET["liste_ant"]=="1"){
 					if(in_array((int)$les_champs[4],$op_liste)){
 						if((int)$les_champs[7]  & (int)$_GET["status"] & 12){
 							if((int)$les_champs[6] & (int)$_GET["bande_code"]){
-								array_push($obj_sup->antennes,array_map('floatval',explode("|",$la_ligne)));
+								//--
+								$elts=explode("|",$la_ligne);
+								$array_ant=array();
+								for($i=0;$i<8;$i++){
+									array_push($array_ant,(float)$elts[$i]);
+								}
+								array_push($array_ant,$elts[8]);
+								array_push($array_ant,(float)$elts[9]);
+								array_push($obj_sup->antennes,$array_ant);
+								//array_push($obj_sup->antennes,array_map('floatval',explode("|",$la_ligne)));
 							}
 						}
 					}
