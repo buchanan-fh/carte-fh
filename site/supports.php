@@ -69,8 +69,10 @@ if($_GET["liste_ant"]=="1"){
 								for($i=0;$i<8;$i++){
 									array_push($array_ant,(float)$elts[$i]);
 								}
-								array_push($array_ant,$elts[8]);
-								array_push($array_ant,(float)$elts[9]);
+								if(count($elts)>8){
+									array_push($array_ant,$elts[8]);
+									array_push($array_ant,(float)$elts[9]);
+								}
 								array_push($obj_sup->antennes,$array_ant);
 								//array_push($obj_sup->antennes,array_map('floatval',explode("|",$la_ligne)));
 							}
