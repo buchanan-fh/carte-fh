@@ -42,6 +42,7 @@ la_div_globale.appendChild(la_div_support);
 la_div_globale.appendChild(la_div_ant);
 la_div_globale.appendChild(la_div_no_support);
 la_div_globale.appendChild(la_div_clear);
+div_photo_large=document.getElementById("div_photo_large")
 photo_large=document.getElementById("photo_large")
 d_div = document.getElementById("detail_sup");
 d_div_titre = document.getElementById("d_titre");
@@ -60,18 +61,18 @@ la_div_support.onmouseleave = function(e){
 	}
 }
 la_div_support.onclick = function(){
-	if(d_div.style.display=="block"){
+	if(d_div.style.display=="flex"){
 		d_div.style.display="none";
 	}else{
-		d_div.style.display="block";
+		d_div.style.display="flex";
 	}
 	map.invalidateSize(true);
 }
 la_div_no_support.onclick = function(){
-	if(d_div.style.display=="block"){
+	if(d_div.style.display=="flex"){
 		d_div.style.display="none";
 	}else{
-		d_div.style.display="block";
+		d_div.style.display="flex";
 	}
 	map.invalidateSize(true);
 }
@@ -79,8 +80,8 @@ img_photo.onload=function(){
 	resize_photo();
 }
 photo_large.onload=function(){
-	photo_large.style.display="inline";
-	if(d_div.style.display=="block"){
+	div_photo_large.style.display="";
+	if(d_div.style.display=="flex"){
 		map.invalidateSize(true);
 	}
 }
@@ -476,8 +477,8 @@ function build_popup_mark_s_2(marker,isopen){
 		la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
 		if(img_photo.id==s_result.no_sup){
 			resize_photo();
-			photo_large.style.display="inline";
-			if(d_div.style.display=="block"){
+			div_photo_large.style.display="";
+			if(d_div.style.display=="flex"){
 				map.invalidateSize(true);
 			}
 		}else{
@@ -488,8 +489,8 @@ function build_popup_mark_s_2(marker,isopen){
 	}else{
 		la_div_globale.insertBefore(la_div_support,la_div_ant);
 		img_photo.style.display="none";
-		photo_large.style.display="none";
-		if(d_div.style.display=="block"){
+		div_photo_large.style.display="none";
+		if(d_div.style.display=="flex"){
 			map.invalidateSize(true);
 		}
 		la_div_adresse.style.maxWidth="200px";

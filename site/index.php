@@ -24,6 +24,9 @@ if(isset($_GET["zone"])){
 	}
 	?>);">
 	<div id="detail_sup">
+		<div id="div_photo_large">
+			<img id="photo_large">
+		</div>
 		<div id="d_sup">
 			<div id="d_header">
 				<img class="img_click" src="center.png" alt="center">
@@ -36,7 +39,6 @@ if(isset($_GET["zone"])){
 				<div id="d_num_sup" class="p_num_sup"></div>
 			</div>
 		</div>
-		<img id="photo_large">
 	</div>
 	<div id="map_global">
 		<div id="map_canvas"></div>
