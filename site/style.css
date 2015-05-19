@@ -19,7 +19,7 @@ body {
 	float:right;
 	height:100%;
 	max-width:50%;
-	border:solid 1px black;
+	border-left:solid 1px black;
 	background-color:lightgray;
 	padding:10px;
 	font-family:arial;
@@ -166,7 +166,8 @@ body {
 .p_adresse{
 	font-size:11px;
 	text-align:center;
-	margin:auto;
+	margin-left:auto;
+	margin-right:auto;
 }
 .p_num_sup{
 	margin-top:6px;
@@ -196,23 +197,51 @@ body {
 	display:none;
 }
 #d_sup{
-	box-sizing:border-box;
-	border:solid 1px black;
-	max-height:100%;
-	width:400px;
+	height:100%;
+	width:350px;
 	float:right;
 	padding:2px;
+	display:flex;
+	flex-direction:column;
+}
+#d_header{
+	margin-bottom:10px;
+	text-align:right;
+	flex:none;
+}
+#d_descr{
+	border:solid 1px black;
+	display:flex;
+	flex-direction:column;
+	flex-shrink:1;
+	flex-grow:0;
+	min-height:1px;
+}
+#d_titre{
+	flex:none;
+}
+#d_adresse{
+	flex:none;
 }
 #d_ant{
 	margin-top:6px;
 	overflow:auto;
+	flex-shrink:1;
+	flex-grow:0;
+	min-height:1px;
+}
+#d_num_sup{
+	flex:none;
 }
 #photo_large{
 	box-sizing:border-box;
 	border:solid 1px black;
 	max-height:100%;
-	max-width:calc(100% - 410px);
-	margin-right:10px
+	max-width:calc(100% - 365px);
+	margin-right:10px;
+}
+#d_img_close{
+	margin-left:10px;
 }
 
 .leaflet-popup-content-wrapper {

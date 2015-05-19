@@ -25,10 +25,16 @@ if(isset($_GET["zone"])){
 	?>);">
 	<div id="detail_sup">
 		<div id="d_sup">
-			<div id="d_titre" class="p_titre"></div>
-			<div id="d_adresse" class="p_adresse"></div>
-			<div id="d_ant"></div>
-			<div id="d_num_sup" class="p_num_sup"></div>
+			<div id="d_header">
+				<img class="img_click" src="center.png" alt="center">
+				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close">
+			</div>
+			<div id="d_descr">
+				<div id="d_titre" class="p_titre"></div>
+				<div id="d_adresse" class="p_adresse"></div>
+				<div id="d_ant"></div>
+				<div id="d_num_sup" class="p_num_sup"></div>
+			</div>
 		</div>
 		<img id="photo_large">
 	</div>

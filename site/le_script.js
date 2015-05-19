@@ -757,6 +757,10 @@ function center_sup(no_sup,coords){
 	popup_to_draw=no_sup;
 	map.setView(coords,11);
 }
+function close_detail(){
+	d_div.style.display="none";
+	map.invalidateSize(true);
+}
 
 function check_all_bandes(){
 	for(var i=0; i<16; i++){
