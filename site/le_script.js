@@ -501,7 +501,6 @@ function build_popup_mark_s_2(marker,isopen){
 		la_div_no_support.style.width="100%";
 		la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
 	}
-	d_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight-100))+"px";
 	
 	poly_du_sup=[];
 	for (var i=0; i<polylinesA.length; i++){
@@ -591,6 +590,7 @@ function build_popup_mark_s_2(marker,isopen){
 			}
 		}
 		
+		d_div.no_sup=s_result.no_sup;
 		var d_tr = document.createElement("tr");
 		var d_td1 = document.createElement("td");
 		var d_td2 = document.createElement("td");
@@ -706,9 +706,9 @@ function close_popup_mark(event){
 	event.target.unbindPopup();
 }
 
-function recherche_sup(){
+function recherche_sup(no_sup){
 	var coords;
-	no_sup=parseInt(document.getElementById("no_sup_rech").value);
+	no_sup = no_sup || parseInt(document.getElementById("no_sup_rech").value);
 	for (var poly in polylinesA){
 		if(polylinesA.hasOwnProperty(poly)){
 			var sup_index=polylinesA[poly].dat.nos_sup.indexOf(no_sup);

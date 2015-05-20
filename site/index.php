@@ -29,7 +29,7 @@ if(isset($_GET["zone"])){
 		</div>
 		<div id="d_sup">
 			<div id="d_header">
-				<img class="img_click" src="center.png" alt="center">
+				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center">
 				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close">
 			</div>
 			<div id="d_descr">
