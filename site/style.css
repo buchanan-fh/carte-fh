@@ -183,14 +183,16 @@ body {
 .td_num{
 	text-align:right;
 	padding-left:4px;
+	padding-right:4px;
 	white-space:nowrap;
 }
 .td_syst{
 	text-align:left;
+	padding-left:4px;
+	padding-right:4px;
 	white-space:nowrap;
 }
 .p_photo_sup{
-	margin-bottom:5px;
 	margin-top:5px;
 	margin-left:auto;
 	margin-right:auto;

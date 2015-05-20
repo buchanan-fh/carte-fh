@@ -469,11 +469,11 @@ function build_popup_mark_s_2(marker,isopen){
 	if(s_result.img_disp==1){
 		la_div_globale.insertBefore(la_div_ant,la_div_support);
 		la_div_adresse.style.maxWidth="230px";
-		la_div_globale.style.minWidth="425px";
+		la_div_globale.style.minWidth="385px";
 		la_div_ant.style.width="180px";
 		la_div_ant.style.cssFloat="right";
-		la_div_support.style.width="240px";
-		la_div_no_support.style.width="220px";
+		la_div_support.style.width="200px";
+		la_div_no_support.style.width="180px";
 		la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
 		if(img_photo.id==s_result.no_sup){
 			resize_photo();
@@ -493,8 +493,8 @@ function build_popup_mark_s_2(marker,isopen){
 		if(d_div.style.display=="flex"){
 			map.invalidateSize(true);
 		}
-		la_div_adresse.style.maxWidth="200px";
-		la_div_globale.style.minWidth="160px"
+		la_div_adresse.style.maxWidth="180px";
+		la_div_globale.style.minWidth=""
 		la_div_ant.style.width="100%";
 		la_div_ant.style.cssFloat="none";
 		la_div_support.style.width="100%";
@@ -539,7 +539,6 @@ function build_popup_mark_s_2(marker,isopen){
 		var tr = document.createElement("tr");
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
-		var td3 = document.createElement("td");
 		tr.style.color=liste_ope[s_result.antennes[i][4]].color;
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
@@ -550,14 +549,11 @@ function build_popup_mark_s_2(marker,isopen){
 			td1.innerHTML += ", non activé";
 		}
 		td1.className="td_syst";
-		td2.innerHTML=s_result.antennes[i][5] + " m";
+		td2.innerHTML=s_result.antennes[i][2] + "°";
 		td2.className="td_num";
-		td3.innerHTML=s_result.antennes[i][2] + "°";
-		td3.className="td_num";
 		tr.ant_azimut=parseFloat(s_result.antennes[i][2]);
 		tr.appendChild(td1);
 		tr.appendChild(td2);
-		tr.appendChild(td3);
 		tr.id=s_result.antennes[i][0];
 		tr["n_ope"]=s_result.antennes[i][4];
 		tr.onmouseenter = function(e){
@@ -690,8 +686,8 @@ function build_popup_mark_s_2(marker,isopen){
 	}
 }
 function resize_photo(){
-	if(img_photo.width/img_photo.height >= 240/(document.documentElement.clientHeight*0.5-70)){
-		img_photo.style.width="220px";
+	if(img_photo.width/img_photo.height >= 200/(document.documentElement.clientHeight*0.5-70)){
+		img_photo.style.width="180px";
 		img_photo.style.height="auto";
 	}else{
 		img_photo.style.height=String(parseInt(document.documentElement.clientHeight*0.5-70))+"px";
