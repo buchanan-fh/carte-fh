@@ -40,6 +40,7 @@ body {
 	font-size:14px;
 	display:flex;
 	flex-direction:column;
+	pointer-events: none;
 }
 #controle_right{
 	z-index:2;
@@ -50,12 +51,14 @@ body {
 	font-size:14px;
 	display:flex;
 	flex-direction:column;
+	pointer-events: none;
 }
 .box{
 	border:solid 1px black;
 	background-color:lightgray;
 	padding:1px;
 	margin:3px;
+	pointer-events:all;
 }
 #status{
 	padding:0px;
