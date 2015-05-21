@@ -6,7 +6,6 @@ $t_start=microtime(true);
 
 $nb_ope=84;
 $tab_dates_ok=array('201501','201502','201503','201504','201505');
-$all_links = array();
 $short_links = array();
 $final_links = array();
 $all_sup = array();
@@ -65,8 +64,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 			}
 		}
 		$all_sup=array_slice($all_sup,0,$i,true);
+		unset($keys);
 	}
-	unset($keys);
 	
 	$d_min=7*28284/pow(2,(int)$_GET['zoom']+8);	
 	for($i_ope=1;$i_ope<=$nb_ope;++$i_ope){
@@ -84,7 +83,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 							if(isset($all_sup[$code_sup])){
 								if(isset($all_sup[$code_sup]['coords'])==false){
 									$les_prop=explode(',',$les_champs[11]);
-									$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup],0), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+									$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
 								}
 								if(!$flag_ajoute){
 									if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
@@ -114,7 +113,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 		}
 	}
 	
-	if(((count($short_links)+count($final_links))<=(3*(int)$_GET['limit']))||$_GET['limit']=="0"){
+	if(((count($short_links)+count($final_links))<=(3*$nb_limite))||$nb_limite==0){
 		$final_links=array_merge($final_links,$short_links);
 	}else{
 		$limitation_act=true;
