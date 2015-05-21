@@ -17,7 +17,7 @@ body {
 	box-sizing: border-box;
 	float:right;
 	height:100%;
-	max-width:50%;
+	max-width:60%;
 	border-left:solid 1px black;
 	background-color:lightgray;
 	padding:10px;
@@ -56,13 +56,13 @@ body {
 	border:solid 1px black;
 	background-color:lightgray;
 	padding:1px;
-	margin:10px;
+	margin:5px;
 }
 .box_right{
 	border:solid 1px black;
 	background-color:lightgray;
 	padding:1px;
-	margin:10px;
+	margin:5px;
 }
 #status{
 	padding:0px;
@@ -200,7 +200,7 @@ body {
 }
 #d_sup{
 	height:100%;
-	width:350px;
+	width:300px;
 	float:right;
 	padding:2px;
 	display:flex;

@@ -225,7 +225,7 @@ if(isset($_GET["zone"])){
 				<table class="tab_col">
 					<tr>
 						<td class="ligne_plus" width="80%" id="nom_zone"></td>
-						<td class="ligne_plus" width="20%" align="center"><img src="world.png" alt="w"></td>
+						<td class="ligne_plus" width="20%" align="center"><img class="img_click" src="world.png" alt="w"></td>
 					</tr>
 				</table>
 			</div>
