@@ -139,11 +139,9 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("zoom_level").innerHTML = "Zoom " + map.getZoom();
 document.getElementById("date_select").innerHTML = "05/2015";
 
 map.on('zoomend', function() {
-		document.getElementById("zoom_level").innerHTML = "Zoom " + this.getZoom();
 		if (map.getZoom()<=9) {
 			epaisseur=1;
 		} else if (map.getZoom()<=11) {
@@ -159,7 +157,8 @@ map.on('moveend', function() {
 
 function redraw(index_hist){
 	index_hist=index_hist || ("r"+ind_req);
-	document.getElementById("loading").style.backgroundColor = "orange";
+	document.getElementById("aff_restreint").innerHTML = "Chargement...";
+	document.getElementById("aff_restreint").style.color = "orange";
 	var time_start=Date.now();
 	var l_result=JSON.parse(hist_result[index_hist]);
 	var mark_aff=[];
@@ -308,14 +307,14 @@ function redraw(index_hist){
 		document.getElementById("aff_restreint").innerHTML = "Affichage incomplet";
 		document.getElementById("aff_restreint").style.color = "orange";
 	}
-	document.getElementById("loading").style.backgroundColor = "green";
 	//console.log("tile: " + l_result.tile + " - PHP: " + l_result.ex_time + " ms - Client: " + (Date.now()-time_start).toString() + " ms");
 }
 	
 function ajax(){
-	document.getElementById("loading").style.backgroundColor = "orange";
-	document.getElementById("controle_left").style.maxHeight=(document.documentElement.clientHeight - 110) + "px";
-	document.getElementById("controle_right").style.maxHeight=(document.documentElement.clientHeight - 110) + "px";
+	document.getElementById("aff_restreint").innerHTML = "Chargement...";
+	document.getElementById("aff_restreint").style.color = "orange";
+	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 110) + "px";
+	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 110) + "px";
 	
     var url=build_url_liens();
 	var key_hist=array_search(url,hist_url);
@@ -869,15 +868,17 @@ function toggle_autres_ope(){
 	}
 }
 
-function toggle_bandes(){
+function toggle_filtres(){
 	if(document.getElementById("tab_bandes").style.display=="table"){
 		document.getElementById("tab_bandes").style.display="none";
 		document.getElementById("shortcut_bandes").style.display="none";
-		document.getElementById("toggle_bandes").innerHTML="+"
+		document.getElementById("tab_status").style.display="none";
+		document.getElementById("toggle_filtres").innerHTML="+"
 	}else{
 		document.getElementById("tab_bandes").style.display="table";
 		document.getElementById("shortcut_bandes").style.display="table";
-		document.getElementById("toggle_bandes").innerHTML="-"
+		document.getElementById("tab_status").style.display="table";
+		document.getElementById("toggle_filtres").innerHTML="-"
 	}
 }
 

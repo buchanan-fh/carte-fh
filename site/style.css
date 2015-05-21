@@ -35,34 +35,27 @@ body {
 	z-index:2;
 	position:absolute;
 	left:0px;
-	max-height:100%;
-	min-width:210px;
-	max-width:230px;
-	overflow:auto;
+	width:200px;
 	font-family:arial;
 	font-size:14px;
+	display:flex;
+	flex-direction:column;
 }
 #controle_right{
 	z-index:2;
 	position:absolute;
 	right:0px;
-	min-width:190px;
-	max-height:100%;
-	overflow:auto;
+	width:190px;
 	font-family:arial;
 	font-size:14px;
+	display:flex;
+	flex-direction:column;
 }
-.box_left{
+.box{
 	border:solid 1px black;
 	background-color:lightgray;
 	padding:1px;
-	margin:5px;
-}
-.box_right{
-	border:solid 1px black;
-	background-color:lightgray;
-	padding:1px;
-	margin:5px;
+	margin:3px;
 }
 #status{
 	padding:0px;
@@ -74,8 +67,8 @@ body {
 #credits{
 	z-index:2;
 	position:absolute;
-	margin-left:240px;
-	margin-top:10px;
+	left:210px;
+	top:10px;
 	width:300px;
 	border:solid 1px black;
 	background-color:white;
@@ -87,8 +80,8 @@ body {
 #choix_zone{
 	z-index:2;
 	position:absolute;
-	margin-left:240px;
-	margin-top:10px;
+	right:200px;
+	top:10px;
 	width:300px;
 	border:solid 1px black;
 	background-color:white;
@@ -127,6 +120,12 @@ body {
 }
 .ligne_simple{
 	text-align:center;
+	padding-top:1px;
+	padding-bottom:1px;
+	word-wrap:break-word;
+}
+.ligne_left{
+	text-align:left;
 	padding-top:1px;
 	padding-bottom:1px;
 }
@@ -185,6 +184,7 @@ body {
 	padding-left:4px;
 	padding-right:4px;
 	white-space:nowrap;
+	width:30px;
 }
 .td_syst{
 	text-align:left;
@@ -251,6 +251,16 @@ body {
 }
 #d_img_close{
 	margin-left:10px;
+}
+#b_sum, #b_date, #b_zone, #b_recherche{
+	flex-shrink:0;
+	flex-grow:0;
+}
+#b_ope, #b_filtre{
+	overflow:auto;
+	flex-shrink:1;
+	flex-grow:0;
+	min-height:1px;
 }
 
 .leaflet-popup-content-wrapper {

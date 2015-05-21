@@ -43,7 +43,7 @@ if(isset($_GET["zone"])){
 	<div id="map_global">
 		<div id="map_canvas"></div>
 		<div id="controle_right"> 
-			<div class="box_right"> 
+			<div class="box" id="b_date"> 
 				<table class="tab_col">
 					<tr>
 						<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()"></td>
@@ -52,11 +52,19 @@ if(isset($_GET["zone"])){
 					</tr>
 				</table>
 			</div>
-			<div class="box_right">
+			<div class="box clickable" onclick="choix_zone();" id="b_zone">
 				<table class="tab_col">
 					<tr>
+						<td class="ligne_simple" width="80%" id="nom_zone"></td>
+						<td class="ligne_simple" width="20%" align="center"><img class="img_click" src="world.png" alt="w"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="box" id="b_recherche">
+				<table class="tab_col">
+					<tr class="clickable" onclick="toggle_search()">
 						<td class="ligne_plus">Recherche par n°</td>
-						<td class="toggle" id="toggle_search" onclick="toggle_search()">+</td>
+						<td class="toggle" id="toggle_search">+</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="tab_search">
@@ -69,15 +77,40 @@ if(isset($_GET["zone"])){
 					</tr>
 				</table>
 			</div>
-			<div class="box_right">
+			<div class="box" id="b_filtre">
 				<table class="tab_col">
+					<tr class="clickable" onclick="toggle_filtres()">
+						<td class="ligne_plus">Filtrage</td>
+						<td class="toggle" id="toggle_filtres">+</td>
+					</tr>
+				</table>
+				<table class="tab_col tab_cache" id="tab_status">
 					<tr>
-						<td class="ligne_plus">Bande de fréquence</td>
-						<td class="toggle" id="toggle_bandes" onclick="toggle_bandes()">+</td>
+						<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
+						<td>Liens activés</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
+						<td>Liens non activés</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
+						<td>Liens r&eacute;solus</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
+						<td>Liens non r&eacute;solus</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
+						<td>Supports</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="shortcut_bandes">
-					<tr >
+					<tr>
+						<td colspan="2" class="ligne_plus">Bandes de fréquences:</td>
+					</tr>
+					<tr>
 						<td class="ligne_plus"><input type="button" id="check_all_bandes" value="Toutes" onclick="check_all_bandes()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_bande" value="Aucune" onclick="check_no_bande()"></td>
 					</tr>
@@ -85,7 +118,7 @@ if(isset($_GET["zone"])){
 				<table class="tab_col tab_cache" id="tab_bandes">
 					<tr>
 						<td><input type="checkbox" id="check_bande_0" onclick="ajax()" checked></td>
-						<td>X</td>
+						<td>Autres</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_bande_1" onclick="ajax()" checked></td>
@@ -149,46 +182,13 @@ if(isset($_GET["zone"])){
 					</tr>
 				</table>
 			</div>
-			<div class="box_right">
-				<table class="tab_col">
-					<tr>
-						<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
-						<td>Liens activés</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
-						<td>Liens non activés</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
-						<td>Liens r&eacute;solus</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
-						<td>Liens non r&eacute;solus</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
-						<td>Supports</td>
-					</tr>
-				</table>
-			</div>
 		</div>
 		<div id="controle_left"> 
-			<div class="box_left" id="status"> 
+			<div class="box" id="b_sum">
 				<table class="tab_col">
-					<tr>
-						<td class="ligne_plus" width="20%" id="loading"></td>
-						<td class="ligne_plus" width="60%" id="zoom_level" align="center"></td>
-						<td class="ligne_plus" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i"></td>
-					</tr>
-				</table>
-			</div>
-			<div class="box_left">
-				<table class="tab_col">
-					<tr>
+					<tr class="clickable" onclick="toggle_lim_aff()">
 						<td class="ligne_plus">Limitation d'affichage</td>
-						<td class="toggle" id="toggle_lim_aff" onclick="toggle_lim_aff()">+</td>
+						<td class="toggle" id="toggle_lim_aff">+</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="tab_lim_aff">
@@ -214,27 +214,20 @@ if(isset($_GET["zone"])){
 						<td colspan="2" class="ligne_plus" id="aff_restreint"></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="ligne_simple" id="aff_nb_liens"></td>
+						<td class="ligne_left" id="aff_nb_liens" width="80%">liens affichés</td>
+						<td rowspan="2" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i"></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="ligne_simple" id="aff_nb_supports"></td>
+						<td class="ligne_left" id="aff_nb_supports">supports affichés</td>
 					</tr>
 				</table>
 			</div>
-			<div class="box_left clickable" onclick="choix_zone();">
-				<table class="tab_col">
-					<tr>
-						<td class="ligne_plus" width="80%" id="nom_zone"></td>
-						<td class="ligne_plus" width="20%" align="center"><img class="img_click" src="world.png" alt="w"></td>
-					</tr>
-				</table>
-			</div>
-			<div class="box_left">
+			<div class="box" id="b_ope">
 				<table class="tab_col" id="tab_ope_main"></table>
 				<table class="tab_col">
 					<tr>
 						<td class="check_cell"><input type="checkbox" id="check_op_autres" onclick="click_autres_ope()" checked></td>
-						<td><span class="leg" id="leg_autres">&#x25FC;</span> Autres</td>
+						<td class="clickable" onclick="toggle_autres_ope()"><span class="leg" id="leg_autres">&#x25FC;</span> Autres</td>
 						<td class="toggle" id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
 					</tr>
 				</table>
