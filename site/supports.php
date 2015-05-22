@@ -31,10 +31,11 @@ if($flag_trouve_sup==true){
 		$img_disp=1;
 		$img_url="photos/".$no_dossier."/".$_GET["no_sup"].".jpg";
 		$fichier_info_sup=fopen("photos/".$no_dossier."/".$_GET["no_sup"].".txt","r");
-		$obj_sup->img_small_url="photos/".$no_dossier."/".$_GET["no_sup"]."-".stream_get_line($fichier_info_sup,10000,"\r\n").".jpg";
+		$suffixe_small=trim(stream_get_line($fichier_info_sup,10000,"\n"),"\r\n");
+		$obj_sup->img_small_url="photos/".$no_dossier."/".$_GET["no_sup"]."-".$suffixe_small.".jpg";
 		$obj_sup->img_col=array();
 		while(!feof($fichier_info_sup)){
-			$la_ligne=stream_get_line($fichier_info_sup,10000,"\r\n");
+			$la_ligne=trim(stream_get_line($fichier_info_sup,10000,"\n"),"\r\n");
 			if(!empty($la_ligne)){
 				$champs_info=explode(';',$la_ligne);
 				array_push($obj_sup->img_col,array('url' => 'photos/'.$no_dossier.'/'.$_GET['no_sup'].'-'.$champs_info[0].'.jpg', 'auteur' => $champs_info[1], 'date' => $champs_info[2]));

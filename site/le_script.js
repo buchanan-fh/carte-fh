@@ -512,6 +512,7 @@ function build_popup_mark_s_2(marker,isopen){
 		if(img_photo.sup_id==s_result.no_sup){
 			resize_photo();
 		}else{
+			img_photo.style.display="none";
 			img_photo.src=base_url+s_result.img_small_url;
 			img_photo.sup_id=s_result.no_sup;
 		}
