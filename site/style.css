@@ -57,7 +57,7 @@ body {
 	border:solid 1px black;
 	background-color:lightgray;
 	padding:1px;
-	margin:3px;
+	margin:3px 6px;
 	pointer-events:all;
 }
 #status{
@@ -215,6 +215,21 @@ body {
 	text-align:right;
 	flex:none;
 }
+#d_info_photo{
+	margin-bottom:10px;
+	border:solid 1px black;
+	flex:none;
+}
+.d_titre{
+	font-size:12px;
+	text-align:center;
+	font-weight:bold;
+	margin-bottom:2px;
+}
+.d_texte{
+	font-size:11px;
+	text-align:center;
+}
 #d_descr{
 	border:solid 1px black;
 	display:flex;
@@ -223,10 +238,7 @@ body {
 	flex-grow:0;
 	min-height:1px;
 }
-#d_titre{
-	flex:none;
-}
-#d_adresse{
+#d_titre, #d_adresse{
 	flex:none;
 }
 #d_ant{
@@ -239,18 +251,18 @@ body {
 #d_num_sup{
 	flex:none;
 }
-#photo_large{
-	box-sizing:border-box;
-	border:solid 1px black;
-	max-height:100%;
-	max-width:100%;
-}
 #div_photo_large{
 	height:100%;
 	min-width:1px;
 	margin-right:10px;
 	flex-shrink:1;
 	flex-grow:1;
+}
+#photo_large{
+	box-sizing:border-box;
+	border:solid 1px black;
+	max-height:100%;
+	max-width:100%;
 }
 #d_img_close{
 	margin-left:10px;

@@ -16,17 +16,37 @@ if(file_exists($_GET["date"]."/supports.json")){
 	fclose($le_fichier_sup);
 }
 if($flag_trouve_sup==true){
-	if(file_exists("photos/".$_GET["no_sup"].".jpg")){
+	$no_dossier=intval((int)$_GET["no_sup"]/100000);
+	/*
+	if(file_exists("photos/".$no_dossier."/".$_GET["no_sup"].".jpg")){
 		$img_disp=1;
-		$img_url="photos/".$_GET["no_sup"].".jpg";
+		$img_url="photos/".$no_dossier."/".$_GET["no_sup"].".jpg";
 	}else{
 		$img_disp=0;
 		$img_url="";
 	}
-	/*
-	$img_disp=1;
-	$img_url="photos/1336335.jpg";
 	*/
+	
+	if(file_exists("photos/".$no_dossier."/".$_GET["no_sup"].".txt")){
+		$img_disp=1;
+		$img_url="photos/".$no_dossier."/".$_GET["no_sup"].".jpg";
+		$fichier_info_sup=fopen("photos/".$no_dossier."/".$_GET["no_sup"].".txt","r");
+		$obj_sup->img_small_url="photos/".$no_dossier."/".$_GET["no_sup"]."-".stream_get_line($fichier_info_sup,10000,"\r\n").".jpg";
+		$obj_sup->img_col=array();
+		while(!feof($fichier_info_sup)){
+			$la_ligne=stream_get_line($fichier_info_sup,10000,"\r\n");
+			if(!empty($la_ligne)){
+				$champs_info=explode(';',$la_ligne);
+				array_push($obj_sup->img_col,array('url' => 'photos/'.$no_dossier.'/'.$_GET['no_sup'].'-'.$champs_info[0].'.jpg', 'auteur' => $champs_info[1], 'date' => $champs_info[2]));
+			}
+		}
+		fclose($fichier_info_sup);
+	}else{
+		$img_disp=0;
+		$img_url="";
+	}
+	
+
 	$obj_sup->no_sup=(int)$les_champs[0];
 	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8]);
 	$obj_sup->img_disp=$img_disp;
@@ -57,16 +77,16 @@ if($_GET["liste_ant"]=="1"){
 		$le_fichier_ant=fopen($_GET["date"]."/antennes.json","r");
 		while(!feof($le_fichier_ant)){
 			$la_ligne=stream_get_line($le_fichier_ant,10000,"\r\n");
-			if($la_ligne!=""){
-				$les_champs=explode("|",$la_ligne);
-				if($les_champs[1]==$_GET["no_sup"]){
+			if(!empty($la_ligne)){
+				$les_champs=explode('|',$la_ligne);
+				if($les_champs[1]==$_GET['no_sup']){
 					if(in_array((int)$les_champs[4],$op_liste)){
-						if((int)$les_champs[7]  & (int)$_GET["status"] & 12){
-							if((int)$les_champs[6] & (int)$_GET["bande_code"]){
+						if((int)$les_champs[7]  & (int)$_GET['status'] & 12){
+							if((int)$les_champs[6] & (int)$_GET['bande_code']){
 								//--
-								$elts=explode("|",$la_ligne);
+								$elts=explode('|',$la_ligne);
 								$array_ant=array();
-								for($i=0;$i<8;$i++){
+								for($i=0;$i<8;++$i){
 									array_push($array_ant,(float)$elts[$i]);
 								}
 								if(count($elts)>8){

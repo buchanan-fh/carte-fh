@@ -50,6 +50,7 @@ d_div_titre = document.getElementById("d_titre");
 d_div_adresse = document.getElementById("d_adresse");
 d_div_ant = document.getElementById("d_ant");
 d_div_no_support = document.getElementById("d_num_sup");
+d_div_info_photo = document.getElementById("d_info_photo");
 
 la_div_support.onmouseenter = function(e){
 	for (var i=0; i<poly_du_sup.length; i++){
@@ -97,6 +98,7 @@ img_photo.onload=function(){
 }
 photo_large.onload=function(){
 	div_photo_large.style.display="";
+	d_div_info_photo.style.display="";
 	if(d_div.style.display=="flex"){
 		map.invalidateSize(true);
 	}
@@ -503,7 +505,7 @@ function build_popup_mark_s_2(marker,isopen){
 		if(img_photo.sup_id==s_result.no_sup){
 			resize_photo();
 		}else{
-			img_photo.src=base_url+s_result.img_url;
+			img_photo.src=base_url+s_result.img_small_url;
 			img_photo.sup_id=s_result.no_sup;
 		}
 	}else{
@@ -632,15 +634,18 @@ function build_detail(){
 	if(s_result.img_disp==1){
 		if(photo_large.sup_id==s_result.no_sup){
 			div_photo_large.style.display="";
+			d_div_info_photo.style.display="";
 			if(d_div.style.display=="flex"){
 				map.invalidateSize(true);
 			}
 		}else{
+			document.getElementById("t_info_photo").innerHTML=s_result.img_col[0].date + " - " + s_result.img_col[0].auteur
 			photo_large.sup_id=s_result.no_sup;
-			photo_large.src=base_url+s_result.img_url;
+			photo_large.src=base_url+s_result.img_col[0].url;
 		}
 	}else{
 		div_photo_large.style.display="none";
+		d_div_info_photo.style.display="none";
 		if(d_div.style.display=="flex"){
 			map.invalidateSize(true);
 		}
@@ -716,7 +721,7 @@ function build_detail(){
 	for(var i=0;i<liste_ope_zones[current_zone].main.length;++i){
 		var no_ope=liste_ope_zones[current_zone].main[i];
 		if(d_rows_ope[no_ope].length>0){
-			d_divs_ope[no_ope].innerHTML="<div class=\"p_titre\">"+liste_ope[no_ope].name+" ("+ d_rows_ope[no_ope].length +")</div>";
+			d_divs_ope[no_ope].innerHTML="<div class=\"d_titre\">"+liste_ope[no_ope].name+" ("+ d_rows_ope[no_ope].length +")</div>";
 			d_divs_ope[no_ope].className="p_div";
 			d_tabs_ope[no_ope].innerHTML="";
 			d_tabs_ope[no_ope].className="t_ant";
@@ -729,7 +734,7 @@ function build_detail(){
 	for(var i=0;i<liste_ope_zones[current_zone].other.length;++i){
 		var no_ope=liste_ope_zones[current_zone].other[i];
 		if(d_rows_ope[no_ope].length>0){
-			d_divs_ope[no_ope].innerHTML="<div class=\"p_titre\">"+liste_ope[no_ope].name+" ("+ rows_ope[no_ope].length +")</div>";
+			d_divs_ope[no_ope].innerHTML="<div class=\"d_titre\">"+liste_ope[no_ope].name+" ("+ rows_ope[no_ope].length +")</div>";
 			d_divs_ope[no_ope].className="p_div";
 			d_tabs_ope[no_ope].innerHTML="";
 			d_tabs_ope[no_ope].className="t_ant";

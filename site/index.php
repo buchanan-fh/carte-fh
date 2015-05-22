@@ -32,6 +32,10 @@ if(isset($_GET["zone"])){
 				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center">
 				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close">
 			</div>
+			<div id="d_info_photo">
+				<div class="d_titre">Photo<br></div>
+				<div class="d_texte" id="t_info_photo"></div>
+			</div>
 			<div id="d_descr">
 				<div id="d_titre" class="p_titre"></div>
 				<div id="d_adresse" class="p_adresse"></div>
