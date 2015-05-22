@@ -257,6 +257,13 @@ function redraw(index_hist){
 			la_poly.on("popupclose", function(e){
 				e.target.unbindPopup();
 				e.target.setStyle({weight: fact_epaisseur*epaisseur});
+				for (var k=0; k<e.target.dat.nos_ant.length; k++){
+					d_div_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
+					if(!(d_div_ant==null)){
+						d_div_ant.style.backgroundColor="transparent";
+						d_div_ant.style.color=liste_ope[e.target.dat.ope].color;
+					}
+				}
 			});
 			la_poly.on("mouseover", function(e){
 				if(e.target.getPopup()==undefined){
