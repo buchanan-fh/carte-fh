@@ -17,7 +17,7 @@ if(isset($_GET["zone"])){
 	<script src="Control.OSMGeocoder.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
+<body onkeydown="touche_clavier(event)" onresize="display_photo_large()" onload="build_interface(true,<?php
 	echo "'".$zone."'";
 	if(isset($_GET["op_init"])){
 		echo ",'".$_GET["op_init"]."'";

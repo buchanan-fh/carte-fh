@@ -205,7 +205,6 @@ body {
 #d_sup{
 	height:100%;
 	width:320px;
-	padding:2px;
 	display:flex;
 	flex-direction:column;
 	flex:none;
@@ -252,11 +251,10 @@ body {
 	flex:none;
 }
 #div_photo_large{
-	height:100%;
-	min-width:1px;
+	height:1px;
+	width:1px;
 	margin-right:10px;
-	flex-shrink:1;
-	flex-grow:1;
+	flex:none;
 }
 #photo_large{
 	box-sizing:border-box;

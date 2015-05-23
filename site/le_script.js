@@ -95,12 +95,7 @@ img_photo.onload=function(){
 	display_photo();
 }
 photo_large.onload=function(){
-	div_photo_large.style.display="max-content";
-	console.log("toto")
-	d_div_info_photo.style.display="";
-	if(d_div.style.display=="flex"){
-		map.invalidateSize(true);
-	}
+	display_photo_large(true);
 }
 
 layer_osm = L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {	
@@ -641,22 +636,14 @@ function build_detail(){
 	var s_result=JSON.parse(supports_t);
 	if(s_result.img_disp==1){
 		if(photo_large.sup_id==s_result.no_sup){
-			div_photo_large.style.display="max-content";
-			d_div_info_photo.style.display="";
-			if(d_div.style.display=="flex"){
-				map.invalidateSize(true);
-			}
+			display_photo_large(true)
 		}else{
 			document.getElementById("t_info_photo").innerHTML=s_result.img_col[0].date + " - " + s_result.img_col[0].auteur
 			photo_large.sup_id=s_result.no_sup;
 			photo_large.src=base_url+s_result.img_col[0].url;
 		}
 	}else{
-		div_photo_large.style.display="none";
-		d_div_info_photo.style.display="none";
-		if(d_div.style.display=="flex"){
-			map.invalidateSize(true);
-		}
+		display_photo_large(false);
 	}
 	
 	d_poly_du_sup=[];
@@ -756,6 +743,35 @@ function build_detail(){
 function display_photo(){
 	img_photo.style.opacity="1"
 	img_photo.style.display="";
+}
+function display_photo_large(disp){
+
+	var free_height=parseInt(document.documentElement.clientHeight)-20;
+	var free_width=parseInt(document.documentElement.clientWidth*0.6)-350;
+	var pic_height=photo_large.naturalHeight;
+	var pic_width=photo_large.naturalWidth;
+	
+	if(free_width/free_height >= pic_width/pic_height){
+		div_photo_large.style.height=String(free_height)+"px";
+		div_photo_large.style.width=String(parseInt(free_height/pic_height*pic_width))+"px";
+	}else{
+		div_photo_large.style.height=String(free_height)+"px";
+		div_photo_large.style.width=String(free_width)+"px";
+	}
+	
+	if(disp!=undefined){
+		if(disp){
+			div_photo_large.style.display="";
+			d_div_info_photo.style.display="";
+		}else{
+		div_photo_large.style.display="none";
+		d_div_info_photo.style.display="none";
+		}
+	}
+
+	if(d_div.style.display=="flex"){
+		map.invalidateSize(true);
+	}
 }
 
 function close_popup_mark(event){
