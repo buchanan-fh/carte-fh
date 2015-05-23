@@ -153,7 +153,7 @@ body {
 	margin-right:10px;
 }
 .p_div_globale{
-	min-width:160px;
+	display:flex;
 }
 .p_div{
 	margin-bottom:6px;
@@ -195,15 +195,16 @@ body {
 	padding-right:4px;
 	white-space:nowrap;
 }
-.p_photo_sup{
+#p_photo_sup{
+	box-sizing: border-box;
 	margin-top:5px;
-	margin-left:auto;
-	margin-right:auto;
+	padding-left:5px;
+	padding-right:5px;
+	max-width:100% !important;
 }
 #d_sup{
 	height:100%;
-	width:300px;
-	float:right;
+	width:320px;
 	padding:2px;
 	display:flex;
 	flex-direction:column;
