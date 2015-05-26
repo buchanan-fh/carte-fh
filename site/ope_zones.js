@@ -152,7 +152,6 @@ function auto_build_interface(map_bounds){
 		}
 	}
 	if(overlapped_zones.length==1 && current_zone!=overlapped_zones[0]){
-		console.log("Switching to "+overlapped_zones[0]);
 		build_interface(false,overlapped_zones[0]);
 	}
 }

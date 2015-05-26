@@ -35,6 +35,11 @@ if(isset($_GET["zone"])){
 			<div id="d_info_photo">
 				<div class="d_titre">Photo<br></div>
 				<div class="d_texte" id="t_info_photo"></div>
+				<div id="d_miniatures">
+					<div class="div_d_miniature" id="d_miniature_1"><img class="d_miniature" id="miniature_1"></div>
+					<div class="div_d_miniature" id="d_miniature_2"><img class="d_miniature" id="miniature_1"></div>
+					<div class="div_d_miniature" id="d_miniature_3"><img class="d_miniature" id="miniature_1"></div>
+				</div>
 			</div>
 			<div id="d_descr">
 				<div id="d_titre" class="p_titre"></div>
