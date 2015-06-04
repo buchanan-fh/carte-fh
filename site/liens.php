@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 $t_start=microtime(true);
 
 $nb_ope=84;
-$tab_dates_ok=array('201501','201502','201503','201504','201505');
+$tab_dates_ok=array('201501','201502','201503','201504','201505','201506');
 $short_links = array();
 $final_links = array();
 $all_sup = array();

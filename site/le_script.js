@@ -151,7 +151,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "05/2015";
+document.getElementById("date_select").innerHTML = "06/2015";
 
 map.on('zoomend', function() {
 		if (map.getZoom()<=9) {
@@ -893,7 +893,7 @@ function date_plus(){
 		}
 	}
 	document.getElementById("button_moins").disabled=false;
-	if(le_mois=="05" && l_annee=="2015"){
+	if(le_mois=="06" && l_annee=="2015"){
 		document.getElementById("button_plus").disabled=true;
 	}
 	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
