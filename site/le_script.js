@@ -141,8 +141,8 @@ map.on("baselayerchange", function(e){
 	}else{
 		fact_epaisseur=1;
 	}
-	if(ind_req>0){
-	redraw("r"+ind_req);
+	if(typeof json_parse != "undefined"){
+		redraw("r"+ind_req);
 	}
 });
 
@@ -161,11 +161,11 @@ map.on('zoomend', function() {
 		} else {
 			epaisseur=1.5;
 		}
-	});
+});
 map.on('moveend', function() {
 	auto_build_interface(map.getBounds());
 	ajax();
-	});
+});
 
 function redraw(index_hist){
 	index_hist=index_hist || ("r"+ind_req);
