@@ -22,7 +22,11 @@ if(isset($_GET["zone"])){
 	if(isset($_GET["op_init"])){
 		echo ",'".$_GET["op_init"]."'";
 	}
-	?>);">
+	?>);<?php
+	if(isset($_GET["no_sup_init"])){
+		echo "recherche_sup(".$_GET["no_sup_init"].");";
+	}
+	?>">
 	<div id="detail_sup">
 		<div id="div_photo_large">
 			<img id="photo_large">
