@@ -244,13 +244,13 @@ body {
 	flex:none;
 }
 #d_list_links{
-	font-size:11px;
+	font-size:12px;
 	text-align:center;
 	margin-bottom:2px;
 	margin-left:2px;
 }
 #d_link_to_sup{
-	width:220px;
+	width:200px;
 }
 #d_titre, #d_adresse{
 	flex:none;
