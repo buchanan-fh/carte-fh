@@ -51,6 +51,10 @@ if(isset($_GET["zone"])){
 				<div id="d_ant"></div>
 				<div id="d_num_sup" class="p_num_sup"></div>
 			</div>
+			<div id="d_links">
+				<div class="p_titre">Liens:</div>
+				<div id="d_list_links">Vers ce support: <input id="d_link_to_sup" type="text" readonly><br><a id="d_link_cartoradio" href="">Vers cartoradio</a></div>
+			</div>
 		</div>
 	</div>
 	<div id="map_global">

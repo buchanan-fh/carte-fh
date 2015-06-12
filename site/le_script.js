@@ -49,6 +49,8 @@ d_div_adresse = document.getElementById("d_adresse");
 d_div_ant = document.getElementById("d_ant");
 d_div_no_support = document.getElementById("d_num_sup");
 d_div_info_photo = document.getElementById("d_info_photo");
+d_div_link_to_sup = document.getElementById("d_link_to_sup");
+d_div_link_cartoradio = document.getElementById("d_link_cartoradio");
 
 la_div_support.onmouseenter = function(e){
 	for (var i=0; i<poly_du_sup.length; i++){
@@ -668,6 +670,8 @@ function build_detail(){
 		}
 	}
 	d_div.no_sup=s_result.no_sup;
+	d_div_link_to_sup.value="https://carte-fh.lafibre.info/index.php?no_sup_init="+s_result.no_sup;
+	d_div_link_cartoradio.href="http://www.cartoradio.fr/cartoradio/web/#bbox/"+s_result.coords[1]+"/"+s_result.coords[0]+"/"+s_result.coords[1]+"/"+s_result.coords[0];
 	for(var i=0; i<s_result.antennes.length; i++){
 		var d_tr = document.createElement("tr");
 		var d_td1 = document.createElement("td");

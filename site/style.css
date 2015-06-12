@@ -230,12 +230,27 @@ body {
 	text-align:center;
 }
 #d_descr{
+	margin-bottom:10px;
 	border:solid 1px black;
 	display:flex;
 	flex-direction:column;
 	flex-shrink:1;
 	flex-grow:0;
 	min-height:1px;
+}
+#d_links{
+	margin-bottom:10px;
+	border:solid 1px black;
+	flex:none;
+}
+#d_list_links{
+	font-size:11px;
+	text-align:center;
+	margin-bottom:2px;
+	margin-left:2px;
+}
+#d_link_to_sup{
+	width:220px;
 }
 #d_titre, #d_adresse{
 	flex:none;
