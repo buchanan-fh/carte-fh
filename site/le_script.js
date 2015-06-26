@@ -831,7 +831,7 @@ function center_sup(no_sup,coords){
 		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=true;
 	}
 	popup_to_draw=no_sup;
-	map.setView(coords,11);
+	map.setView(coords,14);
 }
 function close_detail(){
 	d_div.style.display="none";
