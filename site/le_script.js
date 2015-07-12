@@ -51,6 +51,7 @@ d_div_ant = document.getElementById("d_ant");
 d_div_no_support = document.getElementById("d_num_sup");
 d_div_link_to_sup = document.getElementById("d_link_to_sup");
 d_div_link_galerie = document.getElementById("d_link_galerie");
+d_div_link_galerie_2 = document.getElementById("d_link_galerie_2");
 d_div_link_cartoradio = document.getElementById("d_link_cartoradio");
 d_div_link_gmaps = document.getElementById("d_link_gmaps");
 
@@ -770,6 +771,7 @@ function build_detail(){
 	if(img_photo.url_cat){
 		d_div_link_galerie.style.display="";
 		d_div_link_galerie.href=img_photo.url_cat;
+		d_div_link_galerie_2.href=img_photo.url_cat;
 	}else{
 		d_div_link_galerie.style.display="none";
 	}

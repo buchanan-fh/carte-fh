@@ -37,7 +37,7 @@ if(isset($_GET["zone"])){
 				<div id="d_titre" class="p_titre"></div>
 				<div id="d_adresse" class="p_adresse"></div>
 				<div id="div_photo_large">
-					<img id="photo_large">
+					<a target="_blank" id="d_link_galerie_2" href=""><img id="photo_large"></a>
 				</div>
 				<div id="d_ant"></div>
 				<div id="d_num_sup" class="p_num_sup"></div>
