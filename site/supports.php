@@ -16,42 +16,8 @@ if(file_exists($_GET["date"]."/supports.json")){
 	fclose($le_fichier_sup);
 }
 if($flag_trouve_sup==true){
-	$no_dossier=intval((int)$_GET["no_sup"]/100000);
-	/*
-	if(file_exists("photos/".$no_dossier."/".$_GET["no_sup"].".jpg")){
-		$img_disp=1;
-		$img_url="photos/".$no_dossier."/".$_GET["no_sup"].".jpg";
-	}else{
-		$img_disp=0;
-		$img_url="";
-	}
-	*/
-	
-	if(file_exists("photos/".$no_dossier."/".$_GET["no_sup"].".txt")){
-		$img_disp=1;
-		$img_url="photos/".$no_dossier."/".$_GET["no_sup"].".jpg";
-		$fichier_info_sup=fopen("photos/".$no_dossier."/".$_GET["no_sup"].".txt","r");
-		$suffixe_small=trim(stream_get_line($fichier_info_sup,10000,"\n"),"\r\n");
-		$obj_sup->img_small_url="photos/".$no_dossier."/".$_GET["no_sup"]."-".$suffixe_small.".jpg";
-		$obj_sup->img_col=array();
-		while(!feof($fichier_info_sup)){
-			$la_ligne=trim(stream_get_line($fichier_info_sup,10000,"\n"),"\r\n");
-			if(!empty($la_ligne)){
-				$champs_info=explode(';',$la_ligne);
-				array_push($obj_sup->img_col,array('url' => 'photos/'.$no_dossier.'/'.$_GET['no_sup'].'-'.$champs_info[0].'.jpg', 'auteur' => $champs_info[1], 'date' => $champs_info[2]));
-			}
-		}
-		fclose($fichier_info_sup);
-	}else{
-		$img_disp=0;
-		$img_url="";
-	}
-	
-
 	$obj_sup->no_sup=(int)$les_champs[0];
 	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8]);
-	$obj_sup->img_disp=$img_disp;
-	$obj_sup->img_url=$img_url;
 	$obj_sup->adresse=$les_champs[1];
 	$obj_sup->c_post=$les_champs[2];
 	$obj_sup->commune=$les_champs[3];
@@ -61,8 +27,6 @@ if($flag_trouve_sup==true){
 }else{
 	$obj_sup->no_sup=0;
 	$obj_sup->coords="";
-	$obj_sup->img_disp=0;
-	$obj_sup->img_url="";
 	$obj_sup->adresse="";
 	$obj_sup->c_post="";
 	$obj_sup->commune="";

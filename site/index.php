@@ -17,7 +17,7 @@ if(isset($_GET["zone"])){
 	<script src="Control.OSMGeocoder.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body onkeydown="touche_clavier(event)" onresize="display_photo_large()" onload="build_interface(true,<?php
+<body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
 	echo "'".$zone."'";
 	if(isset($_GET["op_init"])){
 		echo ",'".$_GET["op_init"]."'";
@@ -28,26 +28,17 @@ if(isset($_GET["zone"])){
 	}
 	?>">
 	<div id="detail_sup">
-		<div id="div_photo_large">
-			<img id="photo_large">
-		</div>
 		<div id="d_sup">
 			<div id="d_header">
 				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center">
 				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close">
 			</div>
-			<div id="d_info_photo">
-				<div class="d_titre">Photo<br></div>
-				<div class="d_texte" id="t_info_photo"></div>
-				<div id="d_miniatures">
-					<div class="div_d_miniature" id="d_miniature_1"><img class="d_miniature" id="miniature_1"></div>
-					<div class="div_d_miniature" id="d_miniature_2"><img class="d_miniature" id="miniature_1"></div>
-					<div class="div_d_miniature" id="d_miniature_3"><img class="d_miniature" id="miniature_1"></div>
-				</div>
-			</div>
 			<div id="d_descr">
 				<div id="d_titre" class="p_titre"></div>
 				<div id="d_adresse" class="p_adresse"></div>
+				<div id="div_photo_large">
+					<img id="photo_large">
+				</div>
 				<div id="d_ant"></div>
 				<div id="d_num_sup" class="p_num_sup"></div>
 			</div>
