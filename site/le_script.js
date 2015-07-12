@@ -49,8 +49,8 @@ d_div_titre = document.getElementById("d_titre");
 d_div_adresse = document.getElementById("d_adresse");
 d_div_ant = document.getElementById("d_ant");
 d_div_no_support = document.getElementById("d_num_sup");
-d_div_info_photo = document.getElementById("d_info_photo");
 d_div_link_to_sup = document.getElementById("d_link_to_sup");
+d_div_link_galerie = document.getElementById("d_link_galerie");
 d_div_link_cartoradio = document.getElementById("d_link_cartoradio");
 d_div_link_gmaps = document.getElementById("d_link_gmaps");
 
@@ -646,6 +646,7 @@ function build_popup_mark_img2(marker,result_liste_cat){
 	no_sup=marker.dat.no_sup
 	if(result_liste_cat.stat=="ok"){
 		var flag_found=false;
+		img_photo.url_cat=null;
 		for(var i=0;i<result_liste_cat.result.categories.length && flag_found==false;i++){
 			var cat_name=result_liste_cat.result.categories[i].name;
 			var suffix=" - " + no_sup;
@@ -654,6 +655,7 @@ function build_popup_mark_img2(marker,result_liste_cat){
 				pwg_img_cat=null;
 				pwg_img_tag=null;
 				var cat_id=result_liste_cat.result.categories[i].id;
+				img_photo.url_cat=result_liste_cat.result.categories[i].url;
 				
 				var xhr_pwg1=null;
 				var url=piwigo_api_url + "?format=json&method=pwg.categories.getImages&cat_id=" + cat_id;
@@ -765,6 +767,12 @@ function build_detail(){
 	}
 	d_div.no_sup=s_result.no_sup;
 	d_div_link_to_sup.value="https://carte-fh.lafibre.info/index.php?no_sup_init="+s_result.no_sup;
+	if(img_photo.url_cat){
+		d_div_link_galerie.style.display="";
+		d_div_link_galerie.href=img_photo.url_cat;
+	}else{
+		d_div_link_galerie.style.display="none";
+	}
 	d_div_link_cartoradio.href="http://www.cartoradio.fr/cartoradio/web/#bbox/"+s_result.coords[1]+"/"+s_result.coords[0]+"/"+s_result.coords[1]+"/"+s_result.coords[0];
 	d_div_link_gmaps.href="https://www.google.com/maps/@"+s_result.coords[0]+","+s_result.coords[1]+",17z";
 	for(var i=0; i<s_result.antennes.length; i++){
