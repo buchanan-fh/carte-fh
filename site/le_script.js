@@ -191,7 +191,7 @@ function redraw(index_hist){
 			}
 		}
 		if(flag_keep==false){
-			oms.removeMarker(marksA[i]);
+			//oms.removeMarker(marksA[i]);
 			map.removeLayer(marksA[i]);
 			marksA.splice(i,1);
 		}
@@ -213,16 +213,16 @@ function redraw(index_hist){
 				le_mark["dat"]=l_result.supports[property]
 				le_mark.dat["no_sup"]=property.substring(1);
 				le_mark.on("popupclose", function(e){setTimeout(function(){close_popup_mark(e)},210);});
-				/*
+				
 				le_mark.on("click", function(e){
 					map.closePopup();
 					build_popup_mark_s(e.target,false);
 					build_popup_mark_img1(e.target);
 				})
-				*/
+				
 				marksA.push(le_mark);
 				mark_aff.push(le_mark);
-				oms.addMarker(le_mark);
+				//oms.addMarker(le_mark);
 			}
 		}
 		for (var i=marksA.length-1; i>=0; i--){
