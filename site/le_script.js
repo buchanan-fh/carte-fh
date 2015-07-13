@@ -334,6 +334,7 @@ function redraw(index_hist){
 		for (var i=marksA.length-1; i>=0; i--){
 			if(marksA[i].dat.no_sup==popup_to_draw){
 				build_popup_mark_s(marksA[i],false);
+				build_popup_mark_img1(marksA[i]);
 				break;
 			}
 		}
