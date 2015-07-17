@@ -640,6 +640,7 @@ function build_popup_mark_img1(marker){
 	la_div_globale.insertBefore(la_div_no_support,null);
 	img_photo.style.display="none";
 	la_div_ant.style.maxWidth="";
+	la_div_ant.style.minWidth="";
 	la_div_support.style.width="100%";
 	la_div_no_support.style.width="100%";
 	la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
@@ -708,6 +709,7 @@ function build_popup_mark_img3(marker){
 					la_div_globale.style.flexDirection="row";
 					la_div_support.insertBefore(la_div_no_support,null);
 					la_div_ant.style.maxWidth="200px";
+					la_div_ant.style.minWidth="160px";
 					la_div_support.style.width="200px";
 					la_div_no_support.style.width="180px";
 					la_div_ant.style.maxHeight=String(parseInt(document.documentElement.clientHeight*0.5))+"px";
