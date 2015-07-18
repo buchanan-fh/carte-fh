@@ -8,8 +8,6 @@ dash_stat={};
 dash_stat["5"]=[1,0];dash_stat["6"]=[1,3];dash_stat["9"]=[4,6];dash_stat["10"]=[1,3];
 polylinesA=[];
 marksA=[];
-poly_du_sup=[];
-d_poly_du_sup=[];
 hist_result=[];
 hist_url=[];
 ind_req=0;
@@ -56,36 +54,23 @@ d_div_link_cartoradio = document.getElementById("d_link_cartoradio");
 d_div_link_gmaps = document.getElementById("d_link_gmaps");
 
 la_div_support.onmouseenter = function(e){
-	for (var i=0; i<poly_du_sup.length; i++){
-		poly_du_sup[i].setStyle({weight: 3.5});
-	}
+	e.target.marker.attached_links.map(function(poly){poly.setStyle({weight: 3.5})})
 }
 la_div_support.onmouseleave = function(e){
-	for (var i=0; i<poly_du_sup.length; i++){
-		poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
-	}
+	e.target.marker.attached_links.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
 d_div_titre.onmouseenter = function(e){
-	for (var i=0; i<d_poly_du_sup.length; i++){
-		d_poly_du_sup[i].setStyle({weight: 3.5});
-	}
+	d_poly_du_sup.map(function(poly){poly.setStyle({weight: 3.5})})
 }
 d_div_titre.onmouseleave = function(e){
-	for (var i=0; i<d_poly_du_sup.length; i++){
-		d_poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
-	}
+	d_poly_du_sup.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
 d_div_adresse.onmouseenter = function(e){
-	for (var i=0; i<d_poly_du_sup.length; i++){
-		d_poly_du_sup[i].setStyle({weight: 3.5});
-	}
+	d_poly_du_sup.map(function(poly){poly.setStyle({weight: 3.5})})
 }
 d_div_adresse.onmouseleave = function(e){
-	for (var i=0; i<d_poly_du_sup.length; i++){
-		d_poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
-	}
+	d_poly_du_sup.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
-
 la_div_support.onclick = function(){
 	build_detail();
 	d_div.style.display="flex";
@@ -129,16 +114,13 @@ map = L.map( 'map_canvas', {
 	noWrap: true
 });
 L.control.scale().addTo(map);
-le_zoom_controle=L.control.zoom({position:"bottomleft"})
-le_zoom_controle.addTo(map);
+L.control.zoom({position:"bottomleft"}).addTo(map);
 new L.Control.OSMGeocoder({
 	collapsed: false,
 	position: "bottomright",
 	text: "Chercher..."
 }).addTo(map);
-le_controle=L.control.layers(base_layers);
-le_controle.setPosition("bottomright");
-le_controle.addTo(map);
+L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 
 map.on("baselayerchange", function(e){
 	if(e._url=='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'){
@@ -214,13 +196,13 @@ function redraw(index_hist){
 				le_mark["dat"]=l_result.supports[property]
 				le_mark.dat["no_sup"]=property.substring(1);
 				le_mark.on("popupclose", function(e){setTimeout(function(){close_popup_mark(e)},210);});
-				
+				//
 				le_mark.on("click", function(e){
 					map.closePopup();
 					build_popup_mark_s(e.target,false);
 					build_popup_mark_img1(e.target);
 				})
-				
+				//
 				marksA.push(le_mark);
 				mark_aff.push(le_mark);
 				//oms.addMarker(le_mark);
@@ -312,24 +294,16 @@ function redraw(index_hist){
 		}
 	}
 	L.layerGroup(poly_aff).addTo(map);
-
-	flag_popup_found=false;
-	for (var i=marksA.length-1; i>=0 && !flag_popup_found; i--){
+	polylinesA.map(function(poly){poly.bringToBack()});
+	
+	for (var i=marksA.length-1; i>=0; i--){
 		if(marksA[i].getPopup()!= undefined){
 			if(marksA[i].getPopup().isOpen){
-				flag_popup_found=true;
 				build_popup_mark_s(marksA[i],true);
+				break;
 			}
 		}
 	}
-	
-	for (var i=polylinesA.length-1; i>=0; i--){
-		polylinesA[i].bringToBack();
-	}
-	
-	document.getElementById("aff_nb_liens").innerHTML = polylinesA.length + " liens affichés";
-	document.getElementById("aff_nb_supports").innerHTML = marksA.length + " supports affichés";
-	
 	if(popup_to_draw!=null){
 		for (var i=marksA.length-1; i>=0; i--){
 			if(marksA[i].dat.no_sup==popup_to_draw){
@@ -340,6 +314,9 @@ function redraw(index_hist){
 		}
 		popup_to_draw=null;
 	}
+	
+	document.getElementById("aff_nb_liens").innerHTML = polylinesA.length + " liens affichés";
+	document.getElementById("aff_nb_supports").innerHTML = marksA.length + " supports affichés";
 	
 	if(l_result.full==-1){
 		document.getElementById("aff_restreint").innerHTML = "Erreur";
@@ -486,7 +463,7 @@ function build_popup_link(event){
 	event.target.openPopup(event.latlng);
 }
 
-function build_popup_mark_s(marker,isopen) {
+function build_popup_mark_s(marker,isopen){
     var xhr=null;
 	var url=build_url_support(marker.dat.no_sup,"1");
     if (window.XMLHttpRequest) { 
@@ -508,10 +485,11 @@ function build_popup_mark_s(marker,isopen) {
 
 function build_popup_mark_s_2(marker,isopen){
 	var s_result=JSON.parse(supports_t);	
-	poly_du_sup=[];
+	marker.attached_links=[];
+	la_div_support.marker=marker;
 	for (var i=0; i<polylinesA.length; i++){
 		if(polylinesA[i].dat.nos_sup.indexOf(parseInt(marker.dat.no_sup))>-1){
-			poly_du_sup.push(polylinesA[i]);
+			marker.attached_links.push(polylinesA[i]);
 		}
 	}
 	la_div_titre.innerHTML=s_result.type;
@@ -546,16 +524,17 @@ function build_popup_mark_s_2(marker,isopen){
 		td2.innerHTML=s_result.antennes[i][2] + "°";
 		td2.className="td_num";
 		tr.ant_azimut=parseFloat(s_result.antennes[i][2]);
+		tr.marker=marker;
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		tr.id=s_result.antennes[i][0];
 		tr["n_ope"]=s_result.antennes[i][4];
 		tr.onmouseenter = function(e){
-			for (var j=0; j<poly_du_sup.length; j++){
-				if (poly_du_sup[j].dat.nos_ant.indexOf(parseInt(e.target.id))>-1){
-					poly_du_sup[j].setStyle({weight: 3.5});
+			e.target.marker.attached_links.map(function(a_link){
+				if (a_link.dat.nos_ant.indexOf(parseInt(e.target.id))>-1){
+					a_link.setStyle({weight: 3.5});
 				}
-			}
+			})
 			e.target.style.backgroundColor=liste_ope[e.target.n_ope].color;
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
@@ -569,9 +548,9 @@ function build_popup_mark_s_2(marker,isopen){
 			}
 		}
 		tr.onmouseleave = function(e){
-			for (var k=0; k<poly_du_sup.length; k++){
-				poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
-			}
+			e.target.marker.attached_links.map(function(a_link){
+				a_link.setStyle({weight: fact_epaisseur*epaisseur});
+			})
 			e.target.style.backgroundColor="transparent";
 			e.target.style.color=liste_ope[e.target.n_ope].color;
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
@@ -808,18 +787,18 @@ function build_detail(){
 		d_tr.id="d_"+s_result.antennes[i][0];
 		d_tr["n_ope"]=s_result.antennes[i][4];
 		d_tr.onmouseenter = function(e){
-			for (var j=0; j<d_poly_du_sup.length; j++){
-				if (d_poly_du_sup[j].dat.nos_ant.indexOf(parseInt(e.target.id.substring(2)))>-1){
-					d_poly_du_sup[j].setStyle({weight: 3.5});
+			d_poly_du_sup.map(function(a_link){
+				if (a_link.dat.nos_ant.indexOf(parseInt(e.target.id.substring(2)))>-1){
+					a_link.setStyle({weight: 3.5});
 				}
-			}
+			})
 			e.target.style.backgroundColor=liste_ope[e.target.n_ope].color;
 			e.target.style.color="white";
 		}
 		d_tr.onmouseleave = function(e){
-			for (var k=0; k<d_poly_du_sup.length; k++){
-				d_poly_du_sup[k].setStyle({weight: fact_epaisseur*epaisseur});
-			}
+			d_poly_du_sup.map(function(a_link){
+				a_link.setStyle({weight: fact_epaisseur*epaisseur});
+			})
 			e.target.style.backgroundColor="transparent";
 			e.target.style.color=liste_ope[e.target.n_ope].color;
 		}
@@ -864,13 +843,13 @@ function display_photo_large(disp){
 	}
 }
 
-function close_popup_mark(event){
-	for (var i=0; i<poly_du_sup.length; i++){
-		if(poly_du_sup[i].getPopup()==undefined){
-			poly_du_sup[i].setStyle({weight: fact_epaisseur*epaisseur});
+function close_popup_mark(e){
+	e.target.attached_links.map(function(a_link){
+		if(a_link.getPopup()==undefined){
+			a_link.setStyle({weight: fact_epaisseur*epaisseur});
 		}
-	}
-	event.target.unbindPopup();
+	})
+	e.target.unbindPopup();
 }
 
 function recherche_sup(no_sup){
@@ -938,7 +917,6 @@ function check_no_bande(){
 	}
 	ajax()
 }
-
 function check_all_autres_op(){
 	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
 		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=true;
@@ -972,7 +950,6 @@ function date_moins(){
 	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
 	ajax();
 }
-
 function date_plus(){
 	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
 	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
@@ -1035,7 +1012,6 @@ function toggle_autres_ope(){
 		document.getElementById("toggle_autres_op").innerHTML="-"
 	}
 }
-
 function toggle_filtres(){
 	if(document.getElementById("tab_bandes").style.display=="table"){
 		document.getElementById("tab_bandes").style.display="none";
@@ -1049,7 +1025,6 @@ function toggle_filtres(){
 		document.getElementById("toggle_filtres").innerHTML="-"
 	}
 }
-
 function toggle_lim_aff(){
 	if(document.getElementById("tab_lim_aff").style.display=="table"){
 		document.getElementById("tab_lim_aff").style.display="none";
