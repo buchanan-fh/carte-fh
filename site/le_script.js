@@ -59,25 +59,25 @@ la_div_support.onmouseenter = function(e){
 la_div_support.onmouseleave = function(e){
 	e.target.marker.attached_links.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
-d_div_titre.onmouseenter = function(e){
+d_div_titre.onmouseenter = function(){
 	d_poly_du_sup.map(function(poly){poly.setStyle({weight: 3.5})})
 }
-d_div_titre.onmouseleave = function(e){
+d_div_titre.onmouseleave = function(){
 	d_poly_du_sup.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
-d_div_adresse.onmouseenter = function(e){
+d_div_adresse.onmouseenter = function(){
 	d_poly_du_sup.map(function(poly){poly.setStyle({weight: 3.5})})
 }
-d_div_adresse.onmouseleave = function(e){
+d_div_adresse.onmouseleave = function(){
 	d_poly_du_sup.map(function(poly){poly.setStyle({weight: fact_epaisseur*epaisseur})})
 }
 la_div_support.onclick = function(){
-	build_detail();
+	build_detail_2(supports_t,false);
 	d_div.style.display="flex";
 	map.invalidateSize(true);
 }
 la_div_no_support.onclick = function(){
-	build_detail();
+	build_detail_2(supports_t,false);
 	d_div.style.display="flex";
 	map.invalidateSize(true);
 }
@@ -304,6 +304,9 @@ function redraw(index_hist){
 			}
 		}
 	}
+	if(d_div.style.display=="flex"){
+		build_detail_1(d_div.no_sup,true);
+	}
 	if(popup_to_draw!=null){
 		for (var i=marksA.length-1; i>=0; i--){
 			if(marksA[i].dat.no_sup==popup_to_draw){
@@ -487,6 +490,9 @@ function build_popup_mark_s_2(marker,isopen){
 	var s_result=JSON.parse(supports_t);	
 	marker.attached_links=[];
 	la_div_support.marker=marker;
+	la_div_titre.marker=marker;
+	la_div_adresse.marker=marker;
+	la_div_no_support.marker=marker;
 	for (var i=0; i<polylinesA.length; i++){
 		if(polylinesA[i].dat.nos_sup.indexOf(parseInt(marker.dat.no_sup))>-1){
 			marker.attached_links.push(polylinesA[i]);
@@ -715,17 +721,37 @@ function build_popup_mark_img3(marker){
 	}
 }
 
-function build_detail(){
-	var s_result=JSON.parse(supports_t);
-	if(img_photo.style.display==""){
-		if(photo_large.sup_id==img_photo.sup_id){
-			display_photo_large(true)
-		}else{
-			photo_large.sup_id=img_photo.sup_id;
-			photo_large.src=img_photo.src_small;
+function build_detail_1(no_sup,isopen){
+    var xhr=null;
+	var url=build_url_support(no_sup,"1");
+    if (window.XMLHttpRequest) { 
+        xhr = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) 
+    {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhr.onreadystatechange = function() {
+		if (xhr.readyState==4){
+			build_detail_2(xhr.responseText,isopen);
 		}
-	}else{
-		display_photo_large(false);
+	};
+    xhr.open("GET", url, true);
+    xhr.send(null);
+}
+function build_detail_2(d_supports_t,isopen){
+	var s_result=JSON.parse(d_supports_t);
+	if(!isopen){
+		if(img_photo.style.display==""){
+			if(photo_large.sup_id==img_photo.sup_id){
+				display_photo_large(true)
+			}else{
+				photo_large.sup_id=img_photo.sup_id;
+				photo_large.src=img_photo.src_small;
+			}
+		}else{
+			display_photo_large(false);
+		}
 	}
 	d_poly_du_sup=[];
 	for (var i=0; i<polylinesA.length; i++){
@@ -750,12 +776,14 @@ function build_detail(){
 	}
 	d_div.no_sup=s_result.no_sup;
 	d_div_link_to_sup.value="https://carte-fh.lafibre.info/index.php?no_sup_init="+s_result.no_sup;
-	if(img_photo.url_cat){
-		d_div_link_galerie.style.display="";
-		d_div_link_galerie.href=img_photo.url_cat;
-		d_div_link_galerie_2.href=img_photo.url_cat;
-	}else{
-		d_div_link_galerie.style.display="none";
+	if(!isopen){
+		if(img_photo.url_cat){
+			d_div_link_galerie.style.display="";
+			d_div_link_galerie.href=img_photo.url_cat;
+			d_div_link_galerie_2.href=img_photo.url_cat;
+		}else{
+			d_div_link_galerie.style.display="none";
+		}
 	}
 	d_div_link_cartoradio.href="http://www.cartoradio.fr/cartoradio/web/#bbox/"+s_result.coords[1]+"/"+s_result.coords[0]+"/"+s_result.coords[1]+"/"+s_result.coords[0];
 	d_div_link_gmaps.href="https://www.google.com/maps/@"+s_result.coords[0]+","+s_result.coords[1]+",17z";
