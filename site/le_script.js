@@ -113,6 +113,10 @@ map = L.map( 'map_canvas', {
 	keyboard: false,
 	noWrap: true
 });
+polylinesPane = map.createPane('polylinesPane');
+polylinesPane.style.zIndex=201;
+markersPane = map.createPane('markersPane');
+markersPane.style.zIndex=202;
 L.control.scale().addTo(map);
 L.control.zoom({position:"bottomleft"}).addTo(map);
 new L.Control.OSMGeocoder({
@@ -192,7 +196,7 @@ function redraw(index_hist){
 	if (document.getElementById("check_supports").checked==true){
 		for(var property in l_result.supports){
 			if(l_result.supports.hasOwnProperty(property)){
-				var le_mark = L.circleMarker(l_result.supports[property].coords);
+				var le_mark = L.circleMarker(l_result.supports[property].coords,{pane:'markersPane'});
 				le_mark["dat"]=l_result.supports[property]
 				le_mark.dat["no_sup"]=property.substring(1);
 				le_mark.on("popupclose", function(e){setTimeout(function(){close_popup_mark(e)},210);});
@@ -233,7 +237,7 @@ function redraw(index_hist){
 	}
 	for (var code_lien in l_result.liens){
 		if(l_result.liens.hasOwnProperty(code_lien)){
-			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[l_result.liens[code_lien].ope].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat]});
+			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[l_result.liens[code_lien].ope].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat], pane:'polylinesPane'});
 			la_poly["dat"]=l_result.liens[code_lien];
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
@@ -294,7 +298,6 @@ function redraw(index_hist){
 		}
 	}
 	L.layerGroup(poly_aff).addTo(map);
-	polylinesA.map(function(poly){poly.bringToBack()});
 	
 	for (var i=marksA.length-1; i>=0; i--){
 		if(marksA[i].getPopup()!= undefined){
