@@ -71,13 +71,13 @@ if(isset($_GET["zone"])){
 			<div class="box" id="b_recherche">
 				<table class="tab_col">
 					<tr class="clickable" onclick="toggle_search()">
-						<td class="ligne_plus">Recherche par n°</td>
+						<td class="ligne_plus">Recherche</td>
 						<td class="toggle" id="toggle_search">+</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="tab_search">
 					<tr>
-						<td class="ligne_simple">Support:</td>
+						<td class="ligne_simple">Par n° de support:</td>
 					</tr>
 					<tr>
 						<td><input type="text" class="champ_recherche" id="no_sup_rech" onkeydown="if(event.keyCode==13){recherche_sup();}"></td>
@@ -115,15 +115,16 @@ if(isset($_GET["zone"])){
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="shortcut_bandes">
-					<tr>
-						<td colspan="2" class="ligne_plus">Bandes de fréquences:</td>
+					<tr class="clickable" onclick="toggle_filtres_bandes()">
+						<td class="ligne_plus">Bandes de fréquences</td>
+						<td class="toggle" id="toggle_filtres_bandes">+</td>
 					</tr>
+				</table>
+				<table class="tab_col tab_cache_2" id="tab_bandes">
 					<tr>
 						<td class="ligne_plus"><input type="button" id="check_all_bandes" value="Toutes" onclick="check_all_bandes()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_bande" value="Aucune" onclick="check_no_bande()"></td>
 					</tr>
-				</table>
-				<table class="tab_col tab_cache" id="tab_bandes">
 					<tr>
 						<td><input type="checkbox" id="check_bande_0" onclick="ajax()" checked></td>
 						<td>Autres</td>
@@ -189,6 +190,286 @@ if(isset($_GET["zone"])){
 						<td>70/80 GHz</td>
 					</tr>
 				</table>
+				<table class="tab_col tab_cache" id="shortcut_prop_sup">
+					<tr class="clickable" onclick="toggle_filtres_prop_sup()">
+						<td class="ligne_plus">Propriétaires des supports</td>
+						<td class="toggle" id="toggle_filtres_prop_sup">+</td>
+					</tr>
+				</table>
+				<table class="tab_col tab_cache_2" id="tab_prop_sup">
+					<tr>
+						<td class="ligne_plus"><input type="button" id="check_all_prop_sup" value="Tous" onclick="check_all_prop_sup()"></td>
+						<td class="ligne_plus"><input type="button" id="check_no_prop_sup" value="Aucun" onclick="check_no_prop_sup()"></td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_0" onclick="ajax()" checked></td>
+						<td>Inconnu</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_1" onclick="ajax()" checked></td>
+						<td>ANFR</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_2" onclick="ajax()" checked></td>
+						<td>Association</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_3" onclick="ajax()" checked></td>
+						<td>Aviation Civile</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_4" onclick="ajax()" checked></td>
+						<td>BOUYGUES</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_5" onclick="ajax()" checked></td>
+						<td>CCI, Ch Metiers, Port Aut, Aérop</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_6" onclick="ajax()" checked></td>
+						<td>Conseil Général</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_7" onclick="ajax()" checked></td>
+						<td>Conseil Régional</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_8" onclick="ajax()" checked></td>
+						<td>Coopérative Agricole, Vinicole</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_9" onclick="ajax()" checked></td>
+						<td>Copropriété, Syndic, SCI</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_10" onclick="ajax()" checked></td>
+						<td>CROSS</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_11" onclick="ajax()" checked></td>
+						<td>DDE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_12" onclick="ajax()" checked></td>
+						<td>Autres</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_13" onclick="ajax()" checked></td>
+						<td>EDF GDF</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_14" onclick="ajax()" checked></td>
+						<td>Etablissement de soins</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_15" onclick="ajax()" checked></td>
+						<td>Etat, Ministère</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_16" onclick="ajax()" checked></td>
+						<td>ORANGE Services Fixes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_17" onclick="ajax()" checked></td>
+						<td>Syndicat des eaux, Adduction</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_18" onclick="ajax()" checked></td>
+						<td>Intérieur</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_19" onclick="ajax()" checked></td>
+						<td>La Poste</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_20" onclick="ajax()" checked></td>
+						<td>Météo</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_21" onclick="ajax()" checked></td>
+						<td>ORANGE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_22" onclick="ajax()" checked></td>
+						<td>Particulier</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_23" onclick="ajax()" checked></td>
+						<td>Phares et balises</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_24" onclick="ajax()" checked></td>
+						<td>SNCF Réseau</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_25" onclick="ajax()" checked></td>
+						<td>RTE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_26" onclick="ajax()" checked></td>
+						<td>SDIS, secours, incendie</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_27" onclick="ajax()" checked></td>
+						<td>SFR</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_28" onclick="ajax()" checked></td>
+						<td>Société HLM</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_29" onclick="ajax()" checked></td>
+						<td>Société Privée SA</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_30" onclick="ajax()" checked></td>
+						<td>Sociétés d'Autoroutes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_31" onclick="ajax()" checked></td>
+						<td>Sté Réunionn. de Radiotéléph.</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_32" onclick="ajax()" checked></td>
+						<td>TDF</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_33" onclick="ajax()" checked></td>
+						<td>Towercast</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_34" onclick="ajax()" checked></td>
+						<td>Commune, communauté de commune</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_35" onclick="ajax()" checked></td>
+						<td>Voies navigables de France</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_36" onclick="ajax()" checked></td>
+						<td>Altitude Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_37" onclick="ajax()" checked></td>
+						<td>Antalis</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_38" onclick="ajax()" checked></td>
+						<td>One Cast</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_39" onclick="ajax()" checked></td>
+						<td>Gendarmerie</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_40" onclick="ajax()" checked></td>
+						<td>Tikiphone</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_41" onclick="ajax()" checked></td>
+						<td>France Caraibes Mobiles</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_42" onclick="ajax()" checked></td>
+						<td>IFW-FREE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_43" onclick="ajax()" checked></td>
+						<td>Lagardère Active Média</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_44" onclick="ajax()" checked></td>
+						<td>Outremer Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_45" onclick="ajax()" checked></td>
+						<td>RATP</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_46" onclick="ajax()" checked></td>
+						<td>Titulaire programme Radio/TV</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_47" onclick="ajax()" checked></td>
+						<td>Office des Postes et Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_48" onclick="ajax()" checked></td>
+						<td>9 CEGETEL</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_49" onclick="ajax()" checked></td>
+						<td>BOLLORE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_50" onclick="ajax()" checked></td>
+						<td>COMPLETEL</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_51" onclick="ajax()" checked></td>
+						<td>DIGICEL</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_52" onclick="ajax()" checked></td>
+						<td>EUTELSAT</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_53" onclick="ajax()" checked></td>
+						<td>EXPERTMEDIA</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_54" onclick="ajax()" checked></td>
+						<td>MEDIASERV</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_55" onclick="ajax()" checked></td>
+						<td>BELGACOM</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_56" onclick="ajax()" checked></td>
+						<td>AIRBUS</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_57" onclick="ajax()" checked></td>
+						<td>GUYANE NUMERIQUE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_58" onclick="ajax()" checked></td>
+						<td>DAUPHIN TELECOM</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_59" onclick="ajax()" checked></td>
+						<td>Itas Tim</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_60" onclick="ajax()" checked></td>
+						<td>REUNION NUMERIQUE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_61" onclick="ajax()" checked></td>
+						<td>GLOBECAST</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_62" onclick="ajax()" checked></td>
+						<td>SNCF</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_63" onclick="ajax()" checked></td>
+						<td>VITI</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_64" onclick="ajax()" checked></td>
+						<td>Pacific Mobile Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_65" onclick="ajax()" checked></td>
+						<td>FPS TOWERS</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_66" onclick="ajax()" checked></td>
+						<td>Telco OI</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div id="controle_left"> 
@@ -245,7 +526,7 @@ if(isset($_GET["zone"])){
 						<td class="ligne_plus"><input type="button" id="check_no_autre_op" value="Aucun" onclick="check_no_autre_op()"></td>
 					</tr>
 				</table>
-				<table class="tab_col_sub tab_cache" id="tab_autres_ope"></table>
+				<table class="tab_col tab_cache" id="tab_autres_ope"></table>
 			</div> 
 		</div>
 		<div id="credits" onclick="affichage_credits();">

@@ -55,7 +55,7 @@ body {
 }
 .box{
 	border:solid 1px black;
-	background-color:lightgray;
+	background-color:#C7C7C7;
 	padding:1px;
 	margin:3px 6px;
 	pointer-events:all;
@@ -104,13 +104,13 @@ body {
 	width:100%;
 	border-collapse:collapse;
 }
-.tab_col_sub{
-	width:90%;
-	border-collapse:collapse;
-	margin-left:auto;
-}
 .tab_cache{
 	display:none;
+	background-color:#DFDFDF;
+}
+.tab_cache_2{
+	display:none;
+	background-color:#EFEFEF;
 }
 .check_cell{
 	width:1px;
