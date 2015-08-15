@@ -37,6 +37,17 @@ couleur_main_ope[70]=liste_col[2];
 couleur_main_ope[84]=liste_col[1];
 couleur_main_ope[86]=liste_col[6]
 
+couleur_proprio=[];
+couleur_proprio[4]=liste_col[3];
+couleur_proprio[16]=liste_col[1];
+couleur_proprio[21]=liste_col[1];
+couleur_proprio[27]=liste_col[2];
+couleur_proprio[31]=liste_col[2];
+couleur_proprio[42]=liste_col[4];
+couleur_proprio[44]=liste_col[6];
+couleur_proprio[51]=liste_col[7];
+couleur_proprio[66]=liste_col[6];
+
 liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:[1,2,3,4], other:[5,6,7,8,9,10,11,12,13,24,16,26,33,39,40,41,42,44,45,46,47,60,65,85,48,49,50,51,52,
 55,58,64,14,66,17,56,15,53,29,54,27,59,18,28,63,21,19,43,30,22,25,61,31,62,32,23,34,35,36,20,37,57,38]}
@@ -59,6 +70,15 @@ for(i=0;i<nom_ope.length+1;i++){
 		couleur_ope=liste_col[5];
 	}
 	liste_ope[i]={name:nom_ope[i], name_leg:nom_ope_leg[i], color:couleur_ope};
+}
+
+liste_proprio=[]
+for(i=0;i<67;i++){
+	if(i in couleur_proprio){
+		liste_proprio[i]={color:couleur_proprio[i]};
+	}else{
+		liste_proprio[i]={color:liste_col[0]};
+	}
 }
 
 function build_interface(fit,zone,select_ope){

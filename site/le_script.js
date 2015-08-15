@@ -214,7 +214,7 @@ function redraw(index_hist){
 		}
 		for (var i=marksA.length-1; i>=0; i--){
 			marksA[i].setRadius(t_a*marksA[i].dat.nb_ant+t_b);
-			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:liste_ope[marksA[i].dat.prop].color, fillOpacity:"1"})
+			marksA[i].setStyle({color:"#000000", weight:"1", opacity:"1", fillColor:liste_proprio[marksA[i].dat.prop].color, fillOpacity:"1"})
 		}
 	}
 	L.layerGroup(mark_aff).addTo(map);
