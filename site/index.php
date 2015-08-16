@@ -117,10 +117,6 @@ if(isset($_GET["zone"])){
 						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" checked></td>
 						<td>Supports sans photo</td>
 					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
-						<td>Supports</td>
-					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="shortcut_bandes">
 					<tr class="clickable" onclick="toggle_filtres_bandes()">
@@ -504,6 +500,10 @@ if(isset($_GET["zone"])){
 					<tr>
 						<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_0" onclick="shure_all()"></td>
 						<td>Pas de limite</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
+						<td>Supports</td>
 					</tr>
 				</table>
 				<table class="tab_col">
