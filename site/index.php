@@ -4,6 +4,18 @@ if(isset($_GET["zone"])){
 }else{
 	$zone="fr_metro";
 }
+if(isset($_GET["photo"])){
+	if($_GET["photo"]=="0"){
+		$avec_photo="";
+		$sans_photo="checked";
+	}else{
+		$avec_photo="checked";
+		$sans_photo="";
+	}
+}else{
+	$avec_photo="checked";
+	$sans_photo="checked";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -110,11 +122,11 @@ if(isset($_GET["zone"])){
 						<td>Liens non r&eacute;solus</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_avec_photo" onclick="ajax()" checked></td>
+						<td><input type="checkbox" id="check_avec_photo" onclick="ajax()" <?php echo $avec_photo ?>></td>
 						<td>Supports avec photo</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" checked></td>
+						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" <?php echo $sans_photo ?>></td>
 						<td>Supports sans photo</td>
 					</tr>
 				</table>
