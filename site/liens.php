@@ -11,9 +11,44 @@ $final_links = array();
 $all_sup = array();
 $nb_ant_sup = array();
 $final_result = new StdClass();
+$cache_file = 'cache/cache_cat_piwigo.txt';
 
 if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 
+	if(isset($_GET["avec_photo"]) && isset($_GET["sans_photo"])){
+		if($_GET["avec_photo"] * $_GET["sans_photo"] == 0){
+			$skip_photo=false;
+			$sans_photo=($_GET["sans_photo"]==1);
+			$avec_photo=($_GET["avec_photo"]==1);
+			
+			if(file_exists($cache_file) && (filemtime($cache_file) > (time() - 60 * 5 ))) {
+				$return = file_get_contents($cache_file);
+			} else {
+				$curl=curl_init();
+				curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/galerie_photo/ws.php?format=json&method=pwg.categories.getList&recursive=true');
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+				$return = curl_exec($curl);
+				curl_close($curl);
+				file_put_contents($cache_file, $return, LOCK_EX);
+			}
+
+			$obj_return = json_decode($return);
+			$cats=$obj_return->result->categories;
+			$liste_no_sup_photo=array();
+			foreach($cats as $key => $cat){
+				$no_sup=explode(' - ',$cat->name);
+				if(is_numeric($no_sup[1])){
+					array_push($liste_no_sup_photo,$no_sup[1]);
+				}
+			}
+		}else{
+			$skip_photo=true;
+		}
+	}else{
+		$skip_photo=true;
+	}
+	
 	$nom_tile=get_nom_tile($_GET['west'],$_GET['east'],$_GET['north'],$_GET['south']);
 	$op_liste=explode('|',$_GET['op_liste']);
 	$prop_liste=explode('|',$_GET['prop_liste']);
@@ -37,20 +72,16 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 									$tab_nos_sup=explode(',',$les_champs[9]);
 									$tab_prop_sup=explode(',',trim($les_champs[11]));
 									for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-										
-										if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
-											
-											//echo $tab_prop_sup[$i_sup];
-											
-											$code_sup='s'.$tab_nos_sup[$i_sup];
-											if(isset($all_sup[$code_sup])){
-												$all_sup[$code_sup] += 1;
-											}else{
-												$all_sup[$code_sup] = 1;
+										if($skip_photo || ($sans_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
+											if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
+												$code_sup='s'.$tab_nos_sup[$i_sup];
+												if(isset($all_sup[$code_sup])){
+													$all_sup[$code_sup] += 1;
+												}else{
+													$all_sup[$code_sup] = 1;
+												}
 											}
-										
 										}
-										
 									}
 								}
 							}

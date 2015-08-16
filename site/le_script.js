@@ -16,6 +16,7 @@ var popup_to_draw;
 var pwg_img_cat;
 var pwg_img_tag;
 //base_url="http://192.168.7.1:5723/";
+//base_url="http://192.168.7.1:81/";
 base_url="https://carte-fh.lafibre.info/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
@@ -404,6 +405,16 @@ function ajax(){
 			prop_liste.push(i);
 		}
 	}
+	if(document.getElementById("check_avec_photo").checked==true){
+		avec_photo=1;
+	}else{
+		avec_photo=0;
+	}
+	if(document.getElementById("check_sans_photo").checked==true){
+		sans_photo=1;
+	}else{
+		sans_photo=0;
+	}
 	if(document.getElementById("limit_600").checked==true){
 		nb_limit=600
 	}else if(document.getElementById("limit_300").checked==true){
@@ -417,7 +428,7 @@ function ajax(){
 	if (document.getElementById('check_couples').checked==true){status+=1;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&status=" + status + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
 	//console.log(url);
 	return url;
  }

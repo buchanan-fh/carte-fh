@@ -110,6 +110,14 @@ if(isset($_GET["zone"])){
 						<td>Liens non r&eacute;solus</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_avec_photo" onclick="ajax()" checked></td>
+						<td>Supports avec photo</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" checked></td>
+						<td>Supports sans photo</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_supports" onclick="redraw()" checked></td>
 						<td>Supports</td>
 					</tr>
