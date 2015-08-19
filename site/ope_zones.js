@@ -1,6 +1,44 @@
 liste_col=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933','#E11C78','#ED3529'];
 current_zone="";
 
+nature_support=[];
+nature_support["0"]="Sans nature";
+nature_support["40"]="Sémaphore";
+nature_support["41"]="Phare";
+nature_support["4"]="Château d'eau - réservoir";
+nature_support["38"]="Immeuble";
+nature_support["39"]="Local technique";
+nature_support["42"]="Mât";
+nature_support["8"]="Intérieur galerie";
+nature_support["9"]="Intérieur sous-terrain";
+nature_support["10"]="Tunnel";
+nature_support["11"]="Mât béton";
+nature_support["12"]="Mât métallique";
+nature_support["21"]="Pylône";
+nature_support["17"]="Bâtiment";
+nature_support["19"]="Monument historique";
+nature_support["20"]="Monument religieux";
+nature_support["22"]="Pylône autoportant";
+nature_support["23"]="Pylône autostable";
+nature_support["24"]="Pylône haubané";
+nature_support["25"]="Pylône treillis";
+nature_support["26"]="Ptlône tubulaire";
+nature_support["31"]="Silo";
+nature_support["32"]="ouvrage d'art (pont, viaduc)";
+nature_support["33"]="Tour hertzienne";
+nature_support["34"]="Dalle en béton";
+nature_support["999999999"]="Support on décrit";
+nature_support["43"]="Fût";
+nature_support["44"]="Tour de contrôle";
+nature_support["45"]="Contre-poids au sol";
+nature_support["46"]="Contre-poids sur shelter";
+nature_support["47"]="Support DEFENSE";
+nature_support["48"]="pylône arbre";
+nature_support["49"]="Ouvrage de signalisation (portique routier, panneau routier, panneau publicitaire)";
+nature_support["50"]="balise ou bouée";
+nature_support["51"]="XXX";
+nature_support["52"]="Eolienne";
+
 nom_ope=["","Orange","SFR","Bouygues Telecom","Free","TDF","Towercast","Sté de Transport audiovisuel",
 "EDF","RTE","SNCF Réseau","Direction Des Routes","SANEF","CEREMA","Réseau privé","Axione Limousin",
 "IMTS","Altitude Infra.","17 Numérique","Axione","SARTEL","Eurek@","Medialys","NiverTel","Completel","SDNum","R'LAN",

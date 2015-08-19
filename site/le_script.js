@@ -522,7 +522,7 @@ function build_popup_mark_s_2(marker,isopen){
 			marker.attached_links.push(polylinesA[i]);
 		}
 	}
-	la_div_titre.innerHTML=s_result.type;
+	la_div_titre.innerHTML=nature_support[s_result.type];
 	la_div_adresse.innerHTML=s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune;
 	la_div_no_support.innerHTML=s_result.nom_prop + " ("+ s_result.no_sup + ")";
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
