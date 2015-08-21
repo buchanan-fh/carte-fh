@@ -51,11 +51,25 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 	
 	$nom_tile=get_nom_tile($_GET['west'],$_GET['east'],$_GET['north'],$_GET['south']);
 	$op_liste=explode('|',$_GET['op_liste']);
-	$prop_liste=explode('|',$_GET['prop_liste']);
-	if(count($prop_liste)==67){
-		$skip_prop_sup=true;
+	if(isset($_GET['prop_liste'])){
+		$prop_liste=explode('|',$_GET['prop_liste']);
+		if(count($prop_liste)==67){
+			$skip_prop_sup=true;
+		}else{
+			$skip_prop_sup=false;
+		}
 	}else{
-		$skip_prop_sup=false;
+		$skip_prop_sup=true;
+	}
+	if(isset($_GET['nat_liste'])){
+		$nat_liste=explode('|',$_GET['nat_liste']);
+		if(count($nat_liste)==36){
+			$skip_nat_sup=true;
+		}else{
+			$skip_nat_sup=false;
+		}
+	}else{
+		$skip_nat_sup=true;
 	}
 	
 	for($i_ope=1;$i_ope<=$nb_ope;++$i_ope){
@@ -70,15 +84,18 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 							if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
 								if((int)$les_champs[6] & (int)$_GET['bande_code']){
 									$tab_nos_sup=explode(',',$les_champs[9]);
-									$tab_prop_sup=explode(',',trim($les_champs[11]));
+									$tab_prop_sup=explode(',',$les_champs[11]);
+									$tab_nat_sup=explode(',',trim($les_champs[12]));
 									for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
 										if($skip_photo || ($sans_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
 											if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
-												$code_sup='s'.$tab_nos_sup[$i_sup];
-												if(isset($all_sup[$code_sup])){
-													$all_sup[$code_sup] += 1;
-												}else{
-													$all_sup[$code_sup] = 1;
+												if($skip_nat_sup || in_array($tab_nat_sup[$i_sup],$nat_liste)){
+													$code_sup='s'.$tab_nos_sup[$i_sup];
+													if(isset($all_sup[$code_sup])){
+														$all_sup[$code_sup] += 1;
+													}else{
+														$all_sup[$code_sup] = 1;
+													}
 												}
 											}
 										}

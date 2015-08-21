@@ -217,6 +217,8 @@ if(isset($_GET["photo"])){
 						<td class="ligne_plus"><input type="button" id="check_all_prop_sup" value="Tous" onclick="check_all_prop_sup()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_prop_sup" value="Aucun" onclick="check_no_prop_sup()"></td>
 					</tr>
+				</table>
+				<table class="tab_col tab_cache_2" id="tab_prop_sup2">
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_0" onclick="ajax()" checked></td>
 						<td>Inconnu</td>
@@ -484,6 +486,164 @@ if(isset($_GET["photo"])){
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_66" onclick="ajax()" checked></td>
 						<td>Telco OI</td>
+					</tr>
+				</table>
+				<table class="tab_col tab_cache" id="shortcut_nat_sup">
+					<tr class="clickable" onclick="toggle_filtres_nat_sup()">
+						<td class="ligne_plus">Nature des supports</td>
+						<td class="toggle" id="toggle_filtres_nat_sup">+</td>
+					</tr>
+				</table>
+				<table class="tab_col tab_cache_2" id="tab_nat_sup">
+					<tr>
+						<td class="ligne_plus"><input type="button" id="check_all_nat_sup" value="Toutes" onclick="check_all_nat_sup()"></td>
+						<td class="ligne_plus"><input type="button" id="check_no_nat_sup" value="Aucune" onclick="check_no_nat_sup()"></td>
+					</tr>
+				</table>
+				<table class="tab_col tab_cache_2" id="tab_nat_sup2">
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_0" onclick="ajax()" checked></td>
+						<td>Sans nature</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_4" onclick="ajax()" checked></td>
+						<td>Château d'eau - réservoir</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_8" onclick="ajax()" checked></td>
+						<td>Intérieur galerie</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_9" onclick="ajax()" checked></td>
+						<td>Intérieur sous-terrain</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_10" onclick="ajax()" checked></td>
+						<td>Tunnel</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_11" onclick="ajax()" checked></td>
+						<td>Mât béton</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_12" onclick="ajax()" checked></td>
+						<td>Mât métallique</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_17" onclick="ajax()" checked></td>
+						<td>Bâtiment</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_19" onclick="ajax()" checked></td>
+						<td>Monument historique</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_20" onclick="ajax()" checked></td>
+						<td>Monument religieux</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_21" onclick="ajax()" checked></td>
+						<td>Pylône</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_22" onclick="ajax()" checked></td>
+						<td>Pylône autoportant</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_23" onclick="ajax()" checked></td>
+						<td>Pylône autostable</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_24" onclick="ajax()" checked></td>
+						<td>Pylône haubané</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_25" onclick="ajax()" checked></td>
+						<td>Pylône treillis</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_26" onclick="ajax()" checked></td>
+						<td>Pylône tubulaire</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_31" onclick="ajax()" checked></td>
+						<td>Silo</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_32" onclick="ajax()" checked></td>
+						<td>ouvrage d'art (pont, viaduc)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_33" onclick="ajax()" checked></td>
+						<td>Tour hertzienne</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_34" onclick="ajax()" checked></td>
+						<td>Dalle en béton</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_38" onclick="ajax()" checked></td>
+						<td>Immeuble</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_39" onclick="ajax()" checked></td>
+						<td>Local technique</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_40" onclick="ajax()" checked></td>
+						<td>Sémaphore</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_41" onclick="ajax()" checked></td>
+						<td>Phare</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_42" onclick="ajax()" checked></td>
+						<td>Mât</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_43" onclick="ajax()" checked></td>
+						<td>Fût</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_44" onclick="ajax()" checked></td>
+						<td>Tour de contrôle</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_45" onclick="ajax()" checked></td>
+						<td>Contre-poids au sol</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_46" onclick="ajax()" checked></td>
+						<td>Contre-poids sur shelter</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_47" onclick="ajax()" checked></td>
+						<td>Support DEFENSE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_48" onclick="ajax()" checked></td>
+						<td>pylône arbre</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_49" onclick="ajax()" checked></td>
+						<td>Ouvrage de signalisation (portique routier, panneau routier, panneau publicitaire)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_50" onclick="ajax()" checked></td>
+						<td>balise ou bouée</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_51" onclick="ajax()" checked></td>
+						<td>XXX</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_52" onclick="ajax()" checked></td>
+						<td>Eolienne</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_999999999" onclick="ajax()" checked></td>
+						<td>Support non décrit</td>
 					</tr>
 				</table>
 			</div>

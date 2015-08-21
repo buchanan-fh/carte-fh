@@ -382,6 +382,7 @@ function ajax(){
  function build_url_liens(){
 	var op_liste=[];
 	var prop_liste=[];
+	var nat_liste=[];
 	var bande_code=0;
 	var status=0;
 	var nb_limit=150;
@@ -403,6 +404,11 @@ function ajax(){
 	for(var i=0; i<67; i++){
 		if (document.getElementById("check_prop_sup_" + i).checked==true){
 			prop_liste.push(i);
+		}
+	}
+	for(var i in nature_support){
+		if (document.getElementById("check_nat_sup_" + i).checked==true){
+			nat_liste.push(i);
 		}
 	}
 	if(document.getElementById("check_avec_photo").checked==true){
@@ -428,7 +434,7 @@ function ajax(){
 	if (document.getElementById('check_couples').checked==true){status+=1;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&nat_liste=" + nat_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
 	//console.log(url);
 	return url;
  }
@@ -981,6 +987,18 @@ function check_no_prop_sup(){
 	}
 	ajax()
 }
+function check_all_nat_sup(){
+	for(var i in nature_support){
+		document.getElementById("check_nat_sup_" + i).checked=true;
+	}
+	ajax()
+}
+function check_no_nat_sup(){
+	for(var i in nature_support){
+		document.getElementById("check_nat_sup_" + i).checked=false;
+	}
+	ajax()
+}
 function check_all_autres_op(){
 	for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
 		document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked=true;
@@ -1081,14 +1099,20 @@ function toggle_filtres(){
 		document.getElementById("tab_bandes").style.display="none";
 		document.getElementById("toggle_filtres_bandes").innerHTML="+"
 		document.getElementById("tab_prop_sup").style.display="none";
+		document.getElementById("tab_prop_sup2").style.display="none";
 		document.getElementById("toggle_filtres_prop_sup").innerHTML="+"
+		document.getElementById("tab_nat_sup").style.display="none";
+		document.getElementById("tab_nat_sup2").style.display="none";
+		document.getElementById("toggle_filtres_nat_sup").innerHTML="+"
 		document.getElementById("shortcut_bandes").style.display="none";
 		document.getElementById("shortcut_prop_sup").style.display="none";
+		document.getElementById("shortcut_nat_sup").style.display="none";
 		document.getElementById("tab_status").style.display="none";
 		document.getElementById("toggle_filtres").innerHTML="+"
 	}else{
 		document.getElementById("shortcut_bandes").style.display="table";
 		document.getElementById("shortcut_prop_sup").style.display="table";
+		document.getElementById("shortcut_nat_sup").style.display="table";
 		document.getElementById("tab_status").style.display="table";
 		document.getElementById("toggle_filtres").innerHTML="-"
 	}
@@ -1105,10 +1129,23 @@ function toggle_filtres_bandes(){
 function toggle_filtres_prop_sup(){
 	if(document.getElementById("tab_prop_sup").style.display=="table"){
 		document.getElementById("tab_prop_sup").style.display="none";
+		document.getElementById("tab_prop_sup2").style.display="none";
 		document.getElementById("toggle_filtres_prop_sup").innerHTML="+"
 	}else{
 		document.getElementById("tab_prop_sup").style.display="table";
+		document.getElementById("tab_prop_sup2").style.display="table";
 		document.getElementById("toggle_filtres_prop_sup").innerHTML="-"
+	}
+}
+function toggle_filtres_nat_sup(){
+	if(document.getElementById("tab_nat_sup").style.display=="table"){
+		document.getElementById("tab_nat_sup").style.display="none";
+		document.getElementById("tab_nat_sup2").style.display="none";
+		document.getElementById("toggle_filtres_nat_sup").innerHTML="+"
+	}else{
+		document.getElementById("tab_nat_sup").style.display="table";
+		document.getElementById("tab_nat_sup2").style.display="table";
+		document.getElementById("toggle_filtres_nat_sup").innerHTML="-"
 	}
 }
 function toggle_lim_aff(){
