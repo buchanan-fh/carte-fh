@@ -488,10 +488,13 @@ function build_popup_link(event){
 	}
 	if (event.target.dat.stat & 2){
 		texte_syst_bande += ", non résolu";
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "</div>";
+	}else{
+		var poly_points=event.target.getLatLngs();
+		var dist=String((poly_points[0].distanceTo(poly_points[1])/1000).toFixed(1)).replace(".",",");
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + dist + "  km</div>";
 	}
-	var poly_points=event.target.getLatLngs();
-	var dist=String((poly_points[0].distanceTo(poly_points[1])/1000).toFixed(1)).replace(".",",");
-	var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + dist + "  km</div>";
+
 	event.target.bindPopup(le_texte_popup,{autoPan:false});
 	event.target.openPopup(event.latlng);
 }
