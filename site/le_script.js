@@ -148,13 +148,13 @@ oms.addListener('click', function(marker){
 document.getElementById("date_select").innerHTML = "08/2015";
 
 map.on('zoomend', function() {
-		if (map.getZoom()<=9) {
-			epaisseur=1;
-		} else if (map.getZoom()<=11) {
-			epaisseur=1.25;
-		} else {
-			epaisseur=1.5;
-		}
+	if (map.getZoom()<=9) {
+		epaisseur=1;
+	} else if (map.getZoom()<=11) {
+		epaisseur=1.25;
+	} else {
+		epaisseur=1.5;
+	}
 });
 map.on('moveend', function() {
 	auto_build_interface(map.getBounds());
