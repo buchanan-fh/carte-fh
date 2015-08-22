@@ -76,7 +76,7 @@ body {
 	border:solid 1px black;
 	background-color:white;
 	padding:5px;
-	display:none;
+	display:block;
 	font-family:arial;
 	font-size:15px;
 }

@@ -12,6 +12,8 @@ hist_result=[];
 hist_url=[];
 ind_req=0;
 current_lim=300;
+t_init=new Date().getTime();
+first_announce=true;
 var popup_to_draw;
 var pwg_img_cat;
 var pwg_img_tag;
@@ -159,6 +161,13 @@ map.on('zoomend', function() {
 map.on('moveend', function() {
 	auto_build_interface(map.getBounds());
 	ajax();
+	if(first_announce){
+		t_current=new Date().getTime();
+		if(t_current-t_init>2000){
+			first_announce=false;
+			document.getElementById('credits').style.display='none'
+		}
+	}
 });
 
 function redraw(index_hist){
