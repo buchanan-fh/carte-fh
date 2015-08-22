@@ -4,7 +4,21 @@ header('Content-Type: application/json');
 
 $obj_sup = new StdClass();
 $flag_trouve_sup=false;
-if(file_exists($_GET["date"]."/supports.json")){
+date_default_timezone_set('Europe/Paris');
+
+if(!isset($_GET["date"])){
+	$date_c=date("Y").date("m");
+	$date_c_1=date("Y",time()-30*24*3600).date("m",time()-30*24*3600);
+	if(file_exists($date_c."/supports.json")){
+		$_GET["date"]=$date_c;
+	}elseif(file_exists($date_c_1."/supports.json")){
+		$_GET["date"]=$date_c_1;
+	}else{
+		$_GET["date"]="201508";
+	}
+}
+
+if(isset($_GET["no_sup"]) && file_exists($_GET["date"]."/supports.json")){
 	$le_fichier_sup=fopen($_GET["date"]."/supports.json","r");
 	while(!$flag_trouve_sup && !feof($le_fichier_sup)){
 		$la_ligne=stream_get_line($le_fichier_sup,10000,"\r\n");
@@ -36,8 +50,8 @@ if($flag_trouve_sup==true){
 }
 
 $obj_sup->antennes=array();
-$op_liste=explode("|",$_GET["op_liste"]);
-if($_GET["liste_ant"]=="1"){
+if(isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1"){
+	$op_liste=explode("|",$_GET["op_liste"]);
 	if(file_exists($_GET["date"]."/antennes.json")){
 		$le_fichier_ant=fopen($_GET["date"]."/antennes.json","r");
 		while(!feof($le_fichier_ant)){
