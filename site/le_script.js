@@ -5,7 +5,7 @@ nom_syst=["FH","FH ABI","BLR 3 GHz"];
 epaisseur=1;
 fact_epaisseur=1;
 dash_stat={};
-dash_stat["5"]=[1,0];dash_stat["6"]=[1,3];dash_stat["9"]=[4,6];dash_stat["10"]=[1,3];
+dash_stat["5"]=[1,0];dash_stat["6"]=[1,3];dash_stat["9"]=[6,5];dash_stat["10"]=[1,3];
 polylinesA=[];
 marksA=[];
 hist_result=[];
@@ -234,6 +234,9 @@ function redraw(index_hist){
 		var flag_keep=false;
 		if(polylinesA[i].dat.code_lien in l_result.liens){
 			polylinesA[i].setStyle({dashArray: dash_stat[l_result.liens[polylinesA[i].dat.code_lien].stat]});
+			code_lien_tmp=polylinesA[i].dat.code_lien;
+			polylinesA[i].dat=l_result.liens[code_lien_tmp];
+			polylinesA[i].dat.code_lien=code_lien_tmp;
 			delete l_result.liens[polylinesA[i].dat.code_lien]
 			if(polylinesA[i].getPopup()==undefined){
 				polylinesA[i].setStyle({weight: fact_epaisseur*epaisseur});
@@ -247,7 +250,7 @@ function redraw(index_hist){
 	}
 	for (var code_lien in l_result.liens){
 		if(l_result.liens.hasOwnProperty(code_lien)){
-			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[l_result.liens[code_lien].ope].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat], pane:'polylinesPane'});
+			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[tab_ope_ID[l_result.liens[code_lien].ope]].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat], pane:'polylinesPane'});
 			la_poly["dat"]=l_result.liens[code_lien];
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
@@ -397,13 +400,13 @@ function ajax(){
 	var nb_limit=150;
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
 		if(document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked==true){
-			op_liste.push(liste_ope_zones[current_zone].main[i]);
+			op_liste=op_liste.concat(liste_ope[liste_ope_zones[current_zone].main[i]].no_expl);
 		}
 	}
 	if (document.getElementById("check_op_autres").checked==true){
 		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
 			if(document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked==true){
-				op_liste.push(liste_ope_zones[current_zone].other[i]);
+				op_liste=op_liste.concat(liste_ope[liste_ope_zones[current_zone].other[i]].no_expl);
 			}
 		}
 	}
@@ -453,11 +456,15 @@ function build_url_support(no_sup,liste_ant){
 	var bande_code=0;
 	var status=0;
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
-		if(document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].main[i]);}
+		if(document.getElementById("check_op_" + liste_ope_zones[current_zone].main[i]).checked==true){
+			op_liste=op_liste.concat(liste_ope[liste_ope_zones[current_zone].main[i]].no_expl);
+		}
 	}
 	if (document.getElementById("check_op_autres").checked==true){
 		for(i=0;i<liste_ope_zones[current_zone].other.length;++i){
-			if(document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked==true){op_liste.push(liste_ope_zones[current_zone].other[i]);}
+			if(document.getElementById("check_op_" + liste_ope_zones[current_zone].other[i]).checked==true){
+				op_liste=op_liste.concat(liste_ope[liste_ope_zones[current_zone].other[i]].no_expl);
+			}
 		}
 	}
 	for(var i=0; i<16; i++){
@@ -497,11 +504,11 @@ function build_popup_link(event){
 	}
 	if (event.target.dat.stat & 2){
 		texte_syst_bande += ", non résolu";
-		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "</div>";
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "</div>";
 	}else{
 		var poly_points=event.target.getLatLngs();
 		var dist=String((poly_points[0].distanceTo(poly_points[1])/1000).toFixed(1)).replace(".",",");
-		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + liste_ope[event.target.dat.ope].name + "<br>" + dist + "  km</div>";
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + dist + "  km</div>";
 	}
 
 	event.target.bindPopup(le_texte_popup,{autoPan:false});
@@ -559,7 +566,7 @@ function build_popup_mark_s_2(marker,isopen){
 		var tr = document.createElement("tr");
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
-		tr.style.color=liste_ope[s_result.antennes[i][4]].color;
+		tr.style.color=liste_ope[tab_ope_ID[s_result.antennes[i][4]]].color;
 		if(s_result.antennes[i][3]==2){
 			td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -583,7 +590,7 @@ function build_popup_mark_s_2(marker,isopen){
 					a_link.setStyle({weight: 3.5});
 				}
 			})
-			e.target.style.backgroundColor=liste_ope[e.target.n_ope].color;
+			e.target.style.backgroundColor=liste_ope[tab_ope_ID[e.target.n_ope]].color;
 			e.target.style.color="white";
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
@@ -600,7 +607,7 @@ function build_popup_mark_s_2(marker,isopen){
 				a_link.setStyle({weight: fact_epaisseur*epaisseur});
 			})
 			e.target.style.backgroundColor="transparent";
-			e.target.style.color=liste_ope[e.target.n_ope].color;
+			e.target.style.color=liste_ope[tab_ope_ID[e.target.n_ope]].color;
 			if(e.target.ant_azimut<=80 || e.target.ant_azimut>=280){
 				var popup_wraps=document.getElementsByClassName("leaflet-popup-content-wrapper");
 				var popup_tip_wraps=document.getElementsByClassName("leaflet-popup-tip");
@@ -611,7 +618,7 @@ function build_popup_mark_s_2(marker,isopen){
 				img_photo.style.opacity="1";
 			}
 		}
-		rows_ope[s_result.antennes[i][4]].push(tr);
+		rows_ope[tab_ope_ID[s_result.antennes[i][4]]].push(tr);
 	}	
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
 		var no_ope=liste_ope_zones[current_zone].main[i];
@@ -835,7 +842,7 @@ function build_detail_2(d_supports_t,isopen){
 		var d_td2 = document.createElement("td");
 		var d_td3 = document.createElement("td");
 		var d_td4 = document.createElement("td");
-		d_tr.style.color=liste_ope[s_result.antennes[i][4]].color;
+		d_tr.style.color=liste_ope[tab_ope_ID[s_result.antennes[i][4]]].color;
 		if(s_result.antennes[i][3]==2){
 			d_td1.innerHTML=nom_syst[s_result.antennes[i][3]];
 		}else{
@@ -862,7 +869,7 @@ function build_detail_2(d_supports_t,isopen){
 					a_link.setStyle({weight: 3.5});
 				}
 			})
-			e.target.style.backgroundColor=liste_ope[e.target.n_ope].color;
+			e.target.style.backgroundColor=liste_ope[tab_ope_ID[e.target.n_ope]].color;
 			e.target.style.color="white";
 		}
 		d_tr.onmouseleave = function(e){
@@ -870,9 +877,9 @@ function build_detail_2(d_supports_t,isopen){
 				a_link.setStyle({weight: fact_epaisseur*epaisseur});
 			})
 			e.target.style.backgroundColor="transparent";
-			e.target.style.color=liste_ope[e.target.n_ope].color;
+			e.target.style.color=liste_ope[tab_ope_ID[e.target.n_ope]].color;
 		}
-		d_rows_ope[s_result.antennes[i][4]].push(d_tr);
+		d_rows_ope[tab_ope_ID[s_result.antennes[i][4]]].push(d_tr);
 	}	
 	for(var i=0;i<liste_ope_zones[current_zone].main.length;++i){
 		var no_ope=liste_ope_zones[current_zone].main[i];

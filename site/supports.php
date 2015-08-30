@@ -9,19 +9,19 @@ date_default_timezone_set('Europe/Paris');
 if(!isset($_GET["date"])){
 	$date_c=date("Y").date("m");
 	$date_c_1=date("Y",time()-30*24*3600).date("m",time()-30*24*3600);
-	if(file_exists($date_c."/supports.json")){
+	if(file_exists($date_c."/supports.txt")){
 		$_GET["date"]=$date_c;
-	}elseif(file_exists($date_c_1."/supports.json")){
+	}elseif(file_exists($date_c_1."/supports.txt")){
 		$_GET["date"]=$date_c_1;
 	}else{
 		$_GET["date"]="201508";
 	}
 }
 
-if(isset($_GET["no_sup"]) && file_exists($_GET["date"]."/supports.json")){
-	$le_fichier_sup=fopen($_GET["date"]."/supports.json","r");
+if(isset($_GET["no_sup"]) && file_exists($_GET["date"]."/supports.txt")){
+	$le_fichier_sup=fopen($_GET["date"]."/supports.txt","r");
 	while(!$flag_trouve_sup && !feof($le_fichier_sup)){
-		$la_ligne=stream_get_line($le_fichier_sup,10000,"\r\n");
+		$la_ligne=fgets($le_fichier_sup);
 		$les_champs=explode("|",$la_ligne);
 		if($les_champs[0]==$_GET["no_sup"]){
 			$flag_trouve_sup=true;
@@ -52,10 +52,10 @@ if($flag_trouve_sup==true){
 $obj_sup->antennes=array();
 if(isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1"){
 	$op_liste=explode("|",$_GET["op_liste"]);
-	if(file_exists($_GET["date"]."/antennes.json")){
-		$le_fichier_ant=fopen($_GET["date"]."/antennes.json","r");
+	if(file_exists($_GET["date"]."/antennes.txt")){
+		$le_fichier_ant=fopen($_GET["date"]."/antennes.txt","r");
 		while(!feof($le_fichier_ant)){
-			$la_ligne=stream_get_line($le_fichier_ant,10000,"\r\n");
+			$la_ligne=fgets($le_fichier_ant);
 			if(!empty($la_ligne)){
 				$les_champs=explode('|',$la_ligne);
 				if($les_champs[1]==$_GET['no_sup']){

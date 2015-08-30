@@ -4,7 +4,6 @@ header('Content-Type: application/json');
 
 $t_start=microtime(true);
 
-$nb_ope=88;
 $tab_dates_ok=array('201501','201502','201503','201504','201505','201506','201507','201508');
 $short_links = array();
 $final_links = array();
@@ -74,33 +73,32 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 	
 	$checked_links=array();
 	
-	for($i_ope=1;$i_ope<=$nb_ope;++$i_ope){
-		if(in_array($i_ope,$op_liste)){
-			foreach($noms_tile as $nom_tile){
-				if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json')){
-					$le_fichier=fopen($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json','r');
-					while(!feof($le_fichier)){
-						$la_ligne=fgets($le_fichier);
-						if(!empty($la_ligne)){
-							$les_champs=explode('|',$la_ligne);
-							if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
-								if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
-									if((int)$les_champs[6] & (int)$_GET['bande_code']){
-										if(!isset($checked_links[$les_champs[10]])){
-											$checked_links[$les_champs[10]]=true;
-											$tab_nos_sup=explode(',',$les_champs[9]);
-											$tab_prop_sup=explode(',',$les_champs[11]);
-											$tab_nat_sup=explode(',',trim($les_champs[12]));
-											for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-												if($skip_photo || ($sans_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
-													if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
-														if($skip_nat_sup || in_array($tab_nat_sup[$i_sup],$nat_liste)){
-															$code_sup='s'.$tab_nos_sup[$i_sup];
-															if(isset($all_sup[$code_sup])){
-																$all_sup[$code_sup] += 1;
-															}else{
-																$all_sup[$code_sup] = 1;
-															}
+			
+	foreach($op_liste as $i_ope){
+		foreach($noms_tile as $nom_tile){
+			if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt')){
+				$le_fichier=fopen($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt','r');
+				while(!feof($le_fichier)){
+					$la_ligne=fgets($le_fichier);
+					if(!empty($la_ligne)){
+						$les_champs=explode('|',$la_ligne);
+						if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
+							if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
+								if((int)$les_champs[6] & (int)$_GET['bande_code']){
+									if(!isset($checked_links[$les_champs[10]])){
+										$checked_links[$les_champs[10]]=true;
+										$tab_nos_sup=explode(',',$les_champs[9]);
+										$tab_prop_sup=explode(',',$les_champs[11]);
+										$tab_nat_sup=explode(',',trim($les_champs[12]));
+										for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
+											if($skip_photo || ($sans_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
+												if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
+													if($skip_nat_sup || in_array($tab_nat_sup[$i_sup],$nat_liste)){
+														$code_sup='s'.$tab_nos_sup[$i_sup];
+														if(isset($all_sup[$code_sup])){
+															$all_sup[$code_sup] += 1;
+														}else{
+															$all_sup[$code_sup] = 1;
 														}
 													}
 												}
@@ -111,8 +109,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 							}
 						}
 					}
-					fclose($le_fichier);
 				}
+				fclose($le_fichier);
 			}
 		}
 	}
@@ -139,42 +137,40 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 	
 	$checked_links=array();
 	$d_min=7*28284/pow(2,(int)$_GET['zoom']+8);	
-	for($i_ope=1;$i_ope<=$nb_ope;++$i_ope){
-		if(in_array($i_ope,$op_liste)){
-			foreach($noms_tile as $nom_tile){
-				if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json')){
-					$le_fichier=fopen($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.json','r');
-					while(!feof($le_fichier)){
-						$la_ligne=fgets($le_fichier);
-						if(!empty($la_ligne)){
-							$les_champs=explode('|',$la_ligne);
-							if(!isset($checked_links[$les_champs[10]])){
-								$checked_links[$les_champs[10]]=true;
-								$tab_nos_sup=explode(',',$les_champs[9]);
-								$flag_ajoute=false;
-								for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-									$code_sup='s'.$tab_nos_sup[$i_sup];
-									if(isset($all_sup[$code_sup])){
-										if(isset($all_sup[$code_sup]['coords'])==false){
-											$les_prop=explode(',',$les_champs[11]);
-											$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
-										}
-										if(!$flag_ajoute){
-											if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
-												if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
-													if ((int)$les_champs[6] & (int)$_GET['bande_code']){
-														if(count($tab_nos_sup)>1){
-															$code_lien=str_replace(',','_',$les_champs[10]);
-														}else{
-															$code_lien=$les_champs[10].'_';
-														}
-														if((float)$les_champs[8]>=$d_min){
-															$final_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
-														}else{
-															$short_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
-														}
-														$flag_ajoute=true;
+	foreach($op_liste as $i_ope){
+		foreach($noms_tile as $nom_tile){
+			if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt')){
+				$le_fichier=fopen($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt','r');
+				while(!feof($le_fichier)){
+					$la_ligne=fgets($le_fichier);
+					if(!empty($la_ligne)){
+						$les_champs=explode('|',$la_ligne);
+						if(!isset($checked_links[$les_champs[10]])){
+							$checked_links[$les_champs[10]]=true;
+							$tab_nos_sup=explode(',',$les_champs[9]);
+							$flag_ajoute=false;
+							for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
+								$code_sup='s'.$tab_nos_sup[$i_sup];
+								if(isset($all_sup[$code_sup])){
+									if(isset($all_sup[$code_sup]['coords'])==false){
+										$les_prop=explode(',',$les_champs[11]);
+										$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+									}
+									if(!$flag_ajoute){
+										if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
+											if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
+												if ((int)$les_champs[6] & (int)$_GET['bande_code']){
+													if(count($tab_nos_sup)>1){
+														$code_lien=str_replace(',','_',$les_champs[10]);
+													}else{
+														$code_lien=$les_champs[10].'_';
 													}
+													if((float)$les_champs[8]>=$d_min){
+														$final_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
+													}else{
+														$short_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
+													}
+													$flag_ajoute=true;
 												}
 											}
 										}
@@ -183,8 +179,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
 							}
 						}
 					}
-					fclose($le_fichier);
 				}
+				fclose($le_fichier);
 			}
 		}
 	}
