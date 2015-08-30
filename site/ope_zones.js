@@ -88,7 +88,7 @@ liste_reg_mod=[
 	{name:"(45) Medialys",no_expl:[176]},
 	{name:"(47) SDNum",no_expl:[198]},
 	{name:"(48) Net 48",no_expl:[257]},
-	{name:"(49) Melis@",no_expl:[186,247]},
+	{name:"(49) Melis@",short_name:"Melis@",no_expl:[186,247]},
 	{name:"(50) Manche numérique",no_expl:[275]},
 	{name:"(55) Net 55",no_expl:[200]},
 	{name:"(58) NiverTel",no_expl:[182]},

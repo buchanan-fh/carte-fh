@@ -268,7 +268,7 @@ function redraw(index_hist){
 					d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
 					if(!(d_tr_ant==null)){
 						d_tr_ant.style.backgroundColor="transparent";
-						d_tr_ant.style.color=liste_ope[e.target.dat.ope].color;
+						d_tr_ant.style.color=liste_ope[tab_ope_ID[e.target.dat.ope]].color;
 					}
 				}
 			});
@@ -278,12 +278,12 @@ function redraw(index_hist){
 					for (var k=0; k<e.target.dat.nos_ant.length; k++){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
-							div_ant.style.backgroundColor=liste_ope[e.target.dat.ope].color;
+							div_ant.style.backgroundColor=liste_ope[tab_ope_ID[e.target.dat.ope]].color;
 							div_ant.style.color="white";
 						}
 						d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
 						if(!(d_tr_ant==null)){
-							d_tr_ant.style.backgroundColor=liste_ope[e.target.dat.ope].color;
+							d_tr_ant.style.backgroundColor=liste_ope[tab_ope_ID[e.target.dat.ope]].color;
 							d_tr_ant.style.color="white";
 						}
 					}
@@ -296,12 +296,12 @@ function redraw(index_hist){
 						div_ant=document.getElementById(e.target.dat.nos_ant[k])
 						if(!(div_ant==null)){
 							div_ant.style.backgroundColor="transparent";
-							div_ant.style.color=liste_ope[e.target.dat.ope].color;
+							div_ant.style.color=liste_ope[tab_ope_ID[e.target.dat.ope]].color;
 						}
 						d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
 						if(!(d_tr_ant==null)){
 							d_tr_ant.style.backgroundColor="transparent";
-							d_tr_ant.style.color=liste_ope[e.target.dat.ope].color;
+							d_tr_ant.style.color=liste_ope[tab_ope_ID[e.target.dat.ope]].color;
 						}
 					}
 				}
