@@ -53,6 +53,10 @@ body {
 	flex-direction:column;
 	pointer-events: none;
 }
+.leaflet-container a.leaflet-popup-close-button {
+	top: auto;
+	bottom:30px;
+}
 .box{
 	border:solid 1px black;
 	background-color:#C7C7C7;
