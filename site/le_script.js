@@ -157,11 +157,11 @@ document.getElementById("date_select").innerHTML = "11/2015";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
-		epaisseur=1;
+		epaisseur=1.2;
 	} else if (map.getZoom()<=11) {
-		epaisseur=1.25;
+		epaisseur=1.4;
 	} else {
-		epaisseur=1.5;
+		epaisseur=1.6;
 	}
 });
 map.on('moveend', function() {
