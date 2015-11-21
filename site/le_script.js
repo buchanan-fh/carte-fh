@@ -131,6 +131,7 @@ new L.Control.OSMGeocoder({
 	text: "Chercher..."
 }).addTo(map);
 L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
+new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
 
 map.on("baselayerchange", function(e){
 	if(e._url=='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'){
@@ -379,8 +380,8 @@ function redraw(index_hist){
 function ajax(){
 	document.getElementById("aff_restreint").innerHTML = "Chargement...";
 	document.getElementById("aff_restreint").style.color = "orange";
-	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 110) + "px";
-	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 110) + "px";
+	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 120) + "px";
+	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 160) + "px";
 	
     var url=build_url_liens();
 	var key_hist=array_search(url,hist_url);
