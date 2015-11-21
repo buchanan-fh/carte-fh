@@ -17,6 +17,9 @@ first_announce=true;
 var popup_to_draw;
 var pwg_img_cat;
 var pwg_img_tag;
+var supports_du_popup=[];
+var ope_du_popup;
+opacite_lien_non_lie=0.25
 //base_url="http://192.168.7.1:5723/";
 //base_url="http://192.168.7.1:81/";
 base_url="https://carte-fh.lafibre.info/";
@@ -143,6 +146,8 @@ map.on("baselayerchange", function(e){
 oms = new OverlappingMarkerSpiderfier(map,{keepSpiderfied:true, nearbyDistance:5});
 oms.addListener('click', function(marker){
 	map.closePopup();
+	supports_du_popup.push(parseInt(e.target.dat.no_sup));
+	ope_du_popup=null;
 	build_popup_mark_s(marker,false);
 	build_popup_mark_img1(marker);
 });
@@ -176,34 +181,34 @@ function redraw(index_hist){
 	document.getElementById("aff_restreint").style.color = "orange";
 	var time_start=Date.now();
 	var l_result=JSON.parse(hist_result[index_hist]);
-	var mark_aff=[];
 	
-	for (var i=marksA.length-1; i>=0; i--){
-		var flag_keep=false;
-		if (document.getElementById("check_supports").checked==true){
-			if(("s"+marksA[i].dat.no_sup) in l_result.supports){
-				marksA[i].dat.nb_ant=l_result.supports["s"+marksA[i].dat.no_sup].nb_ant;
-				delete l_result.supports["s"+marksA[i].dat.no_sup]
-				flag_keep=true;
-			}
-		}
-		if(flag_keep==false){
+	var mark_aff=[];
+	if (document.getElementById("check_supports").checked==false){
+		for (var i=marksA.length-1; i>=0; i--){
 			//oms.removeMarker(marksA[i]);
 			map.removeLayer(marksA[i]);
 			marksA.splice(i,1);
 		}
-	}
-	
-	var pix_max=7;
-	var pix_min=3;
-	if(l_result.nb_ant_max!=l_result.nb_ant_min){
-		var t_a=(pix_max-pix_min)/(l_result.nb_ant_max-l_result.nb_ant_min);
-		var t_b=pix_min-t_a*l_result.nb_ant_min;
 	}else{
-		var t_a=0;
-		var t_b=4;
-	}
-	if (document.getElementById("check_supports").checked==true){
+		for (var i=marksA.length-1; i>=0; i--){
+			if(("s"+marksA[i].dat.no_sup) in l_result.supports){
+				marksA[i].dat.nb_ant=l_result.supports["s"+marksA[i].dat.no_sup].nb_ant;
+				delete l_result.supports["s"+marksA[i].dat.no_sup]
+			}else{
+				//oms.removeMarker(marksA[i]);
+				map.removeLayer(marksA[i]);
+				marksA.splice(i,1);
+			}
+		}
+		var pix_max=7;
+		var pix_min=3;
+		if(l_result.nb_ant_max!=l_result.nb_ant_min){
+			var t_a=(pix_max-pix_min)/(l_result.nb_ant_max-l_result.nb_ant_min);
+			var t_b=pix_min-t_a*l_result.nb_ant_min;
+		}else{
+			var t_a=0;
+			var t_b=4;
+		}
 		for(var property in l_result.supports){
 			if(l_result.supports.hasOwnProperty(property)){
 				var le_mark = L.circleMarker(l_result.supports[property].coords,{pane:'markersPane'});
@@ -213,6 +218,9 @@ function redraw(index_hist){
 				//
 				le_mark.on("click", function(e){
 					map.closePopup();
+					supports_du_popup.push(parseInt(e.target.dat.no_sup));
+					ope_du_popup=null;
+					refresh_opacity();
 					build_popup_mark_s(e.target,false);
 					build_popup_mark_img1(e.target);
 				})
@@ -230,8 +238,7 @@ function redraw(index_hist){
 	L.layerGroup(mark_aff).addTo(map);
 	
 	var poly_aff=[];
-	for (var i=polylinesA.length-1; i>=0; i--){
-		var flag_keep=false;
+	for (var i=polylinesA.length-1; i>=0; i--){		
 		if(polylinesA[i].dat.code_lien in l_result.liens){
 			polylinesA[i].setStyle({dashArray: dash_stat[l_result.liens[polylinesA[i].dat.code_lien].stat]});
 			code_lien_tmp=polylinesA[i].dat.code_lien;
@@ -241,19 +248,33 @@ function redraw(index_hist){
 			if(polylinesA[i].getPopup()==undefined){
 				polylinesA[i].setStyle({weight: fact_epaisseur*epaisseur});
 			}
-			flag_keep=true
-		}
-		if(flag_keep==false){
+			if(supports_du_popup.length==0){
+				polylinesA[i].setStyle({opacity: 1});
+			}
+		}else{
 			map.removeLayer(polylinesA[i]);
 			polylinesA.splice(i,1);
 		}
 	}
 	for (var code_lien in l_result.liens){
-		if(l_result.liens.hasOwnProperty(code_lien)){
-			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[tab_ope_ID[l_result.liens[code_lien].ope]].color, opacity: 1, dashArray: dash_stat[l_result.liens[code_lien].stat], pane:'polylinesPane'});
+		if(l_result.liens.hasOwnProperty(code_lien)){		
+			if(supports_du_popup.length>0){
+				opacite_lien=opacite_lien_non_lie
+				for(var i=0;i<supports_du_popup.length;i++){
+					if(l_result.liens[code_lien].nos_sup.indexOf(supports_du_popup[i])>-1){
+						opacite_lien=1;
+					}
+				}
+			}else{
+				opacite_lien=1;
+			}
+			var la_poly = L.polyline(l_result.liens[code_lien].coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[tab_ope_ID[l_result.liens[code_lien].ope]].color, opacity: opacite_lien, dashArray: dash_stat[l_result.liens[code_lien].stat], pane:'polylinesPane'});
 			la_poly["dat"]=l_result.liens[code_lien];
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
+				supports_du_popup=supports_du_popup.concat(e.target.dat.nos_sup);
+				ope_du_popup=e.target.dat.ope;
+				refresh_opacity();
 				e.target.setStyle({weight: 3.5});
 				if(e.target.getPopup()==undefined){
 					build_popup_link(e);
@@ -264,6 +285,10 @@ function redraw(index_hist){
 			la_poly.on("popupclose", function(e){
 				e.target.unbindPopup();
 				e.target.setStyle({weight: fact_epaisseur*epaisseur});
+				for(i=0;i<e.target.dat.nos_sup.length;i++){
+					supports_du_popup.splice(supports_du_popup.indexOf(e.target.dat.nos_sup[i]),1);
+				}
+				refresh_opacity();
 				for (var k=0; k<e.target.dat.nos_ant.length; k++){
 					d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
 					if(!(d_tr_ant==null)){
@@ -326,6 +351,7 @@ function redraw(index_hist){
 	if(popup_to_draw!=null){
 		for (var i=marksA.length-1; i>=0; i--){
 			if(marksA[i].dat.no_sup==popup_to_draw){
+				supports_du_popup.push([parseInt(marksA[i].dat.no_sup)]);
 				build_popup_mark_s(marksA[i],false);
 				build_popup_mark_img1(marksA[i]);
 				break;
@@ -482,6 +508,7 @@ function build_url_support(no_sup,liste_ant){
 }
 
 function build_popup_link(event){
+	
 	if (event.target.dat.syst==2){
 		var texte_syst_bande=nom_syst[2];
 	}else{
@@ -547,6 +574,7 @@ function build_popup_mark_s_2(marker,isopen){
 			marker.attached_links.push(polylinesA[i]);
 		}
 	}
+	refresh_opacity();
 	la_div_titre.innerHTML=nature_support[s_result.type];
 	la_div_adresse.innerHTML=s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune;
 	la_div_no_support.innerHTML=s_result.nom_prop + " ("+ s_result.no_sup + ")";
@@ -921,6 +949,8 @@ function display_photo_large(disp){
 }
 
 function close_popup_mark(e){
+	supports_du_popup.splice(supports_du_popup.indexOf(parseInt(e.target.dat.no_sup)),1);
+	refresh_opacity();
 	e.target.attached_links.map(function(a_link){
 		if(a_link.getPopup()==undefined){
 			a_link.setStyle({weight: fact_epaisseur*epaisseur});
@@ -938,7 +968,6 @@ function recherche_sup(no_sup){
 			if(sup_index>-1){
 				coords=polylinesA[poly].dat.coords[sup_index];
 				break;
-				console.log(no_sup);
 			}
 		}
 	}
@@ -980,6 +1009,25 @@ function center_sup(no_sup,coords){
 function close_detail(){
 	d_div.style.display="none";
 	map.invalidateSize(true);
+}
+function refresh_opacity(){
+	if(supports_du_popup.length==0){
+		for (var i=0; i<polylinesA.length; i++){
+			polylinesA[i].setStyle({opacity: 1});
+		}
+	}else{
+		for (var i=0; i<polylinesA.length; i++){
+			opacite_lien=opacite_lien_non_lie;
+			if(!ope_du_popup || ope_du_popup && polylinesA[i].dat.ope==ope_du_popup){
+				for(var j=0;j<supports_du_popup.length;j++){
+					if(polylinesA[i].dat.nos_sup.indexOf(supports_du_popup[j])>-1){
+						opacite_lien=1;
+					}
+				}
+			}
+			polylinesA[i].setStyle({opacity: opacite_lien});
+		}
+	}
 }
 
 function check_all_bandes(){
