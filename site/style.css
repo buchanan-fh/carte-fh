@@ -84,6 +84,13 @@ body {
 	font-family:arial;
 	font-size:15px;
 }
+.Xquit{
+	position:absolute;
+	top:5px;
+	right:5px;
+	font-weight:bold;
+	cursor:pointer;
+}
 #choix_zone{
 	z-index:2;
 	position:absolute;
@@ -259,9 +266,6 @@ body {
 	text-align:center;
 	margin-bottom:2px;
 	margin-left:2px;
-}
-#d_link_to_sup{
-	width:200px;
 }
 #d_titre, #d_adresse{
 	flex:none;

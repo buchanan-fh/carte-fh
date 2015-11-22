@@ -160,6 +160,13 @@ function build_interface(fit,zone,select_ope){
 	document.getElementById('choix_zone').style.display='none';
 	current_zone=zone;
 	document.getElementById("nom_zone").innerHTML=liste_ope_zones[zone].nom_zone;
+	for(id_zone in liste_ope_zones){
+		if(id_zone==zone){
+			document.getElementById("text_"+id_zone).style.fontWeight="bold";
+		}else{
+			document.getElementById("text_"+id_zone).style.fontWeight="normal";
+		}
+	}
 	var tab_main = document.getElementById("tab_ope_main");
 	while (tab_main.firstChild) {
 		tab_main.removeChild(tab_main.firstChild);

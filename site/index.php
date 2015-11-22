@@ -44,8 +44,8 @@ if(isset($_GET["photo"])){
 	<div id="detail_sup">
 		<div id="d_sup">
 			<div id="d_header">
-				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center">
-				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close">
+				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center" title="Centrer sur ce support">
+				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close" title="Fermer">
 			</div>
 			<div id="d_descr">
 				<div id="d_titre" class="p_titre"></div>
@@ -58,7 +58,7 @@ if(isset($_GET["photo"])){
 			</div>
 			<div id="d_links">
 				<div class="p_titre">Liens:</div>
-				<div id="d_list_links">Vers ce support: <input id="d_link_to_sup" type="text" readonly><br><a target="_blank" id="d_link_galerie" href="">Vers la galerie photo</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
+				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_galerie" href="">Vers la galerie photo</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
 			</div>
 		</div>
 	</div>
@@ -68,13 +68,13 @@ if(isset($_GET["photo"])){
 			<div class="box" id="b_date"> 
 				<table class="tab_col">
 					<tr>
-						<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()"></td>
+						<td class="ligne_plus"><input id="button_moins" type="button" value="<<" onclick="date_moins()" title="Mois précédent"></td>
 						<td class="ligne_plus" id="date_select"></td>
-						<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" disabled></td>
+						<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" title="Mois suivant" disabled></td>
 					</tr>
 				</table>
 			</div>
-			<div class="box clickable" onclick="choix_zone();" id="b_zone">
+			<div class="box clickable" onclick="choix_zone();" id="b_zone" title="Choix d'une zone">
 				<table class="tab_col">
 					<tr>
 						<td class="ligne_simple" width="80%" id="nom_zone"></td>
@@ -95,7 +95,7 @@ if(isset($_GET["photo"])){
 					</tr>
 					<tr>
 						<td><input type="text" class="champ_recherche" id="no_sup_rech" onkeydown="if(event.keyCode==13){recherche_sup();}"></td>
-						<td onclick="recherche_sup()"><img class="img_click" src="loupe.png" alt="l"></td>
+						<td onclick="recherche_sup()"><img class="img_click" src="loupe.png" alt="l" title="Rechercher"></td>
 					</tr>
 				</table>
 			</div>
@@ -226,8 +226,28 @@ if(isset($_GET["photo"])){
 						<td>Inconnu</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_12" onclick="ajax()" checked></td>
+						<td>Autres</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_48" onclick="ajax()" checked></td>
+						<td>9 CEGETEL</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_56" onclick="ajax()" checked></td>
+						<td>AIRBUS</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_36" onclick="ajax()" checked></td>
+						<td>Altitude Telecom</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_1" onclick="ajax()" checked></td>
 						<td>ANFR</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_37" onclick="ajax()" checked></td>
+						<td>Antalis</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_2" onclick="ajax()" checked></td>
@@ -238,12 +258,28 @@ if(isset($_GET["photo"])){
 						<td>Aviation Civile</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_55" onclick="ajax()" checked></td>
+						<td>BELGACOM</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_49" onclick="ajax()" checked></td>
+						<td>BOLLORE</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_4" onclick="ajax()" checked></td>
 						<td>BOUYGUES</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_5" onclick="ajax()" checked></td>
 						<td>CCI, Ch Metiers, Port Aut, Aérop</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_34" onclick="ajax()" checked></td>
+						<td>Commune, communauté de commune</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_50" onclick="ajax()" checked></td>
+						<td>COMPLETEL</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_6" onclick="ajax()" checked></td>
@@ -266,12 +302,16 @@ if(isset($_GET["photo"])){
 						<td>CROSS</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_58" onclick="ajax()" checked></td>
+						<td>DAUPHIN TELECOM</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_11" onclick="ajax()" checked></td>
 						<td>DDE</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_12" onclick="ajax()" checked></td>
-						<td>Autres</td>
+						<td><input type="checkbox" id="check_prop_sup_51" onclick="ajax()" checked></td>
+						<td>DIGICEL</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_13" onclick="ajax()" checked></td>
@@ -286,28 +326,84 @@ if(isset($_GET["photo"])){
 						<td>Etat, Ministère</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_16" onclick="ajax()" checked></td>
-						<td>ORANGE Services Fixes</td>
+						<td><input type="checkbox" id="check_prop_sup_52" onclick="ajax()" checked></td>
+						<td>EUTELSAT</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_17" onclick="ajax()" checked></td>
-						<td>Syndicat des eaux, Adduction</td>
+						<td><input type="checkbox" id="check_prop_sup_53" onclick="ajax()" checked></td>
+						<td>EXPERTMEDIA</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_65" onclick="ajax()" checked></td>
+						<td>FPS TOWERS</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_41" onclick="ajax()" checked></td>
+						<td>France Caraibes Mobiles</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_39" onclick="ajax()" checked></td>
+						<td>Gendarmerie</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_61" onclick="ajax()" checked></td>
+						<td>GLOBECAST</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_57" onclick="ajax()" checked></td>
+						<td>GUYANE NUMERIQUE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_42" onclick="ajax()" checked></td>
+						<td>IFW-FREE</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_18" onclick="ajax()" checked></td>
 						<td>Intérieur</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_59" onclick="ajax()" checked></td>
+						<td>Itas Tim</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_19" onclick="ajax()" checked></td>
 						<td>La Poste</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_43" onclick="ajax()" checked></td>
+						<td>Lagardère Active Média</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_54" onclick="ajax()" checked></td>
+						<td>MEDIASERV</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_20" onclick="ajax()" checked></td>
 						<td>Météo</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_47" onclick="ajax()" checked></td>
+						<td>Office des Postes et Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_38" onclick="ajax()" checked></td>
+						<td>One Cast</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_21" onclick="ajax()" checked></td>
 						<td>ORANGE</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_16" onclick="ajax()" checked></td>
+						<td>ORANGE Services Fixes</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_44" onclick="ajax()" checked></td>
+						<td>Outremer Telecom</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_64" onclick="ajax()" checked></td>
+						<td>Pacific Mobile Telecom</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_22" onclick="ajax()" checked></td>
@@ -318,8 +414,12 @@ if(isset($_GET["photo"])){
 						<td>Phares et balises</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_24" onclick="ajax()" checked></td>
-						<td>SNCF Réseau</td>
+						<td><input type="checkbox" id="check_prop_sup_45" onclick="ajax()" checked></td>
+						<td>RATP</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_60" onclick="ajax()" checked></td>
+						<td>REUNION NUMERIQUE</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_25" onclick="ajax()" checked></td>
@@ -332,6 +432,14 @@ if(isset($_GET["photo"])){
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_27" onclick="ajax()" checked></td>
 						<td>SFR</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_62" onclick="ajax()" checked></td>
+						<td>SNCF</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_24" onclick="ajax()" checked></td>
+						<td>SNCF Réseau</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_28" onclick="ajax()" checked></td>
@@ -350,144 +458,36 @@ if(isset($_GET["photo"])){
 						<td>Sté Réunionn. de Radiotéléph.</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_17" onclick="ajax()" checked></td>
+						<td>Syndicat des eaux, Adduction</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_32" onclick="ajax()" checked></td>
 						<td>TDF</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_33" onclick="ajax()" checked></td>
-						<td>Towercast</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_34" onclick="ajax()" checked></td>
-						<td>Commune, communauté de commune</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_35" onclick="ajax()" checked></td>
-						<td>Voies navigables de France</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_36" onclick="ajax()" checked></td>
-						<td>Altitude Telecom</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_37" onclick="ajax()" checked></td>
-						<td>Antalis</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_38" onclick="ajax()" checked></td>
-						<td>One Cast</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_39" onclick="ajax()" checked></td>
-						<td>Gendarmerie</td>
+						<td><input type="checkbox" id="check_prop_sup_66" onclick="ajax()" checked></td>
+						<td>Telco OI</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_40" onclick="ajax()" checked></td>
 						<td>Tikiphone</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_41" onclick="ajax()" checked></td>
-						<td>France Caraibes Mobiles</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_42" onclick="ajax()" checked></td>
-						<td>IFW-FREE</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_43" onclick="ajax()" checked></td>
-						<td>Lagardère Active Média</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_44" onclick="ajax()" checked></td>
-						<td>Outremer Telecom</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_45" onclick="ajax()" checked></td>
-						<td>RATP</td>
-					</tr>
-					<tr>
 						<td><input type="checkbox" id="check_prop_sup_46" onclick="ajax()" checked></td>
 						<td>Titulaire programme Radio/TV</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_47" onclick="ajax()" checked></td>
-						<td>Office des Postes et Telecom</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_48" onclick="ajax()" checked></td>
-						<td>9 CEGETEL</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_49" onclick="ajax()" checked></td>
-						<td>BOLLORE</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_50" onclick="ajax()" checked></td>
-						<td>COMPLETEL</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_51" onclick="ajax()" checked></td>
-						<td>DIGICEL</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_52" onclick="ajax()" checked></td>
-						<td>EUTELSAT</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_53" onclick="ajax()" checked></td>
-						<td>EXPERTMEDIA</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_54" onclick="ajax()" checked></td>
-						<td>MEDIASERV</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_55" onclick="ajax()" checked></td>
-						<td>BELGACOM</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_56" onclick="ajax()" checked></td>
-						<td>AIRBUS</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_57" onclick="ajax()" checked></td>
-						<td>GUYANE NUMERIQUE</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_58" onclick="ajax()" checked></td>
-						<td>DAUPHIN TELECOM</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_59" onclick="ajax()" checked></td>
-						<td>Itas Tim</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_60" onclick="ajax()" checked></td>
-						<td>REUNION NUMERIQUE</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_61" onclick="ajax()" checked></td>
-						<td>GLOBECAST</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_62" onclick="ajax()" checked></td>
-						<td>SNCF</td>
+						<td><input type="checkbox" id="check_prop_sup_33" onclick="ajax()" checked></td>
+						<td>Towercast</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_63" onclick="ajax()" checked></td>
 						<td>VITI</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_prop_sup_64" onclick="ajax()" checked></td>
-						<td>Pacific Mobile Telecom</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_65" onclick="ajax()" checked></td>
-						<td>FPS TOWERS</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_prop_sup_66" onclick="ajax()" checked></td>
-						<td>Telco OI</td>
+						<td><input type="checkbox" id="check_prop_sup_35" onclick="ajax()" checked></td>
+						<td>Voies navigables de France</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="shortcut_nat_sup">
@@ -508,8 +508,48 @@ if(isset($_GET["photo"])){
 						<td>Sans nature</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_nat_sup_999999999" onclick="ajax()" checked></td>
+						<td>Support non décrit</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_51" onclick="ajax()" checked></td>
+						<td>XXX</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_50" onclick="ajax()" checked></td>
+						<td>balise ou bouée</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_17" onclick="ajax()" checked></td>
+						<td>Bâtiment</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_nat_sup_4" onclick="ajax()" checked></td>
 						<td>Château d'eau - réservoir</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_45" onclick="ajax()" checked></td>
+						<td>Contre-poids au sol</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_46" onclick="ajax()" checked></td>
+						<td>Contre-poids sur shelter</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_34" onclick="ajax()" checked></td>
+						<td>Dalle en béton</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_52" onclick="ajax()" checked></td>
+						<td>Eolienne</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_43" onclick="ajax()" checked></td>
+						<td>Fût</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_38" onclick="ajax()" checked></td>
+						<td>Immeuble</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_nat_sup_8" onclick="ajax()" checked></td>
@@ -520,8 +560,12 @@ if(isset($_GET["photo"])){
 						<td>Intérieur sous-terrain</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_10" onclick="ajax()" checked></td>
-						<td>Tunnel</td>
+						<td><input type="checkbox" id="check_nat_sup_39" onclick="ajax()" checked></td>
+						<td>Local technique</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_42" onclick="ajax()" checked></td>
+						<td>Mât</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_nat_sup_11" onclick="ajax()" checked></td>
@@ -532,10 +576,6 @@ if(isset($_GET["photo"])){
 						<td>Mât métallique</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_17" onclick="ajax()" checked></td>
-						<td>Bâtiment</td>
-					</tr>
-					<tr>
 						<td><input type="checkbox" id="check_nat_sup_19" onclick="ajax()" checked></td>
 						<td>Monument historique</td>
 					</tr>
@@ -544,8 +584,24 @@ if(isset($_GET["photo"])){
 						<td>Monument religieux</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_nat_sup_32" onclick="ajax()" checked></td>
+						<td>ouvrage d'art (pont, viaduc)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_49" onclick="ajax()" checked></td>
+						<td>Ouvrage de signalisation (portique routier, panneau routier, panneau publicitaire)</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_41" onclick="ajax()" checked></td>
+						<td>Phare</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_nat_sup_21" onclick="ajax()" checked></td>
 						<td>Pylône</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_nat_sup_48" onclick="ajax()" checked></td>
+						<td>pylône arbre</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_nat_sup_22" onclick="ajax()" checked></td>
@@ -568,84 +624,28 @@ if(isset($_GET["photo"])){
 						<td>Pylône tubulaire</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_31" onclick="ajax()" checked></td>
-						<td>Silo</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_32" onclick="ajax()" checked></td>
-						<td>ouvrage d'art (pont, viaduc)</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_33" onclick="ajax()" checked></td>
-						<td>Tour hertzienne</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_34" onclick="ajax()" checked></td>
-						<td>Dalle en béton</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_38" onclick="ajax()" checked></td>
-						<td>Immeuble</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_39" onclick="ajax()" checked></td>
-						<td>Local technique</td>
-					</tr>
-					<tr>
 						<td><input type="checkbox" id="check_nat_sup_40" onclick="ajax()" checked></td>
 						<td>Sémaphore</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_41" onclick="ajax()" checked></td>
-						<td>Phare</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_42" onclick="ajax()" checked></td>
-						<td>Mât</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_43" onclick="ajax()" checked></td>
-						<td>Fût</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_44" onclick="ajax()" checked></td>
-						<td>Tour de contrôle</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_45" onclick="ajax()" checked></td>
-						<td>Contre-poids au sol</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_46" onclick="ajax()" checked></td>
-						<td>Contre-poids sur shelter</td>
+						<td><input type="checkbox" id="check_nat_sup_31" onclick="ajax()" checked></td>
+						<td>Silo</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" id="check_nat_sup_47" onclick="ajax()" checked></td>
 						<td>Support DEFENSE</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_48" onclick="ajax()" checked></td>
-						<td>pylône arbre</td>
+						<td><input type="checkbox" id="check_nat_sup_44" onclick="ajax()" checked></td>
+						<td>Tour de contrôle</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_49" onclick="ajax()" checked></td>
-						<td>Ouvrage de signalisation (portique routier, panneau routier, panneau publicitaire)</td>
+						<td><input type="checkbox" id="check_nat_sup_33" onclick="ajax()" checked></td>
+						<td>Tour hertzienne</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_nat_sup_50" onclick="ajax()" checked></td>
-						<td>balise ou bouée</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_51" onclick="ajax()" checked></td>
-						<td>XXX</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_52" onclick="ajax()" checked></td>
-						<td>Eolienne</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" id="check_nat_sup_999999999" onclick="ajax()" checked></td>
-						<td>Support non décrit</td>
+						<td><input type="checkbox" id="check_nat_sup_10" onclick="ajax()" checked></td>
+						<td>Tunnel</td>
 					</tr>
 				</table>
 			</div>
@@ -686,7 +686,7 @@ if(isset($_GET["photo"])){
 					</tr>
 					<tr>
 						<td class="ligne_left" id="aff_nb_liens" width="80%">liens affichés</td>
-						<td rowspan="2" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i"></td>
+						<td rowspan="2" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i" title="Crédits"></td>
 					</tr>
 					<tr>
 						<td class="ligne_left" id="aff_nb_supports">supports affichés</td>
@@ -711,21 +711,23 @@ if(isset($_GET["photo"])){
 				<table class="tab_col tab_cache" id="tab_autres_ope"></table>
 			</div> 
 		</div>
-		<div id="credits" onclick="affichage_credits();">
-		Cette carte est réalisée à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a> et <a href="https://www.data.gouv.fr">data.gouv.fr</a>.<br><br>Pour ajouter des photos d'un support, rendev-vous sur la <a href="https://carte-fh.lafibre.info/galerie_photo/">galerie photo</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
+		<div id="credits">
+		Cette carte est réalisée à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a> et <a href="https://www.data.gouv.fr">data.gouv.fr</a>.<br><br>Pour ajouter des photos d'un support, rendez-vous sur la <a href="https://carte-fh.lafibre.info/galerie_photo/">galerie photo</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
+			<div class="Xquit" onclick="affichage_credits();">X</div>
 		</div>
 		<div id="choix_zone">
-			<span class="clickable" onclick="build_interface(true,'fr_metro')">France métropolitaine</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_971')">Guadeloupe (971)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_972')">Martinique (972)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_973')">Guyane (973)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_974')">La Réunion (974)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_975')">Saint-Pierre-et-Miquelon (975)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_976')">Mayotte (976)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_9778')">Saint-Barthélemy (977)/Saint-Martin (978)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_986')">Wallis-et-Futuna (986)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_987')">Polynésie française (987)</span><br>
-			<span class="clickable" onclick="build_interface(true,'fr_988')">Nouvelle-Calédonie (988)</span>
+			<span class="clickable" id="text_fr_metro" onclick="build_interface(true,'fr_metro')">France métropolitaine</span><br>
+			<span class="clickable" id="text_fr_971" onclick="build_interface(true,'fr_971')">Guadeloupe (971)</span><br>
+			<span class="clickable" id="text_fr_972" onclick="build_interface(true,'fr_972')">Martinique (972)</span><br>
+			<span class="clickable" id="text_fr_973" onclick="build_interface(true,'fr_973')">Guyane (973)</span><br>
+			<span class="clickable" id="text_fr_974" onclick="build_interface(true,'fr_974')">La Réunion (974)</span><br>
+			<span class="clickable" id="text_fr_975" onclick="build_interface(true,'fr_975')">Saint-Pierre-et-Miquelon (975)</span><br>
+			<span class="clickable" id="text_fr_976" onclick="build_interface(true,'fr_976')">Mayotte (976)</span><br>
+			<span class="clickable" id="text_fr_9778" onclick="build_interface(true,'fr_9778')">Saint-Barthélemy (977)/Saint-Martin (978)</span><br>
+			<span class="clickable" id="text_fr_986" onclick="build_interface(true,'fr_986')">Wallis-et-Futuna (986)</span><br>
+			<span class="clickable" id="text_fr_987" onclick="build_interface(true,'fr_987')">Polynésie française (987)</span><br>
+			<span class="clickable" id="text_fr_988" onclick="build_interface(true,'fr_988')">Nouvelle-Calédonie (988)</span>
+			<div class="Xquit" onclick="document.getElementById('choix_zone').style.display='none';">X</div>
 		</div>
 	</div>
 	<script type="application/javascript" src="ope_zones.js"></script> 

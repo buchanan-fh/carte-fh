@@ -128,7 +128,7 @@ L.control.zoom({position:"bottomleft"}).addTo(map);
 new L.Control.OSMGeocoder({
 	collapsed: false,
 	position: "bottomright",
-	text: "Chercher..."
+	text: "Chercher un lieu..."
 }).addTo(map);
 L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
@@ -179,7 +179,7 @@ map.on('moveend', function() {
 function redraw(index_hist){
 	index_hist=index_hist || ("r"+ind_req);
 	document.getElementById("aff_restreint").innerHTML = "Chargement...";
-	document.getElementById("aff_restreint").style.color = "orange";
+	document.getElementById("aff_restreint").style.color = "#e68900";
 	var time_start=Date.now();
 	var l_result=JSON.parse(hist_result[index_hist]);
 	
@@ -372,14 +372,14 @@ function redraw(index_hist){
 		document.getElementById("aff_restreint").style.color = "green";
 	}else if(l_result.limitation_act==true){
 		document.getElementById("aff_restreint").innerHTML = "Affichage incomplet";
-		document.getElementById("aff_restreint").style.color = "orange";
+		document.getElementById("aff_restreint").style.color = "#e68900";
 	}
 	//console.log("tile: " + l_result.tile + " - PHP: " + l_result.ex_time + " ms - Client: " + (Date.now()-time_start).toString() + " ms");
 }
 	
 function ajax(){
 	document.getElementById("aff_restreint").innerHTML = "Chargement...";
-	document.getElementById("aff_restreint").style.color = "orange";
+	document.getElementById("aff_restreint").style.color = "#e68900";
 	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 120) + "px";
 	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 160) + "px";
 	
@@ -853,7 +853,7 @@ function build_detail_2(d_supports_t,isopen){
 		}
 	}
 	d_div.no_sup=s_result.no_sup;
-	d_div_link_to_sup.value="https://carte-fh.lafibre.info/index.php?no_sup_init="+s_result.no_sup;
+	d_div_link_to_sup.href="https://carte-fh.lafibre.info/index.php?no_sup_init="+s_result.no_sup;
 	if(!isopen){
 		if(img_photo.url_cat){
 			d_div_link_galerie.style.display="";
@@ -1081,48 +1081,53 @@ function check_no_autre_op(){
 }
 
 function date_moins(){
-	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
-	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-	if(le_mois=="01"){
-		le_mois="12";
-		l_annee=parseInt(l_annee) - 1;
-	}else{
-		if(le_mois<11){
-			le_mois= "0" + (parseInt(le_mois)-1);
+	if(document.activeElement.type!="text"){
+		le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
+		l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
+		if(le_mois=="01"){
+			le_mois="12";
+			l_annee=parseInt(l_annee) - 1;
 		}else{
-			le_mois=parseInt(le_mois) - 1;
+			if(le_mois<11){
+				le_mois= "0" + (parseInt(le_mois)-1);
+			}else{
+				le_mois=parseInt(le_mois) - 1;
+			}
 		}
+		document.getElementById("button_plus").disabled=false;
+		if(le_mois=="01" && l_annee=="2015"){
+			document.getElementById("button_moins").disabled=true;
+		}
+		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
+		ajax();
 	}
-	document.getElementById("button_plus").disabled=false;
-	if(le_mois=="01" && l_annee=="2015"){
-		document.getElementById("button_moins").disabled=true;
-	}
-	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
-	ajax();
 }
 function date_plus(){
-	le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
-	l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-	if(le_mois=="12"){
-		le_mois="01";
-		l_annee=parseInt(l_annee) + 1;
-	}else{
-		if(le_mois<9){
-			le_mois= "0" + (parseInt(le_mois)+1);
+	if(document.activeElement.type!="text"){
+		le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
+		l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
+		if(le_mois=="12"){
+			le_mois="01";
+			l_annee=parseInt(l_annee) + 1;
 		}else{
-			le_mois=parseInt(le_mois) + 1;
+			if(le_mois<9){
+				le_mois= "0" + (parseInt(le_mois)+1);
+			}else{
+				le_mois=parseInt(le_mois) + 1;
+			}
 		}
+		document.getElementById("button_moins").disabled=false;
+		if(le_mois=="11" && l_annee=="2015"){
+			document.getElementById("button_plus").disabled=true;
+		}
+		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
+		ajax();
 	}
-	document.getElementById("button_moins").disabled=false;
-	if(le_mois=="11" && l_annee=="2015"){
-		document.getElementById("button_plus").disabled=true;
-	}
-	document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
-	ajax();
 }
 
 function affichage_credits(){
-	if(document.getElementById('credits').style.display=='block'){
+	console.log(document.getElementById('credits').style.display)
+	if(document.getElementById('credits').style.display!='none'){
 		document.getElementById('credits').style.display='none'
 	}else{
 		document.getElementById('credits').style.display='block'
@@ -1159,7 +1164,7 @@ function toggle_autres_ope(){
 	}else{
 		document.getElementById("tab_autres_ope").style.display="table";
 		document.getElementById("shortcut_autres_ope").style.display="table";
-		document.getElementById("toggle_autres_op").innerHTML="-"
+		document.getElementById("toggle_autres_op").innerHTML="–"
 	}
 }
 function toggle_filtres(){
@@ -1182,7 +1187,7 @@ function toggle_filtres(){
 		document.getElementById("shortcut_prop_sup").style.display="table";
 		document.getElementById("shortcut_nat_sup").style.display="table";
 		document.getElementById("tab_status").style.display="table";
-		document.getElementById("toggle_filtres").innerHTML="-"
+		document.getElementById("toggle_filtres").innerHTML="–"
 	}
 }
 function toggle_filtres_bandes(){
@@ -1191,7 +1196,7 @@ function toggle_filtres_bandes(){
 		document.getElementById("toggle_filtres_bandes").innerHTML="+"
 	}else{
 		document.getElementById("tab_bandes").style.display="table";
-		document.getElementById("toggle_filtres_bandes").innerHTML="-"
+		document.getElementById("toggle_filtres_bandes").innerHTML="–"
 	}
 }
 function toggle_filtres_prop_sup(){
@@ -1202,7 +1207,7 @@ function toggle_filtres_prop_sup(){
 	}else{
 		document.getElementById("tab_prop_sup").style.display="table";
 		document.getElementById("tab_prop_sup2").style.display="table";
-		document.getElementById("toggle_filtres_prop_sup").innerHTML="-"
+		document.getElementById("toggle_filtres_prop_sup").innerHTML="–"
 	}
 }
 function toggle_filtres_nat_sup(){
@@ -1213,7 +1218,7 @@ function toggle_filtres_nat_sup(){
 	}else{
 		document.getElementById("tab_nat_sup").style.display="table";
 		document.getElementById("tab_nat_sup2").style.display="table";
-		document.getElementById("toggle_filtres_nat_sup").innerHTML="-"
+		document.getElementById("toggle_filtres_nat_sup").innerHTML="–"
 	}
 }
 function toggle_lim_aff(){
@@ -1222,7 +1227,7 @@ function toggle_lim_aff(){
 		document.getElementById("toggle_lim_aff").innerHTML="+"
 	}else{
 		document.getElementById("tab_lim_aff").style.display="table";
-		document.getElementById("toggle_lim_aff").innerHTML="-"
+		document.getElementById("toggle_lim_aff").innerHTML="–"
 	}
 }
 function toggle_search(){
@@ -1231,7 +1236,7 @@ function toggle_search(){
 		document.getElementById("toggle_search").innerHTML="+"
 	}else{
 		document.getElementById("tab_search").style.display="table";
-		document.getElementById("toggle_search").innerHTML="-"
+		document.getElementById("toggle_search").innerHTML="–"
 	}
 }
 
