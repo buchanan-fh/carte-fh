@@ -274,7 +274,7 @@ function redraw(index_hist){
 			la_poly.dat["code_lien"]=code_lien;		
 			la_poly.on("click", function(e){
 				supports_du_popup=supports_du_popup.concat(e.target.dat.nos_sup);
-				ope_du_popup=e.target.dat.ope;
+				ope_du_popup=tab_ope_ID[e.target.dat.ope];
 				refresh_opacity();
 				e.target.setStyle({weight: 3.5});
 				if(e.target.getPopup()==undefined){
@@ -1019,7 +1019,7 @@ function refresh_opacity(){
 	}else{
 		for (var i=0; i<polylinesA.length; i++){
 			opacite_lien=opacite_lien_non_lie;
-			if(!ope_du_popup || ope_du_popup && polylinesA[i].dat.ope==ope_du_popup){
+			if(!ope_du_popup || ope_du_popup && tab_ope_ID[polylinesA[i].dat.ope]==ope_du_popup){
 				for(var j=0;j<supports_du_popup.length;j++){
 					if(polylinesA[i].dat.nos_sup.indexOf(supports_du_popup[j])>-1){
 						opacite_lien=1;
