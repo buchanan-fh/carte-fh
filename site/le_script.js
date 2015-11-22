@@ -352,7 +352,7 @@ function redraw(index_hist){
 	if(popup_to_draw!=null){
 		for (var i=marksA.length-1; i>=0; i--){
 			if(marksA[i].dat.no_sup==popup_to_draw){
-				supports_du_popup.push([parseInt(marksA[i].dat.no_sup)]);
+				supports_du_popup.push(parseInt(marksA[i].dat.no_sup));
 				build_popup_mark_s(marksA[i],false);
 				build_popup_mark_img1(marksA[i]);
 				break;
