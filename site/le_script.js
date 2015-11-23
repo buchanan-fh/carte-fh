@@ -385,7 +385,7 @@ function ajax(){
 	
     var url=build_url_liens();
 	var key_hist=array_search(url,hist_url);
-	if(key_hist!=false){
+	if(key_hist!=false && hist_result[key_hist]!=""){
 		redraw(key_hist);
 	}else{
 		ind_req+=1;
@@ -1126,7 +1126,6 @@ function date_plus(){
 }
 
 function affichage_credits(){
-	console.log(document.getElementById('credits').style.display)
 	if(document.getElementById('credits').style.display!='none'){
 		document.getElementById('credits').style.display='none'
 	}else{
