@@ -27,9 +27,11 @@ if(isset($_GET["photo"])){
 	<script src="oms_cm.js"></script>
 	<link rel="stylesheet" href="Control.OSMGeocoder.css">
 	<script src="Control.OSMGeocoder.js"></script>
-	<link rel="stylesheet" href="style.css">
 	<script src="leaflet-measure.min.js"></script>
 	<link rel="stylesheet" href="leaflet-measure.css">
+	<script src="rrose-src.js"></script>
+	<link rel="stylesheet" href="leaflet.rrose.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
 	echo "'".$zone."'";

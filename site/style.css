@@ -53,10 +53,6 @@ body {
 	flex-direction:column;
 	pointer-events: none;
 }
-.leaflet-container a.leaflet-popup-close-button {
-	top: auto;
-	bottom:30px;
-}
 .box{
 	border:solid 1px black;
 	background-color:#C7C7C7;
@@ -332,6 +328,15 @@ body {
 	border-radius: 7px;
 }
 .leaflet-popup-content {
+	margin: 10px 10px;
+	line-height: 1.2;
+}
+.leaflet-rrose-content-wrapper {
+	padding: 1px;
+	text-align: center;
+	border-radius: 7px;
+}
+.leaflet-rrose-content {
 	margin: 10px 10px;
 	line-height: 1.2;
 }
