@@ -40,7 +40,7 @@ nom_exploit["266"]="GLOBALTEL";nom_exploit["251"]="e-tera";nom_exploit["260"]="C
 nom_exploit["269"]="SPLANG";nom_exploit["271"]="ATHD";nom_exploit["254"]="GRAM";nom_exploit["261"]="Global Connect";nom_exploit["247"]="Melis@ exploitation";nom_exploit["259"]="Decyben";
 nom_exploit["248"]="SAT Consult";nom_exploit["256"]="SANEF";nom_exploit["257"]="NET 48";nom_exploit["263"]="Latent Networks";nom_exploit["250"]="NomoTech";nom_exploit["272"]="Vannes agglo numérique";
 nom_exploit["268"]="Dassault aviation";nom_exploit["278"]="Telco OI";nom_exploit["273"]="CG 08";nom_exploit["274"]="Cher haut débit";nom_exploit["275"]="Manche numérique";
-nom_exploit["276"]="Tutor Calvados";nom_exploit["277"]="McKay Brothers International";
+nom_exploit["276"]="Tutor Calvados";nom_exploit["277"]="McKay Brothers International";nom_exploit["279"]="Manche Haut Débit";
 
 couleur_main_ope=[];
 couleur_main_ope[21]=liste_col[1];
@@ -90,6 +90,7 @@ liste_reg_mod=[
 	{name:"(48) Net 48",no_expl:[257]},
 	{name:"(49) Melis@",short_name:"Melis@",no_expl:[186,247]},
 	{name:"(50) Manche numérique",no_expl:[275]},
+	{name:"(50) Manche haut débit",no_expl:[279]},
 	{name:"(55) Net 55",no_expl:[200]},
 	{name:"(58) NiverTel",no_expl:[182]},
 	{name:"(64) IRIS 64",no_expl:[177]},
@@ -144,7 +145,7 @@ liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:["21_23","137","6","158_240"],
 	other:["39","170","218","203","265","202","215","256","9","26","145","171","225","253","185","242","220","236","254","262","261","259",
 			"260","263","277","251","258","160","249","248","250","272","223","2","219","238","271","164","233","244","273","194","276","181",
-			"274","239","180","163","243","195","176","198","257","186_247","275","200","182","177","245","201","165","191","264","184"]};
+			"274","239","180","163","243","195","176","198","257","186_247","275","279","200","182","177","245","201","165","191","264","184"]};
 liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:["21_23","147","162"], other:["39","218","203","154","171","2"]};
 liste_ope_zones["fr_972"]={nom_zone:"Martinique (972)", bounds:[[14.35,-61.3],[14.9,-60.7]], main:["21_23","147","162"], other:["39","218","154","171","207","2"]};
 liste_ope_zones["fr_973"]={nom_zone:"Guyane (973)", bounds:[[2,-54.7],[5.9,-51.4]], main:["21_23","147","162"], other:["39","218","203","11","190","269"]};
