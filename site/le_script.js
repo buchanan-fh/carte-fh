@@ -278,6 +278,19 @@ function redraw(index_hist){
 				ope_du_popup=tab_ope_ID[e.target.dat.ope];
 				refresh_opacity();
 				e.target.setStyle({weight: 3.5});
+				if(e.target.dat.stat==6 || e.target.dat.stat==10){
+					longueur_prolonge=20;
+					coords=e.target.getLatLngs().slice();
+					lat_orig=coords[0].lat*Math.PI/180;
+					lng_orig=coords[0].lng*Math.PI/180;
+					lat_extr=coords[1].lat*Math.PI/180;
+					lng_extr=coords[1].lng*Math.PI/180;
+					az_orig=(Math.atan2(Math.sin(lng_extr-lng_orig)*Math.cos(lat_extr),Math.cos(lat_orig)*Math.sin(lat_extr)-Math.sin(lat_orig)*Math.cos(lat_extr)*Math.cos(lng_extr-lng_orig))+2*Math.PI)%(2*Math.PI);
+					lat_new=Math.asin(Math.sin(lat_orig)*Math.cos(longueur_prolonge/6371)+Math.cos(lat_orig)*Math.sin(longueur_prolonge/6371)*Math.cos(az_orig));
+					lng_new=lng_orig+Math.atan2(Math.sin(az_orig)*Math.sin(longueur_prolonge/6371)*Math.cos(lat_orig),Math.cos(longueur_prolonge/6371)-Math.sin(lat_orig)*Math.sin(lat_new));
+					coords.splice(1,1,[lat_new*180/Math.PI,lng_new*180/Math.PI]);
+					e.target["prolonge"]=L.polyline(coords,{weight: fact_epaisseur*epaisseur, color: liste_ope[tab_ope_ID[e.target.dat.ope]].color, opacity: 1, dashArray: dash_stat[e.target.dat.stat], pane:'polylinesPane'}).addTo(map);
+				}
 				if(e.target.getPopup()==undefined){
 					build_popup_link(e);
 				}else{
@@ -287,6 +300,9 @@ function redraw(index_hist){
 			la_poly.on("popupclose", function(e){
 				e.target.unbindPopup();
 				e.target.setStyle({weight: fact_epaisseur*epaisseur});
+				if(e.target.dat.stat==6 || e.target.dat.stat==10){
+					map.removeLayer(e.target.prolonge);
+				}
 				for(i=0;i<e.target.dat.nos_sup.length;i++){
 					supports_du_popup.splice(supports_du_popup.indexOf(e.target.dat.nos_sup[i]),1);
 				}
