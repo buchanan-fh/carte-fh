@@ -1283,6 +1283,20 @@ function shure_all(){
 	ajax();
 }
 
+mark_geoloc=L.marker();
+function geoloc(){
+	if(document.getElementById("check_geoloc").checked==true){
+		map.locate({watch:true, setView:true, maxZoom:17});
+	}else{
+		map.stopLocate();
+		map.removeLayer(mark_geoloc)
+	}
+}
+map.on('locationfound',function(e){
+	mark_geoloc.setLatLng(e.latlng);
+	mark_geoloc.addTo(map);
+})
+
 function array_search(needle, haystack, argStrict) {
   //  discuss at: http://phpjs.org/functions/array_search/
   // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)

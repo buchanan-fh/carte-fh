@@ -66,7 +66,15 @@ if(isset($_GET["photo"])){
 	</div>
 	<div id="map_global">
 		<div id="map_canvas"></div>
-		<div id="controle_right"> 
+		<div id="controle_right">
+			<div class="box" id="b_geoloc">
+				<table class="tab_col">
+					<tr>
+						<td class="ligne_simple"><input type="checkbox" id="check_geoloc" onclick="geoloc()"></td>
+						<td class="ligne_simple">Géolocalisation</td>
+					</tr>
+				</table>
+			</div>
 			<div class="box" id="b_date"> 
 				<table class="tab_col">
 					<tr>
