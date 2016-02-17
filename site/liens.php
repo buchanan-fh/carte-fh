@@ -11,8 +11,9 @@ $all_sup = array();
 $nb_ant_sup = array();
 $final_result = new StdClass();
 $cache_file = 'cache/cache_cat_piwigo.txt';
+$lock=false;
 
-if(array_search($_GET['date'],$tab_dates_ok)!==FALSE){
+if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 
 	if(isset($_GET["avec_photo"]) && isset($_GET["sans_photo"])){
 		if($_GET["avec_photo"] * $_GET["sans_photo"] == 0){
