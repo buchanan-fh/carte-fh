@@ -58,6 +58,7 @@ d_div_link_to_sup = document.getElementById("d_link_to_sup");
 d_div_link_galerie = document.getElementById("d_link_galerie");
 d_div_link_galerie_2 = document.getElementById("d_link_galerie_2");
 d_div_link_cartoradio = document.getElementById("d_link_cartoradio");
+d_div_link_osm = document.getElementById("d_link_osm");
 d_div_link_gmaps = document.getElementById("d_link_gmaps");
 
 la_div_support.onmouseenter = function(e){
@@ -892,6 +893,7 @@ function build_detail_2(d_supports_t,isopen){
 		}
 	}
 	d_div_link_cartoradio.href="http://www.cartoradio.fr/cartoradio/web/#bbox/"+s_result.coords[1]+"/"+s_result.coords[0]+"/"+s_result.coords[1]+"/"+s_result.coords[0];
+	d_div_link_osm.href="https://www.openstreetmap.org/#map=18/"+s_result.coords[0]+"/"+s_result.coords[1];
 	d_div_link_gmaps.href="https://www.google.com/maps/@"+s_result.coords[0]+","+s_result.coords[1]+",17z";
 	for(var i=0; i<s_result.antennes.length; i++){
 		var d_tr = document.createElement("tr");

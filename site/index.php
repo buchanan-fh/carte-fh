@@ -60,7 +60,7 @@ if(isset($_GET["photo"])){
 			</div>
 			<div id="d_links">
 				<div class="p_titre">Liens:</div>
-				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_galerie" href="">Vers la galerie photo</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
+				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_galerie" href="">Vers la galerie photo</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_osm" href="">Vers OpenStreetMap</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
 			</div>
 		</div>
 	</div>
