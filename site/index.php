@@ -82,6 +82,9 @@ if(isset($_GET["photo"])){
 						<td class="ligne_plus" id="date_select"></td>
 						<td class="ligne_plus"><input id="button_plus" type="button" value=">>" onclick="date_plus()" title="Mois suivant" disabled></td>
 					</tr>
+					<tr>
+						<td colspan="3" class="ligne_simple"><a id="lien_dl_kml" href="">Télécharger les fichiers kml</a></td>
+					</tr>
 				</table>
 			</div>
 			<div class="box clickable" onclick="choix_zone();" id="b_zone" title="Choix d'une zone">

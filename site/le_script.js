@@ -382,6 +382,14 @@ function redraw(index_hist){
 	document.getElementById("aff_nb_liens").innerHTML = polylinesA.length + " liens affichés";
 	document.getElementById("aff_nb_supports").innerHTML = marksA.length + " supports affichés";
 	
+	if(l_result.full==0){
+		le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
+		l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
+		document.getElementById("lien_dl_kml").href = base_url + l_annee + le_mois + "/" + l_annee + "-" + le_mois + ".zip";
+	}else{
+		document.getElementById("lien_dl_kml").href = "";
+	}
+	
 	if(l_result.full==-1){
 		document.getElementById("aff_restreint").innerHTML = "Erreur";
 		document.getElementById("aff_restreint").style.color = "red";
