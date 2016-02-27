@@ -39,7 +39,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 			foreach($cats as $key => $cat){
 				$no_sup=explode(' - ',$cat->name);
 				if(is_numeric($no_sup[1])){
-					array_push($liste_no_sup_photo,$no_sup[1]);
+					$liste_no_sup_photo[$no_sup[1]]=1;
 				}
 			}
 		}else{
@@ -57,6 +57,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 			$skip_prop_sup=true;
 		}else{
 			$skip_prop_sup=false;
+			$prop_liste=array_flip($prop_liste);
 		}
 	}else{
 		$skip_prop_sup=true;
@@ -67,6 +68,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 			$skip_nat_sup=true;
 		}else{
 			$skip_nat_sup=false;
+			$nat_liste=array_flip($nat_liste);
 		}
 	}else{
 		$skip_nat_sup=true;
@@ -92,9 +94,9 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										$tab_prop_sup=explode(',',$les_champs[11]);
 										$tab_nat_sup=explode(',',trim($les_champs[12]));
 										for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-											if($skip_photo || ($sans_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && in_array($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
-												if($skip_prop_sup || in_array($tab_prop_sup[$i_sup],$prop_liste)){
-													if($skip_nat_sup || in_array($tab_nat_sup[$i_sup],$nat_liste)){
+											if($skip_photo || ($sans_photo && array_key_exists($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && array_key_exists($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
+												if($skip_prop_sup || array_key_exists($tab_prop_sup[$i_sup],$prop_liste)){
+													if($skip_nat_sup || array_key_exists($tab_nat_sup[$i_sup],$nat_liste)){
 														$code_sup='s'.$tab_nos_sup[$i_sup];
 														if(isset($all_sup[$code_sup])){
 															$all_sup[$code_sup] += 1;
