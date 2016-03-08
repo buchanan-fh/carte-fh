@@ -38,7 +38,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 			$liste_no_sup_photo=array();
 			foreach($cats as $key => $cat){
 				$no_sup=explode(' - ',$cat->name);
-				if(is_numeric($no_sup[1])){
+				if(isset($no_sup[1]) && is_numeric($no_sup[1])){
 					$liste_no_sup_photo[$no_sup[1]]=1;
 				}
 			}
