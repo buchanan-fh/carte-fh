@@ -122,6 +122,10 @@ body {
 .check_cell{
 	width:1px;
 }
+.color_cell{
+	width:10px;
+	padding-right:5px;
+}
 .ligne_plus{
 	height:20px;
 	text-align:center;
@@ -153,7 +157,7 @@ body {
 	width:120px;
 }
 #leg_autres{
-	color:#339933;
+	background-color:#339933;
 }
 .p_link{
 	margin-left:10px;

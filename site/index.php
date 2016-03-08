@@ -711,7 +711,8 @@ if(isset($_GET["photo"])){
 				<table class="tab_col">
 					<tr>
 						<td class="check_cell"><input type="checkbox" id="check_op_autres" onclick="click_autres_ope()" checked></td>
-						<td class="clickable" onclick="toggle_autres_ope()"><span class="leg" id="leg_autres">&#x25FC;</span> Autres</td>
+						<td class="clickable color_cell" onclick="toggle_autres_ope()"><table class="tab_col" cellpadding="5"><tr><td id="leg_autres"></td></tr></table></td>
+						<td class="clickable" onclick="toggle_autres_ope()">Autres</td>
 						<td class="toggle" id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
 					</tr>
 				</table>

@@ -191,11 +191,15 @@ function build_interface(fit,zone,select_ope){
 		var tr = document.createElement("tr");
 		var td1 = document.createElement("td");
 		var td2 = document.createElement("td");
+		var td3 = document.createElement("td");
 		td1.className="check_cell";
+		td2.className="color_cell";
 		td1.innerHTML="<input type=\"checkbox\" id=\"check_op_"+liste_ope_zones[zone].main[i]+"\" onclick=\"ajax()\" "+init_state+">";
-		td2.innerHTML="<span class=\"leg\" style=\"color:"+liste_ope[liste_ope_zones[zone].main[i]].color+";\">&#x25FC;</span> "+liste_ope[liste_ope_zones[zone].main[i]].leg_name;
+		td2.innerHTML="<table class=\"tab_col\" cellpadding=\"5\"><tr><td style=\"background-color:"+liste_ope[liste_ope_zones[zone].main[i]].color+"\"></td></tr></table>";
+		td3.innerHTML=liste_ope[liste_ope_zones[zone].main[i]].leg_name;
 		tr.appendChild(td1);
 		tr.appendChild(td2);
+		tr.appendChild(td3);
 		document.getElementById("tab_ope_main").appendChild(tr);
 	}
 	document.getElementById("check_op_autres").checked=true;
