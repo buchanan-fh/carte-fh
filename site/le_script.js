@@ -2,7 +2,7 @@ nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
 nom_syst=["FH","FH ABI","BLR 3 GHz"];
-epaisseur=1;
+epaisseur_init=1.1;
 fact_epaisseur=1;
 dash_stat={};
 dash_stat["5"]=[1,0];dash_stat["6"]=[1,3];dash_stat["9"]=[6,5];dash_stat["10"]=[1,3];
@@ -137,7 +137,7 @@ L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
 
 map.on("baselayerchange", function(e){
-	if(e._url=='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'){
+	if(e.name=='ESRI World Imagery'){
 		fact_epaisseur=1.5;
 	}else{
 		fact_epaisseur=1;
@@ -160,11 +160,11 @@ document.getElementById("date_select").innerHTML = "03/2016";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
-		epaisseur=1.2;
+		epaisseur=1.2*epaisseur_init;
 	} else if (map.getZoom()<=11) {
-		epaisseur=1.4;
+		epaisseur=1.4*epaisseur_init;
 	} else {
-		epaisseur=1.6;
+		epaisseur=1.6*epaisseur_init;
 	}
 });
 map.on('moveend', function() {
