@@ -254,6 +254,13 @@ function redraw(index_hist){
 			if(supports_du_popup.length==0){
 				polylinesA[i].setStyle({opacity: 1});
 			}
+		}else if (polylinesA[i].hasOwnProperty('prolonge')){
+			if(polylinesA[i].getPopup()==undefined){
+				polylinesA[i].setStyle({weight: fact_epaisseur*epaisseur});
+			}
+			if(supports_du_popup.length==0){
+				polylinesA[i].setStyle({opacity: 1});
+			}
 		}else{
 			map.removeLayer(polylinesA[i]);
 			polylinesA.splice(i,1);
@@ -303,6 +310,7 @@ function redraw(index_hist){
 				e.target.setStyle({weight: fact_epaisseur*epaisseur});
 				if(e.target.dat.stat==6 || e.target.dat.stat==10){
 					map.removeLayer(e.target.prolonge);
+					delete e.target.prolonge;
 				}
 				for(i=0;i<e.target.dat.nos_sup.length;i++){
 					supports_du_popup.splice(supports_du_popup.indexOf(e.target.dat.nos_sup[i]),1);
