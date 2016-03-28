@@ -124,7 +124,7 @@ if(isset($_GET["photo"])){
 						<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
 						<td>Liens activés</td>
 					</tr>
-					<tr>
+					<tr class="border_bottom">
 						<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
 						<td>Liens non activés</td>
 					</tr>
@@ -132,7 +132,7 @@ if(isset($_GET["photo"])){
 						<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
 						<td>Liens r&eacute;solus</td>
 					</tr>
-					<tr>
+					<tr class="border_bottom">
 						<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
 						<td>Liens non r&eacute;solus</td>
 					</tr>
@@ -140,7 +140,7 @@ if(isset($_GET["photo"])){
 						<td><input type="checkbox" id="check_avec_photo" onclick="ajax()" <?php echo $avec_photo ?>></td>
 						<td>Supports avec photo</td>
 					</tr>
-					<tr>
+					<tr class="border_bottom">
 						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" <?php echo $sans_photo ?>></td>
 						<td>Supports sans photo</td>
 					</tr>

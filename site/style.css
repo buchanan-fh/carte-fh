@@ -325,6 +325,9 @@ body {
 	flex-grow:0;
 	min-height:1px;
 }
+.border_bottom{
+	border-bottom: 1px solid #A7A7A7;
+}
 
 .leaflet-popup-content-wrapper {
 	padding: 1px;
