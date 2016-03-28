@@ -20,7 +20,8 @@ var pwg_img_tag;
 var supports_du_popup=[];
 var ope_du_popup;
 var dir_popup;
-opacite_lien_non_lie=0.25
+opacite_lien_non_lie=0.22;
+opacite_lien_meme_ope=0.6;
 //base_url="http://192.168.7.1:5723/";
 //base_url="http://192.168.7.1:81/";
 base_url="https://carte-fh.lafibre.info/";
@@ -269,10 +270,21 @@ function redraw(index_hist){
 	for (var code_lien in l_result.liens){
 		if(l_result.liens.hasOwnProperty(code_lien)){		
 			if(supports_du_popup.length>0){
-				opacite_lien=opacite_lien_non_lie
-				for(var i=0;i<supports_du_popup.length;i++){
-					if(l_result.liens[code_lien].nos_sup.indexOf(supports_du_popup[i])>-1){
-						opacite_lien=1;
+				opacite_lien=opacite_lien_non_lie;
+				if(ope_du_popup){
+					if(tab_ope_ID[l_result.liens[code_lien].ope]==ope_du_popup){
+						opacite_lien=opacite_lien_meme_ope;
+						for(var i=0;i<supports_du_popup.length;i++){
+							if(l_result.liens[code_lien].nos_sup.indexOf(supports_du_popup[i])>-1){
+								opacite_lien=1;
+							}
+						}
+					}
+				}else{
+					for(var i=0;i<supports_du_popup.length;i++){
+						if(l_result.liens[code_lien].nos_sup.indexOf(supports_du_popup[i])>-1){
+							opacite_lien=1;
+						}
 					}
 				}
 			}else{
@@ -1071,7 +1083,16 @@ function refresh_opacity(){
 	}else{
 		for (var i=0; i<polylinesA.length; i++){
 			opacite_lien=opacite_lien_non_lie;
-			if(!ope_du_popup || ope_du_popup && tab_ope_ID[polylinesA[i].dat.ope]==ope_du_popup){
+			if(ope_du_popup){
+				if(tab_ope_ID[polylinesA[i].dat.ope]==ope_du_popup){
+					opacite_lien=opacite_lien_meme_ope;
+					for(var j=0;j<supports_du_popup.length;j++){
+						if(polylinesA[i].dat.nos_sup.indexOf(supports_du_popup[j])>-1){
+							opacite_lien=1;
+						}
+					}
+				}
+			}else{
 				for(var j=0;j<supports_du_popup.length;j++){
 					if(polylinesA[i].dat.nos_sup.indexOf(supports_du_popup[j])>-1){
 						opacite_lien=1;
