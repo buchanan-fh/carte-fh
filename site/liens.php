@@ -10,41 +10,24 @@ $final_links = array();
 $all_sup = array();
 $nb_ant_sup = array();
 $final_result = new StdClass();
-$cache_file = 'cache/cache_cat_piwigo.txt';
+$cache_file = 'cache/cache_url_photo.txt';
 $lock=false;
 
 if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 
-	if(isset($_GET["avec_photo"]) && isset($_GET["sans_photo"])){
-		if($_GET["avec_photo"] * $_GET["sans_photo"] == 0){
-			$skip_photo=false;
-			$sans_photo=($_GET["sans_photo"]==1);
-			$avec_photo=($_GET["avec_photo"]==1);
-			
-			if(file_exists($cache_file) && (filemtime($cache_file) > (time() - 60 * 5 ))) {
-				$return = file_get_contents($cache_file);
-			} else {
-				$curl=curl_init();
-				curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/galerie_photo/ws.php?format=json&method=pwg.categories.getList&recursive=true');
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-				$return = curl_exec($curl);
-				curl_close($curl);
-				file_put_contents($cache_file, $return, LOCK_EX);
-			}
-
-			$obj_return = json_decode($return);
-			$cats=$obj_return->result->categories;
-			$liste_no_sup_photo=array();
-			foreach($cats as $key => $cat){
-				$no_sup=explode(' - ',$cat->name);
-				if(isset($no_sup[1]) && is_numeric($no_sup[1])){
-					$liste_no_sup_photo[$no_sup[1]]=1;
-				}
-			}
-		}else{
-			$skip_photo=true;
-		}
+	if(isset($_GET["avec_photo"]) && isset($_GET["sans_photo"]) && ($_GET["avec_photo"] * $_GET["sans_photo"] == 0)){
+		$skip_photo=false;
+		$sans_photo=($_GET["sans_photo"]==1);
+		$avec_photo=($_GET["avec_photo"]==1);
+		$liste_no_sup_photo = unserialize(file_get_contents($cache_file));
+		
+		$curl=curl_init();
+		curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/regen_cache_pic.php');
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl, CURLOPT_TIMEOUT_MS, 10);
+		$return = curl_exec($curl);
+		curl_close($curl);
 	}else{
 		$skip_photo=true;
 	}
@@ -76,7 +59,6 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	
 	$checked_links=array();
 	
-			
 	foreach($op_liste as $i_ope){
 		foreach($noms_tile as $nom_tile){
 			if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt')){
@@ -94,9 +76,9 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										$tab_prop_sup=explode(',',$les_champs[11]);
 										$tab_nat_sup=explode(',',trim($les_champs[12]));
 										for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-											if($skip_photo || ($sans_photo && array_key_exists($tab_nos_sup[$i_sup],$liste_no_sup_photo)==false) || ($avec_photo && array_key_exists($tab_nos_sup[$i_sup],$liste_no_sup_photo))){
-												if($skip_prop_sup || array_key_exists($tab_prop_sup[$i_sup],$prop_liste)){
-													if($skip_nat_sup || array_key_exists($tab_nat_sup[$i_sup],$nat_liste)){
+											if($skip_photo || ($sans_photo && isset($liste_no_sup_photo[$tab_nos_sup[$i_sup]])==false) || ($avec_photo && isset($liste_no_sup_photo[$tab_nos_sup[$i_sup]]))){
+												if($skip_prop_sup || isset($prop_liste[$tab_prop_sup[$i_sup]])){
+													if($skip_nat_sup || isset($nat_liste[$tab_nat_sup[$i_sup]])){
 														$code_sup='s'.$tab_nos_sup[$i_sup];
 														if(isset($all_sup[$code_sup])){
 															$all_sup[$code_sup] += 1;
