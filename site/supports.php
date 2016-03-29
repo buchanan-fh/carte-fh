@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 
 $obj_sup = new StdClass();
 $flag_trouve_sup=false;
+$cache_file = 'cache/cache_url_photo.txt';
 date_default_timezone_set('Europe/Paris');
 
 if(!isset($_GET["date"])){
@@ -38,6 +39,9 @@ if($flag_trouve_sup==true){
 	$obj_sup->prop=$les_champs[4];
 	$obj_sup->type=$les_champs[5];
 	$obj_sup->nom_prop=$les_champs[6];
+	$obj_sup->url_photo_small="";
+	$obj_sup->url_photo_det="";
+	$obj_sup->url_cat_photo="";
 }else{
 	$obj_sup->no_sup=0;
 	$obj_sup->coords="";
@@ -47,10 +51,32 @@ if($flag_trouve_sup==true){
 	$obj_sup->prop="";
 	$obj_sup->type="";
 	$obj_sup->nom_prop="";
+	$obj_sup->url_photo_small="";
+	$obj_sup->url_photo_det="";
+	$obj_sup->url_cat_photo="";
+}
+
+$flag_regen_cache=false;
+if($flag_trouve_sup){
+	
+	$tab_sup_url = unserialize(file_get_contents($cache_file));
+	if(isset($tab_sup_url[(int)$les_champs[0]])){
+		$obj_sup->url_photo_small=$tab_sup_url[(int)$les_champs[0]]->url_photo_small;
+		$obj_sup->url_photo_det=$tab_sup_url[(int)$les_champs[0]]->url_photo_det;
+		$obj_sup->url_cat_photo=$tab_sup_url[(int)$les_champs[0]]->url_cat_photo;
+	}
+	
+	$curl=curl_init();
+	curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/regen_cache_pic.php');
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($curl, CURLOPT_TIMEOUT_MS, 100);
+	$return = curl_exec($curl);
+	curl_close($curl);
 }
 
 $obj_sup->antennes=array();
-if(isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1"){
+if($flag_trouve_sup==true && isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1"){
 	$op_liste=explode("|",$_GET["op_liste"]);
 	if(file_exists($_GET["date"]."/antennes.txt")){
 		$le_fichier_ant=fopen($_GET["date"]."/antennes.txt","r");
