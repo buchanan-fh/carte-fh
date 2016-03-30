@@ -25,12 +25,13 @@ if(isset($_GET["photo"])){
 	<link rel="stylesheet" href="leaflet.css">
 	<script src="leaflet.js"></script>
 	<script src="oms_cm.js"></script>
-	<link rel="stylesheet" href="Control.OSMGeocoder.css">
-	<script src="Control.OSMGeocoder.js"></script>
 	<script src="leaflet-measure.min.js"></script>
 	<link rel="stylesheet" href="leaflet-measure.css">
 	<script src="rrose-src.js"></script>
 	<link rel="stylesheet" href="leaflet.rrose.css">
+	<script src="esri-leaflet.js"></script>
+	<script src="esri-leaflet-geocoder.js"></script>
+	<link rel="stylesheet" href="esri-leaflet-geocoder.css">
 	<link rel="stylesheet" href="style.css">
 </head>
 <body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php

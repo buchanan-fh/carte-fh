@@ -129,13 +129,10 @@ markersPane = map.createPane('markersPane');
 markersPane.style.zIndex=202;
 L.control.scale().addTo(map);
 L.control.zoom({position:"bottomleft"}).addTo(map);
-new L.Control.OSMGeocoder({
-	collapsed: false,
-	position: "bottomright",
-	text: "Chercher un lieu..."
-}).addTo(map);
 L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
+var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider({maxResults: "4"});
+var searchControl = L.esri.Geocoding.geosearch({providers: [arcgisOnline], position: "bottomright", useMapBounds: "false", placeholder: "Rechercher un lieu...", title: "Rechercher un lieu"}).addTo(map);
 
 map.on("baselayerchange", function(e){
 	if(e.name=='ESRI World Imagery'){
