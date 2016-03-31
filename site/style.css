@@ -298,7 +298,7 @@ body {
 	max-height:100%;
 	max-width:100%;
 }
-#d_img_close{
+#d_img_close, #d_img_center{
 	margin-left:10px;
 }
 #d_miniatures{

@@ -47,7 +47,8 @@ if(isset($_GET["photo"])){
 	<div id="detail_sup">
 		<div id="d_sup">
 			<div id="d_header">
-				<img class="img_click" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center" title="Centrer sur ce support">
+				<a target="_blank" id="d_img_galerie"><img class="img_click" src="camera.png" alt="camera" title="Voir la galerie photo"></a>
+				<img class="img_click" id="d_img_center" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center" title="Centrer sur ce support">
 				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close" title="Fermer">
 			</div>
 			<div id="d_descr">
@@ -61,7 +62,7 @@ if(isset($_GET["photo"])){
 			</div>
 			<div id="d_links">
 				<div class="p_titre">Liens:</div>
-				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_galerie" href="">Vers la galerie photo</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_osm" href="">Vers OpenStreetMap</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
+				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_osm" href="">Vers OpenStreetMap</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
 			</div>
 		</div>
 	</div>
