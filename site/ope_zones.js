@@ -1,4 +1,4 @@
-liste_col=['#FFFFFF','#ED7B00','#ED0000','#0067ED','#6A6A6A','#339933','#E11C78','#ED3529'];
+liste_col=['#FFFFFF','#FF8400','#ED0000','#0067ED','#6A6A6A','#39AC39','#E11C78','#ED3529'];
 current_zone="";
 
 nature_support=[];nature_support["0"]="Sans nature";nature_support["40"]="Sémaphore";nature_support["41"]="Phare";nature_support["4"]="Château d'eau - réservoir";
