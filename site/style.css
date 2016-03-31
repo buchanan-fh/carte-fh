@@ -195,6 +195,11 @@ body {
 	font-size:10px;
 	text-align:left;
 }
+.plus_details{
+	font-size:11px;
+	text-align:right;
+	padding-right:10px;
+}
 .t_ant{
 	border-collapse:collapse;
 	width:100%;
