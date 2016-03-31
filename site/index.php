@@ -53,7 +53,7 @@ if(isset($_GET["photo"])){
 			</div>
 			<div id="d_descr">
 				<div id="d_titre" class="p_titre"></div>
-				<div id="d_adresse" class="p_adresse"></div>
+				<div id="d_adresse"></div>
 				<div id="div_photo_large">
 					<a target="_blank" id="d_link_galerie_2" href=""><img id="photo_large"></a>
 				</div>
