@@ -32,7 +32,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		$skip_photo=true;
 	}
 	
-	$noms_tile=get_nom_tile($_GET['west'],$_GET['east'],$_GET['north'],$_GET['south']);
+	$noms_tile=get_nom_tile();
 	$op_liste=explode('|',$_GET['op_liste']);
 	if(isset($_GET['prop_liste'])){
 		$prop_liste=explode('|',$_GET['prop_liste']);
@@ -67,7 +67,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 					$la_ligne=fgets($le_fichier);
 					if(!empty($la_ligne)){
 						$les_champs=explode('|',$la_ligne);
-						if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
+						if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
 							if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
 								if((int)$les_champs[6] & (int)$_GET['bande_code']){
 									if(!isset($checked_links[$les_champs[10]])){
@@ -142,7 +142,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
 									}
 									if(!$flag_ajoute){
-										if(overlap($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
+										if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
 											if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
 												if ((int)$les_champs[6] & (int)$_GET['bande_code']){
 													if(count($tab_nos_sup)>1){
@@ -202,7 +202,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 }
 
 
-function overlap($p_lon1,$p_lon2,$p_lat1,$p_lat2,$b_west,$b_east,$b_north,$b_south){
+function overlap($p_lon1,$p_lon2,$p_lat1,$p_lat2){
 	if ($p_lon1<=$p_lon2) {
 		$p_left=$p_lon1;
 		$p_right=$p_lon2;
@@ -217,11 +217,75 @@ function overlap($p_lon1,$p_lon2,$p_lat1,$p_lat2,$b_west,$b_east,$b_north,$b_sou
 		$p_bottom=$p_lat2;
 		$p_top=$p_lat1;
 	}
-	$separe=($p_left > $b_east) || ($p_right < $b_west) || ($p_bottom > $b_north) || ($p_top < $b_south);
+	$separe=($p_left > $_GET['east']) || ($p_right < $_GET['west']) || ($p_bottom > $_GET['north']) || ($p_top < $_GET['south']);
 	return (!$separe);
 }
 
-function get_nom_tile($b_west,$b_east,$b_north,$b_south){
+function CohenSutherlandModif($p_lon1,$p_lon2,$p_lat1,$p_lat2){
+	$outcode1=ComputeOutCode($p_lon1,$p_lat1);
+	if($outcode1==0){
+		return true;
+		break;
+	}
+	$outcode2=ComputeOutCode($p_lon2,$p_lat2);
+	if($outcode2==0){
+		return true;
+		break;
+	}
+	if($outcode1 & $outcode2){
+		return false;
+		break;
+	}
+	while(true){
+		if($outcode1==0 || $outcode2==0){
+			return true;
+			break;
+		}elseif($outcode1 & $outcode2){
+			return false;
+			break;
+		}else{
+			$outcodeOut = $outcode1 ? $outcode1 : $outcode2;
+			if($outcodeOut & 8){
+				$n_lon=$p_lon1+($p_lon2-$p_lon1)*($_GET['north']-$p_lat1)/($p_lat2-$p_lat1);
+				$n_lat=$_GET['north'];
+			}elseif($outcodeOut & 4){
+				$n_lon=$p_lon1+($p_lon2-$p_lon1)*($_GET['south']-$p_lat1)/($p_lat2-$p_lat1);
+				$n_lat=$_GET['south'];
+			}elseif($outcodeOut & 2){
+				$n_lat=$p_lat1+($p_lat2-$p_lat1)*($_GET['east']-$p_lon1)/($p_lon2-$p_lon1);
+				$n_lon=$_GET['east'];
+			}elseif($outcodeOut & 1){
+				$n_lat=$p_lat1+($p_lat2-$p_lat1)*($_GET['west']-$p_lon1)/($p_lon2-$p_lon1);
+				$n_lon=$_GET['west'];
+			}
+			if($outcodeOut==$outcode1){
+				$p_lon1=$n_lon;
+				$p_lat1=$n_lat;
+				$outcode1=ComputeOutCode($p_lon1,$p_lat1);
+			}else{
+				$p_lon2=$n_lon;
+				$p_lat2=$n_lat;
+				$outcode2=ComputeOutCode($p_lon2,$p_lat2);
+			}
+		}
+	}
+}
+function ComputeOutCode($p_lon,$p_lat){
+	$p_code=0;
+	if($p_lon<$_GET['west']){
+		$p_code |= 1;
+	}elseif($p_lon>$_GET['east']){
+		$p_code |= 2;
+	}
+	if($p_lat<$_GET['south']){
+		$p_code |= 4;
+	}elseif($p_lat>$_GET['north']){
+		$p_code |= 8;
+	}
+	return $p_code;
+}
+
+function get_nom_tile(){
 	$tiles=array();
 	$tiles["11"]=array(-180,1,46.7,90);
 	$tiles["12"]=array(1,4.5,46.7,90);
@@ -231,7 +295,7 @@ function get_nom_tile($b_west,$b_east,$b_north,$b_south){
 	$tiles["23"]=array(4.5,180,-90,46.7);	
 	$noms_tiles=array();
 	foreach($tiles as $nom_tile => $coords_tile){
-		if(overlap($coords_tile[0],$coords_tile[1],$coords_tile[2],$coords_tile[3],$b_west,$b_east,$b_north,$b_south)){
+		if(overlap($coords_tile[0],$coords_tile[1],$coords_tile[2],$coords_tile[3],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){
 			$noms_tiles[]=$nom_tile;
 		}
 	}
