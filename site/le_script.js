@@ -203,12 +203,15 @@ function redraw(index_hist){
 		}
 		var pix_max=7;
 		var pix_min=3;
+		var nb_max_fh=90;
+		var pix_max_orig=5;
+		var pix_lim_a=(pix_max-pix_min)/nb_max_fh;
 		if(l_result.nb_ant_max!=l_result.nb_ant_min){
-			var t_a=(pix_max-pix_min)/(l_result.nb_ant_max-l_result.nb_ant_min);
+			var t_a=((pix_lim_a*l_result.nb_ant_max+pix_max_orig)-pix_min)/(l_result.nb_ant_max-l_result.nb_ant_min);
 			var t_b=pix_min-t_a*l_result.nb_ant_min;
 		}else{
-			var t_a=0;
-			var t_b=4;
+			var t_a=(pix_max-pix_min)/nb_max_fh;
+			var t_b=pix_min;
 		}
 		for(var property in l_result.supports){
 			if(l_result.supports.hasOwnProperty(property)){
