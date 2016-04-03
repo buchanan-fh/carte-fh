@@ -187,8 +187,18 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	$final_result->full = 0;
 	$final_result->limitation_act = $limitation_act;
 	$final_result->tiles = $noms_tile;
-	$final_result->nb_ant_max = $all_sup_final[array_shift(array_keys($all_sup,'inside'))]['nb_ant'];
-	$final_result->nb_ant_min = $all_sup_final[array_pop(array_keys($all_sup,'inside'))]['nb_ant'];
+	$key_max_ant=array_shift(array_keys($all_sup,'inside'));
+	if($key_max_ant){
+		$final_result->nb_ant_max = $all_sup_final[$key_max_ant]['nb_ant'];
+	}else{
+		$final_result->nb_ant_max = 0;
+	}
+	$key_min_ant=array_pop(array_keys($all_sup,'inside'));
+	if($key_min_ant){
+		$final_result->nb_ant_min = $all_sup_final[$key_min_ant]['nb_ant'];
+	}else{
+		$final_result->nb_ant_min = 0;
+	}
 	$final_result->ind_req = $_GET['req'];
 	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
