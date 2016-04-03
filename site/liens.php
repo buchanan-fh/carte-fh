@@ -142,6 +142,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										if(ComputeOutCode((float)$les_champs[1+2*$i_sup],(float)$les_champs[2*$i_sup])){
 											$all_sup[$code_sup]='outside';
 										}else{
+											$les_prop=explode(',',$les_champs[11]);
 											$all_sup_final[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
 											$all_sup[$code_sup]='inside';
 										}
@@ -186,8 +187,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	$final_result->full = 0;
 	$final_result->limitation_act = $limitation_act;
 	$final_result->tiles = $noms_tile;
-	$final_result->nb_ant_max = $all_sup_final[array_shift(array_keys($all_sup))]['nb_ant'];
-	$final_result->nb_ant_min = $all_sup_final[array_pop(array_keys($all_sup))]['nb_ant'];
+	$final_result->nb_ant_max = $all_sup_final[array_shift(array_keys($all_sup,'inside'))]['nb_ant'];
+	$final_result->nb_ant_min = $all_sup_final[array_pop(array_keys($all_sup,'inside'))]['nb_ant'];
 	$final_result->ind_req = $_GET['req'];
 	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
