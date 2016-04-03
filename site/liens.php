@@ -120,6 +120,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		unset($keys);
 	}
 	
+	$all_sup_final=array();
 	$checked_links=array();
 	$d_min=7*28284/pow(2,(int)$_GET['zoom']+8);	
 	foreach($op_liste as $i_ope){
@@ -137,9 +138,13 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 							for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
 								$code_sup='s'.$tab_nos_sup[$i_sup];
 								if(isset($all_sup[$code_sup])){
-									if(isset($all_sup[$code_sup]['coords'])==false){
-										$les_prop=explode(',',$les_champs[11]);
-										$all_sup[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+									if(is_numeric($all_sup[$code_sup])){
+										if(ComputeOutCode((float)$les_champs[1+2*$i_sup],(float)$les_champs[2*$i_sup])){
+											$all_sup[$code_sup]='outside';
+										}else{
+											$all_sup_final[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+											$all_sup[$code_sup]='inside';
+										}
 									}
 									if(!$flag_ajoute){
 										if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
@@ -176,28 +181,26 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		$limitation_act=true;
 	}
 	
-	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	$final_result->liens = $final_links;
-	$final_result->supports = $all_sup;
+	$final_result->supports = $all_sup_final;
 	$final_result->full = 0;
 	$final_result->limitation_act = $limitation_act;
 	$final_result->tiles = $noms_tile;
-	$premier_sup=reset($all_sup);
-	$final_result->nb_ant_max = $premier_sup['nb_ant'];
-	$dernier_sup=end($all_sup);
-	$final_result->nb_ant_min = $dernier_sup['nb_ant'];
+	$final_result->nb_ant_max = $all_sup_final[array_shift(array_keys($all_sup))]['nb_ant'];
+	$final_result->nb_ant_min = $all_sup_final[array_pop(array_keys($all_sup))]['nb_ant'];
 	$final_result->ind_req = $_GET['req'];
+	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
 }else{
 	$final_result->liens = $final_links;
-	$final_result->supports = $all_sup;
+	$final_result->supports = $all_sup_final;
 	$final_result->full = -1;
 	$final_result->limitation_act = false;
 	$final_result->tiles = array();
 	$final_result->nb_ant_max = 0;
 	$final_result->nb_ant_min = 0;
-	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	$final_result->ind_req = $_GET['req'];
+	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
 }
 
