@@ -204,7 +204,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	echo json_encode($final_result);
 }else{
 	$final_result->liens = $final_links;
-	$final_result->supports = $all_sup_final;
+	$final_result->supports = array();
 	$final_result->full = -1;
 	$final_result->limitation_act = false;
 	$final_result->tiles = array();
