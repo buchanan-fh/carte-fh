@@ -701,7 +701,7 @@ if(isset($_GET["photo"])){
 					</tr>
 					<tr>
 						<td class="ligne_left" id="aff_nb_liens" width="80%">liens affichés</td>
-						<td rowspan="2" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i" title="Crédits"></td>
+						<td rowspan="2" width="20%" id="info" align="center" onclick="affichage_credits();"><img class="img_click" src="info.png" alt="i" title="A propos"></td>
 					</tr>
 					<tr>
 						<td class="ligne_left" id="aff_nb_supports">supports affichés</td>
@@ -728,7 +728,7 @@ if(isset($_GET["photo"])){
 			</div> 
 		</div>
 		<div id="credits">
-		<div style="text-align:center"><a style="display:inline-block" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="88x31.png" /></a></div><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Ce site</span> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licence Creative Commons Attribution -  Partage dans les Mêmes Conditions 4.0 International</a>.
+		<div style="text-align:center"><h3>Carte des Faisceaux Hertziens</h3><a style="display:inline-block" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="88x31.png" /></a></div><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Ce site</span> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licence Creative Commons Attribution -  Partage dans les Mêmes Conditions 4.0 International</a>.
 		<br>Il est réalisé à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a> et <a href="https://www.data.gouv.fr">data.gouv.fr</a>.<br><br>Pour ajouter des photos d'un support à <a href="https://carte-fh.lafibre.info/galerie_photo/">la galerie</a>, suivez <a href="https://carte-fh.lafibre.info/tuto_galerie_photo/">le tutoriel</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a> pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
 			<div class="Xquit" onclick="affichage_credits();">X</div>
 		</div>
