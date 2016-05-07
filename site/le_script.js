@@ -128,9 +128,9 @@ polylinesPane.style.zIndex=201;
 markersPane = map.createPane('markersPane');
 markersPane.style.zIndex=202;
 L.control.scale().addTo(map);
-L.control.zoom({position:"bottomleft"}).addTo(map);
 L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
+L.control.zoom({position:"bottomright"}).addTo(map);
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider({maxResults: "4"});
 var searchControl = L.esri.Geocoding.geosearch({providers: [arcgisOnline], position: "bottomright", useMapBounds: "false", placeholder: "Rechercher un lieu...", title: "Rechercher un lieu"}).addTo(map);
 
@@ -424,7 +424,7 @@ function redraw(index_hist){
 function ajax(){
 	document.getElementById("aff_restreint").innerHTML = "Chargement...";
 	document.getElementById("aff_restreint").style.color = "#e68900";
-	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 120) + "px";
+	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 50) + "px";
 	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 160) + "px";
 	
     var url=build_url_liens();

@@ -359,6 +359,5 @@ body {
 	line-height: 1.2;
 }
 .geocoder-control{
-	margin-bottom:65px !important;
 	z-index: 1000;
 }
