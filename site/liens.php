@@ -187,13 +187,15 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	$final_result->full = 0;
 	$final_result->limitation_act = $limitation_act;
 	$final_result->tiles = $noms_tile;
-	$key_max_ant=array_shift(array_keys($all_sup,'inside'));
+	$keys_no_sup=array_keys($all_sup,'inside');
+	$key_max_ant=array_shift($keys_no_sup);
 	if($key_max_ant){
 		$final_result->nb_ant_max = $all_sup_final[$key_max_ant]['nb_ant'];
 	}else{
 		$final_result->nb_ant_max = 0;
 	}
-	$key_min_ant=array_pop(array_keys($all_sup,'inside'));
+	$keys_no_sup=array_keys($all_sup,'inside');
+	$key_min_ant=array_pop($keys_no_sup);
 	if($key_min_ant){
 		$final_result->nb_ant_min = $all_sup_final[$key_min_ant]['nb_ant'];
 	}else{
@@ -239,24 +241,19 @@ function CohenSutherlandModif($p_lon1,$p_lon2,$p_lat1,$p_lat2){
 	$outcode1=ComputeOutCode($p_lon1,$p_lat1);
 	if($outcode1==0){
 		return true;
-		break;
 	}
 	$outcode2=ComputeOutCode($p_lon2,$p_lat2);
 	if($outcode2==0){
 		return true;
-		break;
 	}
 	if($outcode1 & $outcode2){
 		return false;
-		break;
 	}
 	while(true){
 		if($outcode1==0 || $outcode2==0){
 			return true;
-			break;
 		}elseif($outcode1 & $outcode2){
 			return false;
-			break;
 		}else{
 			$outcodeOut = $outcode1 ? $outcode1 : $outcode2;
 			if($outcodeOut & 8){
