@@ -133,6 +133,7 @@ new L.Control.Measure({position: "bottomright", primaryLengthUnit: "kilometers",
 L.control.zoom({position:"bottomright"}).addTo(map);
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider({maxResults: "4"});
 var searchControl = L.esri.Geocoding.geosearch({providers: [arcgisOnline], position: "bottomright", useMapBounds: "false", placeholder: "Rechercher un lieu...", title: "Rechercher un lieu"}).addTo(map);
+var el=L.control.elevation({position:'bottomleft', collapsed:true, width: 800}).addTo(map);
 
 map.on("baselayerchange", function(e){
 	if(e.name=='ESRI World Imagery'){
@@ -326,6 +327,7 @@ function redraw(index_hist){
 				for(i=0;i<e.target.dat.nos_sup.length;i++){
 					supports_du_popup.splice(supports_du_popup.indexOf(e.target.dat.nos_sup[i]),1);
 				}
+				map.removeLayer(profil_gj);
 				refresh_opacity();
 				for (var k=0; k<e.target.dat.nos_ant.length; k++){
 					d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
@@ -581,9 +583,31 @@ function build_popup_link(event){
 		var poly_points=event.target.getLatLngs();
 		var dist=String((poly_points[0].distanceTo(poly_points[1])/1000).toFixed(1)).replace(".",",");
 		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + dist + "  km</div>";
+		var xhr=null;
+		el.clear();
+		les_coords=event.target.dat.coords;
+		if(les_coords[0][1] < les_coords[1][1]){
+			var url=base_url+'profil.php?lon='+les_coords[0][1]+'|'+les_coords[1][1]+'&lat='+les_coords[0][0]+'|'+les_coords[1][0];
+		}else{
+			var url=base_url+'profil.php?lon='+les_coords[1][1]+'|'+les_coords[0][1]+'&lat='+les_coords[1][0]+'|'+les_coords[0][0];
+		}
+		if (window.XMLHttpRequest) { 
+			xhr = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) 
+		{
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState==4){
+				el.clear();
+				profil_gj=L.geoJson(JSON.parse(xhr.responseText),{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
+			}
+		};
+		xhr.open("GET", url, true);
+		xhr.send(null);
 	}
-
-	event.target.bindPopup(le_texte_popup,{autoPan:false});
+	event.target.bindPopup(le_texte_popup,{maxWidth:900,autoPan:false});
 	event.target.openPopup(event.latlng);
 }
 

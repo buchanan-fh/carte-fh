@@ -1,5 +1,6 @@
 *.htaccess
 *.json
 cache/
+config/
 *.txt
 *.zip

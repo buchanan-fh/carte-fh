@@ -33,6 +33,9 @@ if(isset($_GET["photo"])){
 	<script src="esri-leaflet-geocoder.js"></script>
 	<link rel="stylesheet" href="esri-leaflet-geocoder.css">
 	<link rel="stylesheet" href="style.css">
+	<script src="d3.min.js"></script>
+	<script src="leaflet.elevation-0.0.4.mod.js"></script>
+	<link rel="stylesheet" href="leaflet.elevation-0.0.4.mod.css">
 </head>
 <body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
 	echo "'".$zone."'";

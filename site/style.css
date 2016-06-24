@@ -361,3 +361,6 @@ body {
 .geocoder-control{
 	z-index: 1000;
 }
+.elevation .background{
+	position:static;
+}
