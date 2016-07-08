@@ -39,6 +39,7 @@ if($flag_trouve_sup==true){
 	$obj_sup->prop=$les_champs[4];
 	$obj_sup->type=$les_champs[5];
 	$obj_sup->nom_prop=$les_champs[6];
+	$obj_sup->hauteur=(float)$les_champs[9];
 	$obj_sup->url_photo_small="";
 	$obj_sup->url_photo_det="";
 	$obj_sup->url_cat_photo="";
@@ -51,6 +52,7 @@ if($flag_trouve_sup==true){
 	$obj_sup->prop="";
 	$obj_sup->type="";
 	$obj_sup->nom_prop="";
+	$obj_sup->hauteur=0;
 	$obj_sup->url_photo_small="";
 	$obj_sup->url_photo_det="";
 	$obj_sup->url_cat_photo="";

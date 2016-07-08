@@ -831,7 +831,7 @@ function build_detail_2(d_supports_t,isopen){
 			d_poly_du_sup.push(polylinesA[i]);
 		}
 	}
-	d_div_titre.innerHTML=nature_support[s_result.type];
+	d_div_titre.innerHTML=nature_support[s_result.type]+' ('+s_result.hauteur+' m)';
 	d_div_adresse.innerHTML=s_result.adresse + "<br>" + s_result.c_post + " " + s_result.commune;
 	d_div_no_support.innerHTML=s_result.nom_prop + " ("+ s_result.no_sup + ")";
 	for(i=0;i<liste_ope_zones[current_zone].main.length;++i){
