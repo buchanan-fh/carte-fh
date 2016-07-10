@@ -327,7 +327,9 @@ function redraw(index_hist){
 				for(i=0;i<e.target.dat.nos_sup.length;i++){
 					supports_du_popup.splice(supports_du_popup.indexOf(e.target.dat.nos_sup[i]),1);
 				}
-				map.removeLayer(profil_gj);
+				if(typeof(profil_gj)!='undefined'){
+					map.removeLayer(profil_gj);
+				}
 				refresh_opacity();
 				for (var k=0; k<e.target.dat.nos_ant.length; k++){
 					d_tr_ant=document.getElementById("d_"+e.target.dat.nos_ant[k])
