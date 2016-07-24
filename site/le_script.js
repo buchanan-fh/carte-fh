@@ -1,6 +1,10 @@
 nom_bande_pow={};
 nom_bande_pow["1"]="Autre";nom_bande_pow["2"]="150 MHz";nom_bande_pow["4"]="450 MHz";nom_bande_pow["8"]="1,4 GHz";nom_bande_pow["16"]="4 GHz";nom_bande_pow["32"]="6 GHz";nom_bande_pow["64"]="8 GHz";nom_bande_pow["128"]="11 GHz";nom_bande_pow["256"]="13 GHz";
 nom_bande_pow["512"]="14 GHz";nom_bande_pow["1024"]="18 GHz";nom_bande_pow["2048"]="23 GHz";nom_bande_pow["4096"]="26 GHz";nom_bande_pow["8192"]="32 GHz";nom_bande_pow["16384"]="38 GHz";nom_bande_pow["32768"]="70/80 GHz";
+freq_bande_pow={};
+freq_bande_pow["2"]=150*Math.pow(10,6);freq_bande_pow["4"]=450*Math.pow(10,6);freq_bande_pow["8"]=1.4*Math.pow(10,9);freq_bande_pow["16"]=4*Math.pow(10,9);freq_bande_pow["32"]=6*Math.pow(10,9);freq_bande_pow["64"]=8*Math.pow(10,9);
+freq_bande_pow["128"]=11*Math.pow(10,9);freq_bande_pow["256"]=13*Math.pow(10,9);freq_bande_pow["512"]=14*Math.pow(10,9);freq_bande_pow["1024"]=18*Math.pow(10,9);freq_bande_pow["2048"]=23*Math.pow(10,9);freq_bande_pow["4096"]=26*Math.pow(10,9);
+freq_bande_pow["8192"]=32*Math.pow(10,9);freq_bande_pow["16384"]=38*Math.pow(10,9);freq_bande_pow["32768"]=75*Math.pow(10,9);
 nom_syst=["FH","FH ABI","BLR 3 GHz"];
 epaisseur_init=1.1;
 fact_epaisseur=1;
@@ -583,16 +587,13 @@ function build_popup_link(event){
 		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "</div>";
 	}else{
 		var poly_points=event.target.getLatLngs();
-		var dist=String((poly_points[0].distanceTo(poly_points[1])/1000).toFixed(1)).replace(".",",");
-		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + dist + "  km</div>";
+		var dist=(poly_points[0].distanceTo(poly_points[1])/1000);
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + String(dist.toFixed(1)).replace(".",",") + "  km</div>";
 		var xhr=null;
 		el.clear();
-		les_coords=event.target.dat.coords;
-		if(les_coords[0][1] < les_coords[1][1]){
-			var url=base_url+'profil.php?lon='+les_coords[0][1]+'|'+les_coords[1][1]+'&lat='+les_coords[0][0]+'|'+les_coords[1][0];
-		}else{
-			var url=base_url+'profil.php?lon='+les_coords[1][1]+'|'+les_coords[0][1]+'&lat='+les_coords[1][0]+'|'+les_coords[0][0];
-		}
+		la_date=document.getElementById("date_select").innerHTML.split("/");
+		la_date=la_date[1]+la_date[0];
+		var url=base_url+'profil.php?date='+la_date+'&nos_sup='+event.target.dat.nos_sup+'&nos_ant='+event.target.dat.nos_ant;
 		if (window.XMLHttpRequest) { 
 			xhr = new XMLHttpRequest();
 		}
@@ -603,7 +604,14 @@ function build_popup_link(event){
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState==4){
 				el.clear();
-				profil_gj=L.geoJson(JSON.parse(xhr.responseText),{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
+				obj_gJ=JSON.parse(xhr.responseText);
+				if(event.target.dat.band==1){
+					ry_el=Nan;
+				}else{
+					ry_el=0.5*Math.sqrt(300000000*dist*1000/freq_bande_pow[event.target.dat.band]);
+				}
+				obj_gJ.elevation.ry_el=ry_el;
+				profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
 			}
 		};
 		xhr.open("GET", url, true);

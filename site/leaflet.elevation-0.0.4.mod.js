@@ -105,6 +105,33 @@ L.Control.Elevation = L.Control.extend({
             .style("stroke", "none")
             .style("pointer-events", "all");
 
+		///
+		this._sup1 = g.append("line")
+			.attr("x1",2)
+			.attr("x2",2)
+			.attr("stroke-width", 4)
+			.attr("stroke", "black");
+		this._sup2 = g.append("line")
+			.attr("x1",this._width()-2)
+			.attr("x2",this._width()-2)
+			.attr("stroke-width", 4)
+			.attr("stroke", "black");
+		this._link = g.append("line")
+			.attr("stroke-width", 1)
+			.attr("stroke", "black")
+			.attr("x1",1)
+		this._1stfresn = g.append("ellipse")
+			.attr("cx",this._width()/2)
+			/*
+			.attr("cy",30)
+			.attr("rx",this._width()/2)
+			.attr("ry",10)
+			*/
+			.attr("fill-opacity",0)
+			.attr("stroke-width",0.5)
+			.attr("stroke", "black");
+		///
+			
         //if (L.Browser.touch) {
 		if (L.Browser.touch && false) {
 
@@ -623,6 +650,15 @@ L.Control.Elevation = L.Control.extend({
             switch (geom.type) {
                 case 'LineString':
                     this._addGeoJSONData(geom.coordinates);
+					///
+					this._altb_sup1=geom.coordinates[1][2];
+					this._alth_sup1=geom.coordinates[0][2];
+					this._altb_sup2=geom.coordinates[geom.coordinates.length-2][2];
+					this._alth_sup2=geom.coordinates[geom.coordinates.length-1][2];
+					this._alt_ant1=this._altb_sup1+d.h_ant_1;
+					this._alt_ant2=this._altb_sup2+d.h_ant_2;
+					this._ry_el=d.ry_el;
+					///
                     break;
 
                 case 'MultiLineString':
@@ -749,6 +785,35 @@ L.Control.Elevation = L.Control.extend({
         this._y.domain(ydomain);
         this._areapath.datum(this._data)
             .attr("d", this._area);
+		///
+		var sup1y1=this._y(this._altb_sup1);
+		this._sup1.attr("y1",sup1y1);
+		var sup1y2=this._y(this._alth_sup1);
+		this._sup1.attr("y2",sup1y2);
+		var sup2y1=this._y(this._altb_sup2);
+		this._sup2.attr("y1",sup2y1);
+		var sup2y2=this._y(this._alth_sup2);
+		this._sup2.attr("y2",sup2y2);
+		var ant1y=this._y(this._alt_ant1);
+		this._link.attr("y1",ant1y);
+		var ant2y=this._y(this._alt_ant2);
+		this._link.attr("y2",ant2y);
+		this._link.attr("x2",this._width()-1);
+		this._1stfresn.attr("cy",(ant1y+ant2y)/2);
+		f_width=this._width();
+		this._1stfresn.attr("rx",Math.sqrt(Math.pow(f_width,2)+Math.pow(ant1y+ant2y,2))/2);
+		if(!isNaN(this._ry_el)){
+			var k_y=this._y.range();
+			var k_x=this._y.domain();
+			var pente=Math.abs((k_y[1]-k_y[0])/(k_x[1]-k_x[0]));
+			var ry_el=pente*this._ry_el;
+			this._1stfresn.attr("ry",ry_el);
+		}else{
+			this._1stfresn.attr("ry",null);
+		}
+		ang_rot=(180/Math.PI)*Math.atan((ant2y-ant1y)/f_width);
+		this._1stfresn.attr("transform","rotate("+ang_rot+","+f_width/2+","+(ant1y+ant2y)/2+")")
+		///
         this._updateAxis();
 
         this._fullExtent = this._calculateFullExtent(this._data);
@@ -773,7 +838,15 @@ L.Control.Elevation = L.Control.extend({
         if (!this._areapath) {
             return;
         }
-
+		///
+		this._sup1.attr("y1",null);
+		this._sup1.attr("y2",null);
+		this._sup2.attr("y1",null);
+		this._sup2.attr("y2",null);
+		this._link.attr("x2",null);
+		this._1stfresn.attr("rx",null);
+		///
+		
         // workaround for 'Error: Problem parsing d=""' in Webkit when empty data
         // https://groups.google.com/d/msg/d3-js/7rFxpXKXFhI/HzIO_NPeDuMJ
         //this._areapath.datum(this._data).attr("d", this._area);
