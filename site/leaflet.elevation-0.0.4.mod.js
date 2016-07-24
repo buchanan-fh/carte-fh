@@ -122,14 +122,10 @@ L.Control.Elevation = L.Control.extend({
 			.attr("x1",1)
 		this._1stfresn = g.append("ellipse")
 			.attr("cx",this._width()/2)
-			/*
-			.attr("cy",30)
-			.attr("rx",this._width()/2)
-			.attr("ry",10)
-			*/
 			.attr("fill-opacity",0)
 			.attr("stroke-width",0.5)
-			.attr("stroke", "black");
+			.attr("stroke", "black")
+			.attr("pointer-events","none");
 		///
 			
         //if (L.Browser.touch) {
