@@ -605,10 +605,13 @@ function build_popup_link(event){
 			if (xhr.readyState==4){
 				el.clear();
 				obj_gJ=JSON.parse(xhr.responseText);
-				if(event.target.dat.band==1){
-					ry_el=Nan;
+				//cas des liaisons "X GHz ou Autre"
+				band_f=parseInt(event.target.dat.band) & 65534;
+				if(band_f==0){
+					ry_el=NaN;
 				}else{
-					ry_el=0.5*Math.sqrt(300000000*dist*1000/freq_bande_pow[event.target.dat.band]);
+					console.log()
+					ry_el=0.5*Math.sqrt(300000000*dist*1000/freq_bande_pow[band_f]);
 				}
 				obj_gJ.elevation.ry_el=ry_el;
 				profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
