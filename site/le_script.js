@@ -432,7 +432,7 @@ function redraw(index_hist){
 function ajax(){
 	document.getElementById("aff_restreint").innerHTML = "Chargement...";
 	document.getElementById("aff_restreint").style.color = "#e68900";
-	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 50) + "px";
+	document.getElementById("controle_left").style.height=(document.documentElement.clientHeight - 90) + "px";
 	document.getElementById("controle_right").style.height=(document.documentElement.clientHeight - 160) + "px";
 	
     var url=build_url_liens();
