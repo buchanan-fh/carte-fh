@@ -71,12 +71,19 @@ L.Control.Elevation = L.Control.extend({
         var container = this._container = L.DomUtil.create("div", "elevation");
         L.DomUtil.addClass(container, opts.theme); //append theme to control
 		
+		///
 		var la_div_close = L.DomUtil.create("div",'clickable background',container);
 		la_div_close.style.position='absolute'
 		la_div_close.style.right='5px'
 		la_div_close.innerHTML ='<b>X</b>'
 		la_div_close._container=container;
 		L.DomEvent.on(la_div_close,'click',this._collapse)
+		var la_div_loading = L.DomUtil.create("div",'background',container);
+		la_div_loading.innerHTML ='<img id="img_loading" style="display: none;margin-left: auto;margin-right: auto;margin-top: auto;margin-bottom: auto" src="loading.gif" alt="Chargement...">'
+		la_div_loading.style.position='absolute';
+		la_div_loading.style.marginLeft='405px';
+		la_div_loading.style.marginTop='60px';
+		///
 		
         this._initToggle();
 

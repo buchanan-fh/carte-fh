@@ -633,11 +633,15 @@ function build_popup_link(event){
 					obj_gJ.elevation.geometry.coordinates[i].push(alt_bas_x,offset_x);
 				}
 				
+				img_loading = document.getElementById("img_loading");
+				img_loading.style.display='none';
 				profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
 			}
 		};
 		xhr.open("GET", url, true);
 		xhr.send(null);
+		img_loading = document.getElementById("img_loading");
+		img_loading.style.display='block';
 	}
 	event.target.bindPopup(le_texte_popup,{maxWidth:900,autoPan:false});
 	event.target.openPopup(event.latlng);
