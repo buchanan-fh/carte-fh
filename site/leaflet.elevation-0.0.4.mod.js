@@ -799,12 +799,21 @@ L.Control.Elevation = L.Control.extend({
         var xdomain = d3.extent(this._data, function(d) {
             return d.dist;
         });
+		/*
         var ydomain = d3.extent(this._data, function(d) {
-            //return d.altitude;
-			///
-			return d.altitude-d.offset;
-			///
+            return d.altitude;
         });
+		*/
+		///
+        var ydomain1 = d3.extent(this._data, function(d) {
+            return d.altitude;
+        });
+        var ydomain2 = d3.extent(this._data, function(d) {
+            return d.altitude-d.offset;
+        });
+		var ydomain = [Math.min(ydomain1[0],ydomain2[0]),Math.max(ydomain1[1],ydomain2[1])]
+		///
+		
         var opts = this.options;
 
         if (opts.yAxisMin !== undefined && (opts.yAxisMin < ydomain[0] || opts.forceAxisBounds)) {
