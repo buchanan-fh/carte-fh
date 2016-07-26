@@ -797,7 +797,7 @@ L.Control.Elevation = L.Control.extend({
 		this._link.attr("x2",this._width()-1);
 		this._1stfresn.attr("cy",(ant1y+ant2y)/2);
 		f_width=this._width();
-		this._1stfresn.attr("rx",Math.sqrt(Math.pow(f_width,2)+Math.pow(ant1y+ant2y,2))/2);
+		this._1stfresn.attr("rx",Math.sqrt(Math.pow(f_width,2)+Math.pow(ant1y-ant2y,2))/2);
 		if(!isNaN(this._ry_el)){
 			var k_y=this._y.range();
 			var k_x=this._y.domain();
