@@ -58,7 +58,12 @@ L.Control.Elevation = L.Control.extend({
                 d.xDiagCoord = xDiagCoord;
                 return xDiagCoord;
             })
-            .y0(this._height())
+            //.y0(this._height())
+			//
+			.y0(function(d) {
+				return y(d.altitude_bas);
+			})
+			//
             .y1(function(d) {
                 return y(d.altitude);
             });
@@ -126,6 +131,18 @@ L.Control.Elevation = L.Control.extend({
 			.attr("stroke-width",0.5)
 			.attr("stroke", "black")
 			.attr("pointer-events","none");
+		this._basepath = g.append("path")
+			.attr("stroke-width", 2)
+			.attr("stroke", "#6c8e00")
+			.attr("fill","none");
+		var baseline = this._baseline = d3.svg.line()
+			.interpolate("linear")
+			.x(function(d) {
+				return x(d.dist);
+			})
+			.y(function(d) {
+				return y(d.altitude_bas);
+			})
 		///
 			
         //if (L.Browser.touch) {
@@ -501,7 +518,10 @@ L.Control.Elevation = L.Control.extend({
         var opts = this.options;
 
         var item = this._data[this._findItemForX(coords[0])],
-            alt = item.altitude,
+            //alt = item.altitude,
+			///
+			alt = item.altitude - item.offset,
+			///
             dist = item.dist,
             ll = item.latlng,
             numY = opts.hoverNumber.formatter(alt, opts.hoverNumber.decimalsY),
@@ -598,7 +618,11 @@ L.Control.Elevation = L.Control.extend({
                     altitude: opts.imperial ? coords[i][2] * this.__footFactor : coords[i][2],
                     x: coords[i][0],
                     y: coords[i][1],
-                    latlng: s
+                    latlng: s,
+					///
+					altitude_bas: coords[i][3],
+					offset: coords[i][4]
+					///
                 });
             }
             this._dist = dist;
@@ -740,7 +764,10 @@ L.Control.Elevation = L.Control.extend({
             .attr('y2', this._height())
             .classed('hidden', false);
 
-        var alt = item.altitude,
+        //var alt = item.altitude,
+		///
+		var alt = item.altitude - item.offset,
+		///
             dist = item.dist,
             ll = item.latlng,
             numY = opts.hoverNumber.formatter(alt, opts.hoverNumber.decimalsY),
@@ -766,7 +793,10 @@ L.Control.Elevation = L.Control.extend({
             return d.dist;
         });
         var ydomain = d3.extent(this._data, function(d) {
-            return d.altitude;
+            //return d.altitude;
+			///
+			return d.altitude-d.offset;
+			///
         });
         var opts = this.options;
 
@@ -798,17 +828,18 @@ L.Control.Elevation = L.Control.extend({
 		this._1stfresn.attr("cy",(ant1y+ant2y)/2);
 		f_width=this._width();
 		this._1stfresn.attr("rx",Math.sqrt(Math.pow(f_width,2)+Math.pow(ant1y-ant2y,2))/2);
+		var k_y=this._y.range();
+		var k_x=this._y.domain();
+		var pente=Math.abs((k_y[1]-k_y[0])/(k_x[1]-k_x[0]));
 		if(!isNaN(this._ry_el)){
-			var k_y=this._y.range();
-			var k_x=this._y.domain();
-			var pente=Math.abs((k_y[1]-k_y[0])/(k_x[1]-k_x[0]));
 			var ry_el=pente*this._ry_el;
 			this._1stfresn.attr("ry",ry_el);
 		}else{
 			this._1stfresn.attr("ry",null);
 		}
 		ang_rot=(180/Math.PI)*Math.atan((ant2y-ant1y)/f_width);
-		this._1stfresn.attr("transform","rotate("+ang_rot+","+f_width/2+","+(ant1y+ant2y)/2+")")
+		this._1stfresn.attr("transform","rotate("+ang_rot+","+f_width/2+","+(ant1y+ant2y)/2+")");
+		this._basepath.attr("d",this._baseline(this._data))
 		///
         this._updateAxis();
 
@@ -841,6 +872,7 @@ L.Control.Elevation = L.Control.extend({
 		this._sup2.attr("y2",null);
 		this._link.attr("x2",null);
 		this._1stfresn.attr("rx",null);
+		this._basepath.attr("d",null);
 		///
 		
         // workaround for 'Error: Problem parsing d=""' in Webkit when empty data

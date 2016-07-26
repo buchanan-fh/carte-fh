@@ -587,8 +587,8 @@ function build_popup_link(event){
 		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "</div>";
 	}else{
 		var poly_points=event.target.getLatLngs();
-		var dist=(poly_points[0].distanceTo(poly_points[1])/1000);
-		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + String(dist.toFixed(1)).replace(".",",") + "  km</div>";
+		var dist=poly_points[0].distanceTo(poly_points[1]);
+		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + String((dist/1000).toFixed(1)).replace(".",",") + "  km</div>";
 		var xhr=null;
 		el.clear();
 		la_date=document.getElementById("date_select").innerHTML.split("/");
@@ -605,15 +605,34 @@ function build_popup_link(event){
 			if (xhr.readyState==4){
 				el.clear();
 				obj_gJ=JSON.parse(xhr.responseText);
+				
 				//cas des liaisons "X GHz ou Autre"
 				band_f=parseInt(event.target.dat.band) & 65534;
 				if(band_f==0){
 					ry_el=NaN;
 				}else{
 					console.log()
-					ry_el=0.5*Math.sqrt(300000000*dist*1000/freq_bande_pow[band_f]);
+					ry_el=0.5*Math.sqrt(300000000*dist/freq_bande_pow[band_f]);
 				}
 				obj_gJ.elevation.ry_el=ry_el;
+				
+				//ajout courbure
+				var point_start=L.latLng(obj_gJ.elevation.geometry.coordinates[0][1],obj_gJ.elevation.geometry.coordinates[0][0]);
+				var lowest_alt=9000;
+				for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
+					if(obj_gJ.elevation.geometry.coordinates[i][2]<lowest_alt){
+						lowest_alt=obj_gJ.elevation.geometry.coordinates[i][2];
+					}
+				}
+				for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
+					point_x=L.latLng(obj_gJ.elevation.geometry.coordinates[i][1],obj_gJ.elevation.geometry.coordinates[i][0]);
+					dist_x=point_start.distanceTo(point_x);
+					offset_x=Math.sqrt(Math.pow(6371000,2)-Math.pow(dist_x-dist/2,2))-Math.sqrt(Math.pow(6371000,2)-Math.pow(dist/2,2));
+					alt_bas_x=lowest_alt+offset_x;
+					obj_gJ.elevation.geometry.coordinates[i][2]+=offset_x;
+					obj_gJ.elevation.geometry.coordinates[i].push(alt_bas_x,offset_x);
+				}
+				
 				profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
 			}
 		};
