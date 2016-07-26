@@ -67,7 +67,7 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 		}
 
 		$dist=haversineGreatCircleDistance($lat_1,$lon_1,$lat_2,$lon_2);
-		$nb_points=min(1000,intval($dist/50));
+		$nb_points=min(720,intval($dist/50));
 
 		$le_fichier_cle=fopen("config/ign_key.txt","r");
 		$la_cle=fgets($le_fichier_cle);
