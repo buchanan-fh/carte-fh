@@ -16,16 +16,21 @@ if(!file_exists($cache_file) || (filemtime($cache_file) < (time() - 60 * 10 ))) 
 	curl_setopt($curl, CURLOPT_POSTFIELDS, 'username=carte-fh&password=carte-fh');
 	$return = curl_exec($curl);
 	curl_close($curl);
-	
-	$curl=curl_init();
-	curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/galerie_photo/ws.php?format=json&method=pwg.categories.getImages&cat_id=354&per_page=500');
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($curl, CURLOPT_COOKIEFILE, 'cache/cookie.txt');
-	$return = curl_exec($curl);
-	curl_close($curl);
-	$obj_return = json_decode($return);
-	$pics=$obj_return->result->images;
+	$n_page=0;
+	$pics=array();
+	do{
+		$curl=curl_init();
+		curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/galerie_photo/ws.php?format=json&method=pwg.categories.getImages&cat_id=354&per_page=500&page='.$n_page);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl, CURLOPT_COOKIEFILE, 'cache/cookie.txt');
+		$return = curl_exec($curl);
+		curl_close($curl);
+		$obj_return = json_decode($return);
+		$pics=array_merge($pics,$obj_return->result->images);
+		$count_in_page=$obj_return->result->paging->count;
+		$n_page+=1;
+	}while($count_in_page==500);
 	$tab_sup_url=[];
 	foreach($pics as $key => $pic){
 		$curl=curl_init();
