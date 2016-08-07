@@ -40,7 +40,7 @@ nom_exploit["266"]="GLOBALTEL";nom_exploit["251"]="e-tera";nom_exploit["260"]="C
 nom_exploit["269"]="SPLANG";nom_exploit["271"]="ATHD";nom_exploit["254"]="GRAM";nom_exploit["261"]="Global Connect";nom_exploit["247"]="Melis@ exploitation";nom_exploit["259"]="Decyben";
 nom_exploit["248"]="SAT Consult";nom_exploit["256"]="SANEF";nom_exploit["257"]="NET 48";nom_exploit["263"]="Latent Networks";nom_exploit["250"]="NomoTech";nom_exploit["272"]="Vannes agglo numérique";
 nom_exploit["268"]="Dassault aviation";nom_exploit["278"]="Telco OI";nom_exploit["273"]="CG 08";nom_exploit["274"]="Cher haut débit";nom_exploit["275"]="Manche numérique";
-nom_exploit["276"]="Tutor Calvados";nom_exploit["277"]="McKay Brothers International";nom_exploit["279"]="Manche Haut Débit";
+nom_exploit["276"]="Tutor Calvados";nom_exploit["277"]="McKay Brothers International";nom_exploit["279"]="Manche Haut Débit";nom_exploit["280"]="TWS International";nom_exploit["281"]="Gers Haut Débit";
 
 couleur_main_ope=[];
 couleur_main_ope[21]=liste_col[1];
@@ -83,6 +83,7 @@ liste_reg_mod=[
 	{name:"(22) Armor connectic",no_expl:[239]},
 	{name:"(27) Eurek@",no_expl:[180]},
 	{name:"(29) Axione",no_expl:[163]},
+	{name:"(32) Gers Haut Débit",no_expl:[281]},
 	{name:"(37) TMN",no_expl:[243]},
 	{name:"(39) CG 39",no_expl:[195]},
 	{name:"(45) Medialys",no_expl:[176]},
@@ -144,8 +145,8 @@ for(i=0;i<67;i++){
 liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:["6","158_240","21_23","137"],
 	other:["2","219","242","9","262","145","260","259","215","203","251","258","261","254","249","171","223","263","277","26","250","160",
-	"236","265","225","256","248","202","218","253","185","39","170","272","220","238","271","164","233","244","273","194","276","181",
-	"274","239","180","163","243","195","176","198","257","186_247","275","279","200","182","177","245","201","165","191","264","184"]};
+	"236","265","225","256","248","202","218","253","185","39","170","280","272","220","238","271","164","233","244","273","194","276","181",
+	"274","239","180","163","281","243","195","176","198","257","186_247","275","279","200","182","177","245","201","165","191","264","184"]};
 liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:["162","21_23","147"], other:["2","203","171","154","218","39"]};
 liste_ope_zones["fr_972"]={nom_zone:"Martinique (972)", bounds:[[14.35,-61.3],[14.9,-60.7]], main:["162","21_23","147"], other:["2","171","207","154","218","39"]};
 liste_ope_zones["fr_973"]={nom_zone:"Guyane (973)", bounds:[[2,-54.7],[5.9,-51.4]], main:["162","21_23","147"], other:["11","203","190","269","218","39"]};
