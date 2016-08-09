@@ -1026,6 +1026,8 @@ function recherche_sup(no_sup){
 				var s_result=JSON.parse(xhr.responseText);
 				if(s_result.coords.length>1){
 					center_sup(s_result.no_sup,s_result.coords);
+				}else{
+					alert("Support introuvable");
 				}
 			}
 		};
