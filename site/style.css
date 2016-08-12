@@ -236,6 +236,7 @@ body {
 	margin-bottom:10px;
 	text-align:right;
 	flex:none;
+	display:flex;
 }
 #d_info_photo{
 	margin-bottom:10px;
@@ -267,17 +268,6 @@ body {
 	flex-grow:0;
 	min-height:1px;
 }
-#d_links{
-	margin-bottom:10px;
-	border:solid 1px black;
-	flex:none;
-}
-#d_list_links{
-	font-size:12px;
-	text-align:center;
-	margin-bottom:2px;
-	margin-left:2px;
-}
 #d_titre, #d_adresse{
 	flex:none;
 }
@@ -306,6 +296,15 @@ body {
 }
 #d_img_close, #d_img_center{
 	margin-left:10px;
+}
+#d_link_to_sup, #d_link_cartoradio, #d_link_osm, #d_link_gmaps{
+	margin-right:10px;
+}
+.d_header_nogrow{
+	flex:none;
+}
+#d_header_spacer{
+	flex-grow:1;
 }
 #d_miniatures{
 	height:120px;

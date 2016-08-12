@@ -50,7 +50,12 @@ if(isset($_GET["photo"])){
 	<div id="detail_sup">
 		<div id="d_sup">
 			<div id="d_header">
-				<a target="_blank" id="d_img_galerie"><img class="img_click" src="camera.png" alt="camera" title="Voir la galerie photo"></a>
+				<a target="_blank" id="d_link_to_sup" class="d_header_nogrow"><img class="img_click" src="link_to_support.png" alt="lien" title="Lien vers ce support"></a>
+				<a target="_blank" id="d_link_cartoradio" class="d_header_nogrow"><img class="img_click" src="logo_anfr.png" alt="lien" title="Lien vers Cartoradio"></a>
+				<a target="_blank" id="d_link_osm" class="d_header_nogrow"><img class="img_click" src="logo_osm.png" alt="lien" title="Lien vers OpenStreetMap"></a>
+				<a target="_blank" id="d_link_gmaps" class="d_header_nogrow"><img class="img_click" src="logo_gmaps.png" alt="lien" title="Lien vers Google Maps"></a>
+				<a target="_blank" id="d_img_galerie" class="d_header_nogrow"><img class="img_click" src="camera.png" alt="camera" title="Voir la galerie photo"></a>
+				<a id="d_header_spacer"></a>
 				<img class="img_click" id="d_img_center" onclick="recherche_sup(d_div.no_sup)" src="center.png" alt="center" title="Centrer sur ce support">
 				<img class="img_click" id="d_img_close" onclick="close_detail()" src="close.png" alt="close" title="Fermer">
 			</div>
@@ -62,10 +67,6 @@ if(isset($_GET["photo"])){
 				</div>
 				<div id="d_ant"></div>
 				<div id="d_num_sup" class="p_num_sup"></div>
-			</div>
-			<div id="d_links">
-				<div class="p_titre">Liens:</div>
-				<div id="d_list_links"><a target="_blank" id="d_link_to_sup" href="">Vers ce support</a><br><a target="_blank" id="d_link_cartoradio" href="">Vers cartoradio</a><br><a target="_blank" id="d_link_osm" href="">Vers OpenStreetMap</a><br><a target="_blank" id="d_link_gmaps" href="">Vers Google Maps</a></div>
 			</div>
 		</div>
 	</div>
