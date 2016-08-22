@@ -29,7 +29,8 @@ opacite_lien_meme_ope=0.6;
 //base_url="http://192.168.7.1:5723/";
 //base_url="http://127.0.0.1:5723/";
 //base_url="http://192.168.7.1:81/";
-base_url="https://carte-fh.lafibre.info/";
+//base_url="https://carte-fh.lafibre.info/";
+base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
 la_div_globale = document.createElement("div");
