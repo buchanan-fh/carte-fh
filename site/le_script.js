@@ -1026,7 +1026,20 @@ function recherche_sup(no_sup){
 			if (xhr.readyState==4){
 				var s_result=JSON.parse(xhr.responseText);
 				if(s_result.coords.length>1){
-					center_sup(s_result.no_sup,s_result.coords);
+					la_date=document.getElementById("date_select").innerHTML.split("/");
+					la_date=la_date[1]+la_date[0];
+					if(s_result.date_found==la_date){
+						center_sup(s_result.no_sup,s_result.coords);
+					}else{
+						le_mois=s_result.date_found.substr(4,2);
+						l_annee=s_result.date_found.substr(0,4);
+						new_date=le_mois+'/'+l_annee;
+						var date_jump=confirm('Support introuvable en '+document.getElementById("date_select").innerHTML+' mais existant en '+new_date+'. Changer de date ?')
+						if(date_jump){
+							document.getElementById("date_select").innerHTML=new_date;
+							center_sup(s_result.no_sup,s_result.coords);
+						}
+					}
 				}else{
 					alert("Support introuvable");
 				}

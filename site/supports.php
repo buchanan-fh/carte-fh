@@ -7,29 +7,50 @@ $flag_trouve_sup=false;
 $cache_file = 'cache/cache_url_photo.txt';
 date_default_timezone_set('Europe/Paris');
 
-if(!isset($_GET["date"])){
-	$date_c=date("Y").date("m");
-	$date_c_1=date("Y",time()-30*24*3600).date("m",time()-30*24*3600);
-	if(file_exists($date_c."/supports.txt")){
-		$_GET["date"]=$date_c;
-	}elseif(file_exists($date_c_1."/supports.txt")){
-		$_GET["date"]=$date_c_1;
-	}else{
-		$_GET["date"]="201508";
+if(isset($_GET["no_sup"]) && isset($_GET["date"])){
+	$search_forward=true;
+	$date_current=$_GET["date"];
+	$date_found='';
+	while($search_forward && !$flag_trouve_sup){
+		if(file_exists($date_current."/supports.txt")){
+			$le_fichier_sup=fopen($date_current."/supports.txt","r");
+			while(!$flag_trouve_sup && !feof($le_fichier_sup)){
+				$la_ligne=fgets($le_fichier_sup);
+				$les_champs=explode("|",$la_ligne);
+				if($les_champs[0]==$_GET["no_sup"]){
+					$flag_trouve_sup=true;
+					$date_found=$date_current;
+				}
+			}
+			fclose($le_fichier_sup);
+			$date_current=date_plus($date_current);
+		}else{
+			$search_forward=false;
+		}
+	}
+	if(!$flag_trouve_sup){
+		$search_backward=true;
+		$date_current=date_moins($_GET["date"]);
+		while($search_backward && !$flag_trouve_sup){
+			if(file_exists($date_current."/supports.txt")){
+				$le_fichier_sup=fopen($date_current."/supports.txt","r");
+				while(!$flag_trouve_sup && !feof($le_fichier_sup)){
+					$la_ligne=fgets($le_fichier_sup);
+					$les_champs=explode("|",$la_ligne);
+					if($les_champs[0]==$_GET["no_sup"]){
+						$flag_trouve_sup=true;
+						$date_found=$date_current;
+					}
+				}
+				fclose($le_fichier_sup);
+				$date_current=date_moins($date_current);
+			}else{
+				$search_backward=false;
+			}
+		}
 	}
 }
 
-if(isset($_GET["no_sup"]) && file_exists($_GET["date"]."/supports.txt")){
-	$le_fichier_sup=fopen($_GET["date"]."/supports.txt","r");
-	while(!$flag_trouve_sup && !feof($le_fichier_sup)){
-		$la_ligne=fgets($le_fichier_sup);
-		$les_champs=explode("|",$la_ligne);
-		if($les_champs[0]==$_GET["no_sup"]){
-			$flag_trouve_sup=true;
-		}
-	}
-	fclose($le_fichier_sup);
-}
 if($flag_trouve_sup==true){
 	$obj_sup->no_sup=(int)$les_champs[0];
 	$obj_sup->coords=array((float)$les_champs[7],(float)$les_champs[8]);
@@ -43,6 +64,7 @@ if($flag_trouve_sup==true){
 	$obj_sup->url_photo_small="";
 	$obj_sup->url_photo_det="";
 	$obj_sup->url_cat_photo="";
+	$obj_sup->date_found=$date_found;
 }else{
 	$obj_sup->no_sup=0;
 	$obj_sup->coords="";
@@ -56,6 +78,7 @@ if($flag_trouve_sup==true){
 	$obj_sup->url_photo_small="";
 	$obj_sup->url_photo_det="";
 	$obj_sup->url_cat_photo="";
+	$obj_sup->date_found='';
 }
 
 $flag_regen_cache=false;
@@ -80,8 +103,8 @@ if($flag_trouve_sup){
 $obj_sup->antennes=array();
 if($flag_trouve_sup==true && isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1"){
 	$op_liste=explode("|",$_GET["op_liste"]);
-	if(file_exists($_GET["date"]."/antennes.txt")){
-		$le_fichier_ant=fopen($_GET["date"]."/antennes.txt","r");
+	if(file_exists($date_found."/antennes.txt")){
+		$le_fichier_ant=fopen($date_found."/antennes.txt","r");
 		while(!feof($le_fichier_ant)){
 			$la_ligne=fgets($le_fichier_ant);
 			if(!empty($la_ligne)){
@@ -113,4 +136,32 @@ if($flag_trouve_sup==true && isset($_GET["liste_ant"]) && $_GET["liste_ant"]=="1
 }
 
 echo json_encode($obj_sup);
+
+function date_plus($date){
+	$year=intval(substr($date,0,4));
+	$month=intval(substr($date,4,2));
+	if($month==12){
+		return strval($year+1).'01';
+	}else{
+		if($month<9){
+			return strval($year).'0'.strval($month+1);
+		}else{
+			return strval($year).strval($month+1);
+		}
+	}
+}
+function date_moins($date){
+	$year=intval(substr($date,0,4));
+	$month=intval(substr($date,4,2));
+	if($month==1){
+		return strval($year-1).'12';
+	}else{
+		if($month<11){
+			return strval($year).'0'.strval($month-1);
+		}else{
+			return strval($year).strval($month-1);
+		}
+		
+	}
+}
 ?>
