@@ -1037,6 +1037,16 @@ function recherche_sup(no_sup){
 						var date_jump=confirm('Support introuvable en '+document.getElementById("date_select").innerHTML+' mais existant en '+new_date+'. Changer de date ?')
 						if(date_jump){
 							document.getElementById("date_select").innerHTML=new_date;
+							if(le_mois=="01" && l_annee=="2015"){
+								document.getElementById("button_moins").disabled=true;
+							}else{
+								document.getElementById("button_moins").disabled=false;
+							}
+							if(le_mois=="09" && l_annee=="2016"){
+								document.getElementById("button_plus").disabled=true;
+							}else{
+								document.getElementById("button_plus").disabled=false;
+							}
 							center_sup(s_result.no_sup,s_result.coords);
 						}
 					}
