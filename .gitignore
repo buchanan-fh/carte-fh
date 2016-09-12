@@ -1,5 +1,4 @@
 *.htaccess
-*.json
 cache/
 config/
 *.txt

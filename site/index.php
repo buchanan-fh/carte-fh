@@ -36,6 +36,12 @@ if(isset($_GET["photo"])){
 	<script src="d3.min.js"></script>
 	<script src="leaflet.elevation-0.0.4.mod.js"></script>
 	<link rel="stylesheet" href="leaflet.elevation-0.0.4.mod.css">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/manifest.json">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
 </head>
 <body onkeydown="touche_clavier(event)" onload="build_interface(true,<?php
 	echo "'".$zone."'";
