@@ -152,6 +152,7 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 		
 		$obj_ign=json_decode($return);
 		if(isset($obj_ign->elevations)){
+			$seuil_bas_alt=-50;
 			$obj_out=new stdClass();
 			$obj_out->type='Feature';
 			$obj_out->h_ant_1=0;
