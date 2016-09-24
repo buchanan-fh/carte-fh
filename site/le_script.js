@@ -26,9 +26,6 @@ var ope_du_popup;
 var dir_popup;
 opacite_lien_non_lie=0.22;
 opacite_lien_meme_ope=0.6;
-//base_url="http://192.168.7.1:5723/";
-//base_url="http://127.0.0.1:5723/";
-//base_url="http://192.168.7.1:81/";
 //base_url="https://carte-fh.lafibre.info/";
 base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
@@ -590,11 +587,11 @@ function build_popup_link(event){
 		var poly_points=event.target.getLatLngs();
 		var dist=poly_points[0].distanceTo(poly_points[1]);
 		var le_texte_popup="<div class='p_link'><b>" + texte_syst_bande + "</b><br>" + nom_exploit[event.target.dat.ope] + "<br>" + String((dist/1000).toFixed(1)).replace(".",",") + "  km</div>";
-		var xhr=null;
 		el.clear();
 		la_date=document.getElementById("date_select").innerHTML.split("/");
 		la_date=la_date[1]+la_date[0];
 		var url=base_url+'profil.php?date='+la_date+'&nos_sup='+event.target.dat.nos_sup+'&nos_ant='+event.target.dat.nos_ant;
+		var xhr=null;
 		if (window.XMLHttpRequest) { 
 			xhr = new XMLHttpRequest();
 		}
@@ -604,39 +601,8 @@ function build_popup_link(event){
 		}
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState==4){
-				el.clear();
 				obj_gJ=JSON.parse(xhr.responseText);
-				
-				//cas des liaisons "X GHz ou Autre"
-				band_f=parseInt(event.target.dat.band) & 65534;
-				if(band_f==0){
-					ry_el=NaN;
-				}else{
-					console.log()
-					ry_el=0.5*Math.sqrt(300000000*dist/freq_bande_pow[band_f]);
-				}
-				obj_gJ.elevation.ry_el=ry_el;
-				
-				//ajout courbure
-				var point_start=L.latLng(obj_gJ.elevation.geometry.coordinates[0][1],obj_gJ.elevation.geometry.coordinates[0][0]);
-				var lowest_alt=9000;
-				for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
-					if(obj_gJ.elevation.geometry.coordinates[i][2]<lowest_alt){
-						lowest_alt=obj_gJ.elevation.geometry.coordinates[i][2];
-					}
-				}
-				for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
-					point_x=L.latLng(obj_gJ.elevation.geometry.coordinates[i][1],obj_gJ.elevation.geometry.coordinates[i][0]);
-					dist_x=point_start.distanceTo(point_x);
-					offset_x=Math.sqrt(Math.pow(6371000,2)-Math.pow(dist_x-dist/2,2))-Math.sqrt(Math.pow(6371000,2)-Math.pow(dist/2,2));
-					alt_bas_x=lowest_alt+offset_x;
-					obj_gJ.elevation.geometry.coordinates[i][2]+=offset_x;
-					obj_gJ.elevation.geometry.coordinates[i].push(alt_bas_x,offset_x);
-				}
-				
-				img_loading = document.getElementById("img_loading");
-				img_loading.style.display='none';
-				profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
+				trace_profil(obj_gJ,event.target.dat.band,dist);
 			}
 		};
 		xhr.open("GET", url, true);
@@ -647,6 +613,76 @@ function build_popup_link(event){
 	event.target.bindPopup(le_texte_popup,{maxWidth:900,autoPan:false});
 	event.target.openPopup(event.latlng);
 }
+
+function trace_profil(obj_gJ,band,dist){
+	
+	if(typeof(profil_gj)!='undefined'){
+		map.removeLayer(profil_gj);
+	}
+	el.clear();
+	
+	//cas des liaisons "X GHz ou Autre"
+	if(isNaN(band)){
+		obj_gJ.elevation.ry_el=NaN;
+	}else{
+		band_f=parseInt(band) & 65534;
+		if(band_f==0){
+			ry_el=NaN;
+		}else{
+			ry_el=0.5*Math.sqrt(300000000*dist/freq_bande_pow[band_f]);
+		}
+		obj_gJ.elevation.ry_el=ry_el;
+	}
+
+	//ajout courbure
+	var point_start=L.latLng(obj_gJ.elevation.geometry.coordinates[0][1],obj_gJ.elevation.geometry.coordinates[0][0]);
+	var lowest_alt=9000;
+	for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
+		if(obj_gJ.elevation.geometry.coordinates[i][2]<lowest_alt){
+			lowest_alt=obj_gJ.elevation.geometry.coordinates[i][2];
+		}
+	}
+	for (var i=0;i<obj_gJ.elevation.geometry.coordinates.length;i++){
+		point_x=L.latLng(obj_gJ.elevation.geometry.coordinates[i][1],obj_gJ.elevation.geometry.coordinates[i][0]);
+		dist_x=point_start.distanceTo(point_x);
+		offset_x=Math.sqrt(Math.pow(6371000,2)-Math.pow(dist_x-dist/2,2))-Math.sqrt(Math.pow(6371000,2)-Math.pow(dist/2,2));
+		alt_bas_x=lowest_alt+offset_x;
+		obj_gJ.elevation.geometry.coordinates[i][2]+=offset_x;
+		obj_gJ.elevation.geometry.coordinates[i].push(alt_bas_x,offset_x);
+	}
+	
+	img_loading = document.getElementById("img_loading");
+	img_loading.style.display='none';
+	profil_gj=L.geoJson(obj_gJ.elevation,{onEachFeature: el.addData.bind(el), style: {'weight': 0}}).addTo(map);
+	
+}
+
+map.on('measurefinish',function(e){
+	if(e.points.length>1){
+		var dist=e.points[0].distanceTo(e.points[1]);
+		el.clear();
+		var url=base_url+'profil.php?lon='+e.points[0].lng+'|'+e.points[1].lng+'&lat='+e.points[0].lat+'|'+e.points[1].lat;
+		var xhr=null;
+		if (window.XMLHttpRequest) { 
+			xhr = new XMLHttpRequest();
+		}
+		else if (window.ActiveXObject) 
+		{
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState==4){
+				obj_gJ=JSON.parse(xhr.responseText);				
+				trace_profil(obj_gJ,NaN,dist);
+			}
+		};
+		xhr.open("GET", url, true);
+		xhr.send(null);
+		img_loading = document.getElementById("img_loading");
+		img_loading.style.display='block';
+		el._expand();
+	}
+});
 
 function build_popup_mark_s(marker,isopen){
     var xhr=null;
