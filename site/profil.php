@@ -129,12 +129,6 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 			$ltmp=$lat_2;
 			$lat_2=$lat_1;
 			$lat_1=$ltmp;
-			$ltmp=$h_sup_2;
-			$h_sup_2=$h_sup_1;
-			$h_sup_1=$ltmp;
-			$ltmp=$h_ant_2;
-			$h_ant_2=$h_ant_1;
-			$h_ant_1=$ltmp;
 		}
 
 		$dist=haversineGreatCircleDistance($lat_1,$lon_1,$lat_2,$lon_2);
