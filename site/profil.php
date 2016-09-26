@@ -157,9 +157,9 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 			$obj_out->geometry->type='LineString';
 			$obj_out->geometry->coordinates=array();
 			if($obj_ign->elevations[0]->z < $seuil_bas_alt){
-				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,$h_sup_1);
+				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,0);
 			}else{
-				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,$obj_ign->elevations[0]->z+$h_sup_1);
+				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,$obj_ign->elevations[0]->z);
 			}
 			foreach($obj_ign->elevations as $coord_point){
 				if($coord_point->z < $seuil_bas_alt){
@@ -169,9 +169,9 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 				}
 			}
 			if(end($obj_ign->elevations)->z < $seuil_bas_alt){
-				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,$h_sup_2);
+				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,0);
 			}else{
-				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,end($obj_ign->elevations)->z+$h_sup_2);
+				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,end($obj_ign->elevations)->z);
 			}
 			$obj_return->elevation=$obj_out;
 		}
