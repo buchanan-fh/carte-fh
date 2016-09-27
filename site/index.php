@@ -27,8 +27,8 @@ if(isset($_GET["photo"])){
 	<script src="oms_cm.js"></script>
 	<script src="leaflet-measure.min.js"></script>
 	<link rel="stylesheet" href="leaflet-measure.css">
-	<script src="rrose-src.js"></script>
-	<link rel="stylesheet" href="leaflet.rrose.css">
+	<script src="leaflet.rrose-src.mod.js"></script>
+	<link rel="stylesheet" href="leaflet.rrose.mod.css">
 	<script src="esri-leaflet.js"></script>
 	<script src="esri-leaflet-geocoder.js"></script>
 	<link rel="stylesheet" href="esri-leaflet-geocoder.css">
