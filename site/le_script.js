@@ -858,7 +858,7 @@ function build_popup_mark_s_2(marker,isopen){
 	}
 	if(!isopen){
 		//marker.bindPopup(la_div_globale,{autoPan:false, maxWidth:600});
-		var le_rrose=new L.Rrose({autoPan:false, maxWidth:600})
+		var le_rrose=new L.Rrose({autoPan:false, maxWidth:600, offset:new L.Point(0,0)})
 		le_rrose.setContent(la_div_globale)
 		marker.bindPopup(le_rrose);
 		marker.openPopup();
