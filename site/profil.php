@@ -121,6 +121,7 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
 		$lon_2=$a_lon[1];
 		$lat_1=$a_lat[0];
 		$lat_2=$a_lat[1];
+		$obj_return=new stdClass();
 		
 		if($lon_1>$lon_2){
 			$ltmp=$lon_2;
