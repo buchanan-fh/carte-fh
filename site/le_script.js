@@ -156,7 +156,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "09/2016";
+document.getElementById("date_select").innerHTML = "11/2016";1
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
@@ -1078,7 +1078,7 @@ function recherche_sup(no_sup){
 							}else{
 								document.getElementById("button_moins").disabled=false;
 							}
-							if(le_mois=="09" && l_annee=="2016"){
+							if(le_mois=="11" && l_annee=="2016"){
 								document.getElementById("button_plus").disabled=true;
 							}else{
 								document.getElementById("button_plus").disabled=false;
@@ -1225,7 +1225,7 @@ function date_plus(){
 			}
 		}
 		document.getElementById("button_moins").disabled=false;
-		if(le_mois=="09" && l_annee=="2016"){
+		if(le_mois=="11" && l_annee=="2016"){
 			document.getElementById("button_plus").disabled=true;
 		}
 		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
