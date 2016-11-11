@@ -26,8 +26,8 @@ var ope_du_popup;
 var dir_popup;
 opacite_lien_non_lie=0.22;
 opacite_lien_meme_ope=0.6;
-//base_url="https://carte-fh.lafibre.info/";
-base_url="/";
+base_url="https://carte-fh.lafibre.info/";
+//base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
 la_div_globale = document.createElement("div");
@@ -164,7 +164,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "11/2016";1
+document.getElementById("date_select").innerHTML = "11/2016";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
@@ -1097,17 +1097,7 @@ function recherche_sup(no_sup){
 						new_date=le_mois+'/'+l_annee;
 						var date_jump=confirm('Support introuvable en '+document.getElementById("date_select").innerHTML+' mais existant en '+new_date+'. Changer de date ?')
 						if(date_jump){
-							document.getElementById("date_select").innerHTML=new_date;
-							if(le_mois=="01" && l_annee=="2015"){
-								document.getElementById("button_moins").disabled=true;
-							}else{
-								document.getElementById("button_moins").disabled=false;
-							}
-							if(le_mois=="11" && l_annee=="2016"){
-								document.getElementById("button_plus").disabled=true;
-							}else{
-								document.getElementById("button_plus").disabled=false;
-							}
+							change_date(0,s_result.date_found)
 							center_sup(s_result.no_sup,s_result.coords);
 						}
 					}
@@ -1213,47 +1203,80 @@ function check_no_autre_op(){
 	ajax()
 }
 
-function date_moins(){
-	if(document.activeElement.type!="text"){
-		le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
-		l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-		if(le_mois=="01"){
-			le_mois="12";
-			l_annee=parseInt(l_annee) - 1;
-		}else{
-			if(le_mois<11){
-				le_mois= "0" + (parseInt(le_mois)-1);
-			}else{
-				le_mois=parseInt(le_mois) - 1;
-			}
-		}
-		document.getElementById("button_plus").disabled=false;
-		if(le_mois=="01" && l_annee=="2015"){
-			document.getElementById("button_moins").disabled=true;
-		}
-		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
-		ajax();
-	}
-}
-function date_plus(){
-	if(document.activeElement.type!="text"){
-		le_mois=document.getElementById("date_select").innerHTML.split("/")[0];
-		l_annee=document.getElementById("date_select").innerHTML.split("/")[1];
-		if(le_mois=="12"){
-			le_mois="01";
-			l_annee=parseInt(l_annee) + 1;
-		}else{
-			if(le_mois<9){
-				le_mois= "0" + (parseInt(le_mois)+1);
-			}else{
-				le_mois=parseInt(le_mois) + 1;
-			}
-		}
-		document.getElementById("button_moins").disabled=false;
-		if(le_mois=="11" && l_annee=="2016"){
+function change_date(act,target){
+	mois_min=1;
+	annee_min=2015;
+	mois_max=11;
+	annee_max=2016;
+	if(act==0 && target!=undefined){
+		le_mois=parseInt(target.substr(4,2));
+		l_annee=parseInt(target.substr(0,4));
+		if(l_annee==annee_max && le_mois==mois_max){
 			document.getElementById("button_plus").disabled=true;
+			document.getElementById("button_plus_plus").disabled=true;
+		}else{
+			document.getElementById("button_plus").disabled=false;
+			document.getElementById("button_plus_plus").disabled=false;
 		}
-		document.getElementById("date_select").innerHTML=le_mois + "/" + l_annee;
+		if(l_annee==annee_min && le_mois==mois_min){
+			document.getElementById("button_moins").disabled=true;
+			document.getElementById("button_moins_moins").disabled=true;
+		}else{
+			document.getElementById("button_moins").disabled=false;
+			document.getElementById("button_moins_moins").disabled=false;
+		}
+		document.getElementById("date_select").innerHTML=target.substr(4,2) + "/" + target.substr(0,4);
+	}else{
+		le_mois=parseInt(document.getElementById("date_select").innerHTML.split("/")[0]);
+		l_annee=parseInt(document.getElementById("date_select").innerHTML.split("/")[1]);
+		if(act==1){
+			if(le_mois==12){
+				le_mois=1;
+				l_annee+=1;
+			}else{
+				le_mois+=1;
+			}
+		}else if(act==-1){
+			if(le_mois==1){
+				le_mois=12;
+				l_annee-=1;
+			}else{
+				le_mois-=1;
+			}
+		}else if(act==12){
+			l_annee+=1;
+		}else if(act==-12){
+			l_annee-=1;
+		}
+		if(l_annee>annee_max || (l_annee==annee_max && le_mois>mois_max)){
+			l_annee=annee_max;
+			le_mois=mois_max;
+		}
+		if(l_annee<annee_min || (l_annee==annee_min && le_mois<mois_min)){
+			l_annee=annee_min;
+			le_mois=mois_min;
+		}
+		if(l_annee==annee_max && le_mois==mois_max){
+			document.getElementById("button_plus").disabled=true;
+			document.getElementById("button_plus_plus").disabled=true;
+		}else{
+			document.getElementById("button_plus").disabled=false;
+			document.getElementById("button_plus_plus").disabled=false;
+		}
+		if(l_annee==annee_min && le_mois==mois_min){
+			document.getElementById("button_moins").disabled=true;
+			document.getElementById("button_moins_moins").disabled=true;
+		}else{
+			document.getElementById("button_moins").disabled=false;
+			document.getElementById("button_moins_moins").disabled=false;
+		}
+		if(le_mois<10){
+			le_mois_out= "0" + le_mois.toString();
+		}else{
+			le_mois_out=le_mois.toString();
+		}
+		l_annee_out=l_annee.toString();
+		document.getElementById("date_select").innerHTML=le_mois_out + "/" + l_annee_out;
 		ajax();
 	}
 }
@@ -1268,10 +1291,10 @@ function affichage_credits(){
 
 function touche_clavier(e){
 	if(e.keyCode==37 && document.getElementById("button_moins").disabled==false){
-		date_moins();
+		change_date(-1);
 	}
 	if(e.keyCode==39 && document.getElementById("button_plus").disabled==false){
-		date_plus();
+		change_date(1);
 	}
 }
 
