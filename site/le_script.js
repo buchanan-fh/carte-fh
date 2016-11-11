@@ -978,6 +978,7 @@ function build_detail_2(d_supports_t,isopen){
 			e.target.style.color="white";
 		}
 		d_tr.onmouseleave = function(e){
+			nos_ant_pop=[];
 			d_poly_du_sup.map(function(a_link){
 				if(a_link.getPopup()==undefined){
 					a_link.setStyle({weight: fact_epaisseur*epaisseur});
