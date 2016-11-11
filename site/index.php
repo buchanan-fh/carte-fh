@@ -135,28 +135,28 @@ if(isset($_GET["photo"])){
 				</table>
 				<table class="tab_col tab_cache" id="tab_status">
 					<tr>
-						<td><input type="checkbox" id="check_act" onclick="ajax()" checked></td>
-						<td>Liens activés</td>
+						<td colspan="3" style="text-align:center">Liens activés<td>
 					</tr>
 					<tr class="border_bottom">
-						<td><input type="checkbox" id="check_non_act" onclick="ajax()" checked></td>
-						<td>Liens non activés</td>
+						<td><input type="radio" name="radio_actifs" id="check_act" onclick="ajax()">Oui</td>
+						<td><input type="radio" name="radio_actifs" id="check_non_act" onclick="ajax()">Non</td>
+						<td><input type="radio" name="radio_actifs" id="check_any_act" onclick="ajax()" checked>Tout</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_couples" onclick="ajax()" checked></td>
-						<td>Liens r&eacute;solus</td>
+						<td colspan="3" style="text-align:center">Liens résolus<td>
 					</tr>
 					<tr class="border_bottom">
-						<td><input type="checkbox" id="check_singles" onclick="ajax()" checked></td>
-						<td>Liens non r&eacute;solus</td>
+						<td><input type="radio" name="radio_resolus" id="check_res" onclick="ajax()">Oui</td>
+						<td><input type="radio" name="radio_resolus" id="check_non_res" onclick="ajax()">Non</td>
+						<td><input type="radio" name="radio_resolus" id="check_any_res" onclick="ajax()" checked>Tout</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox" id="check_avec_photo" onclick="ajax()" <?php echo $avec_photo ?>></td>
-						<td>Supports avec photo</td>
+						<td colspan="3" style="text-align:center">Supports avec photo<td>
 					</tr>
 					<tr class="border_bottom">
-						<td><input type="checkbox" id="check_sans_photo" onclick="ajax()" <?php echo $sans_photo ?>></td>
-						<td>Supports sans photo</td>
+						<td><input type="radio" name="radio_photo" id="check_avec_photo" onclick="ajax()">Oui</td>
+						<td><input type="radio" name="radio_photo" id="check_sans_photo" onclick="ajax()">Non</td>
+						<td><input type="radio" name="radio_photo" id="check_any_photo" onclick="ajax()" checked>Tout</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache" id="shortcut_bandes">

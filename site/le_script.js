@@ -510,13 +510,13 @@ function ajax(){
 	}
 	if(document.getElementById("check_avec_photo").checked==true){
 		avec_photo=1;
-	}else{
+		sans_photo=0;
+	}else if(document.getElementById("check_sans_photo").checked==true){
 		avec_photo=0;
-	}
-	if(document.getElementById("check_sans_photo").checked==true){
 		sans_photo=1;
 	}else{
-		sans_photo=0;
+		avec_photo=1;
+		sans_photo=1;
 	}
 	if(document.getElementById("limit_600").checked==true){
 		nb_limit=600
@@ -527,8 +527,10 @@ function ajax(){
 	}
 	if (document.getElementById('check_non_act').checked==true){status+=8;}
 	if (document.getElementById('check_act').checked==true){status+=4;}
-	if (document.getElementById('check_singles').checked==true){status+=2;}
-	if (document.getElementById('check_couples').checked==true){status+=1;}
+	if (document.getElementById('check_any_act').checked==true){status+=12;}
+	if (document.getElementById('check_non_res').checked==true){status+=2;}
+	if (document.getElementById('check_res').checked==true){status+=1;}
+	if (document.getElementById('check_any_res').checked==true){status+=3;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
 	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&nat_liste=" + nat_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
@@ -557,8 +559,10 @@ function build_url_support(no_sup,liste_ant){
 	}
 	if (document.getElementById('check_non_act').checked==true){status+=8;}
 	if (document.getElementById('check_act').checked==true){status+=4;}
-	if (document.getElementById('check_singles').checked==true){status+=2;}
-	if (document.getElementById('check_couples').checked==true){status+=1;}
+	if (document.getElementById('check_any_act').checked==true){status+=12;}
+	if (document.getElementById('check_non_res').checked==true){status+=2;}
+	if (document.getElementById('check_res').checked==true){status+=1;}
+	if (document.getElementById('check_any_res').checked==true){status+=3;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
 	url = base_url + "supports.php?no_sup=" + String(no_sup) + "&liste_ant=" + liste_ant + "&op_liste=" + op_liste.join("|") + "&bande_code=" + bande_code + "&status=" + status + "&date=" + la_date;
