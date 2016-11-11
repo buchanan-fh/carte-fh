@@ -968,6 +968,16 @@ function build_detail_2(d_supports_t,isopen){
 		d_tr.appendChild(d_td4);
 		d_tr.id="d_"+s_result.antennes[i][0];
 		d_tr["n_ope"]=s_result.antennes[i][4];
+		nos_ant_pop=[];
+		d_poly_du_sup.map(function(a_link){
+			if(a_link.getPopup()!=undefined){
+				nos_ant_pop=a_link.dat.nos_ant;
+			}
+		})
+		if(nos_ant_pop.indexOf(s_result.antennes[i][0])>-1){
+			d_tr.style.backgroundColor=liste_ope[tab_ope_ID[s_result.antennes[i][4]]].color;
+			d_tr.style.color="white";
+		}
 		d_tr.onmouseenter = function(e){
 			d_poly_du_sup.map(function(a_link){
 				if (a_link.dat.nos_ant.indexOf(parseInt(e.target.id.substring(2)))>-1){
