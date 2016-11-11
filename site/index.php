@@ -90,11 +90,11 @@ if(isset($_GET["photo"])){
 			<div class="box" id="b_date"> 
 				<table class="tab_col">
 					<tr>
-						<td class="ligne_plus"><input id="button_moins_moins" type="button" value="<<" onclick="change_date(-12)" title="Année précédente"></td>
-						<td class="ligne_plus"><input id="button_moins" type="button" value="<" onclick="change_date(-1)" title="Mois précédent"></td>
+						<td class="ligne_plus"><input id="button_moins_moins" type="button" value="<<" onclick="change_date(-12)" title="Année précédente" style="font-size:11px;"></td>
+						<td class="ligne_plus"><input id="button_moins" type="button" value="<" onclick="change_date(-1)" title="Mois précédent" style="font-size:11px;"></td>
 						<td class="ligne_plus" id="date_select"></td>
-						<td class="ligne_plus"><input id="button_plus" type="button" value=">" onclick="change_date(1)" title="Mois suivant" disabled></td>
-						<td class="ligne_plus"><input id="button_plus_plus" type="button" value=">>" onclick="change_date(12)" title="Année suivante" disabled></td>
+						<td class="ligne_plus"><input id="button_plus" type="button" value=">" onclick="change_date(1)" title="Mois suivant" style="font-size:11px;" disabled></td>
+						<td class="ligne_plus"><input id="button_plus_plus" type="button" value=">>" onclick="change_date(12)" title="Année suivante" style="font-size:11px;" disabled></td>
 					</tr>
 					<tr>
 						<td colspan="5" class="ligne_simple"><a id="lien_dl_kml" href="">Télécharger les fichiers kml</a></td>
