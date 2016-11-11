@@ -46,7 +46,7 @@ body {
 	z-index:2;
 	position:absolute;
 	right:0px;
-	width:200px;
+	width:220px;
 	font-family:arial;
 	font-size:14px;
 	display:flex;
@@ -154,7 +154,7 @@ body {
 }
 .champ_recherche{
 	margin-left:5px;
-	width:120px;
+	width:140px;
 }
 #leg_autres{
 	background-color:#39AC39;

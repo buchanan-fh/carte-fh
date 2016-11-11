@@ -118,7 +118,7 @@ if(isset($_GET["photo"])){
 				</table>
 				<table class="tab_col tab_cache" id="tab_search">
 					<tr>
-						<td class="ligne_simple">Par n° de support:</td>
+						<td colspan="2" class="ligne_simple">Par n° de support:</td>
 					</tr>
 					<tr>
 						<td><input type="text" class="champ_recherche" id="no_sup_rech" onkeydown="if(event.keyCode==13){recherche_sup();}"></td>
