@@ -164,7 +164,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "11/2016";
+document.getElementById("date_select").innerHTML = "12/2016";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
