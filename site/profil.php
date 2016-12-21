@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant'])){
+if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant']) && $_GET['nos_sup']!='' && $_GET['nos_ant']!=''){
 	if(file_exists($_GET['date'].'/antennes.txt') && file_exists($_GET['date'].'/supports.txt')){
 		$seuil_bas_alt=-50;
 		$flag_trouve_sup1=false;

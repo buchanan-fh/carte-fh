@@ -26,8 +26,8 @@ var ope_du_popup;
 var dir_popup;
 opacite_lien_non_lie=0.22;
 opacite_lien_meme_ope=0.6;
-base_url="https://carte-fh.lafibre.info/";
-//base_url="/";
+//base_url="https://carte-fh.lafibre.info/";
+base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
 la_div_globale = document.createElement("div");
@@ -533,7 +533,11 @@ function ajax(){
 	if (document.getElementById('check_any_res').checked==true){status+=3;}
 	la_date=document.getElementById("date_select").innerHTML.split("/");
 	la_date=la_date[1]+la_date[0];
-	url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&nat_liste=" + nat_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	if(current_zone=='uk'){
+		url = base_url + "liens_uk.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	}else{
+		url = base_url + "liens.php?limit=" + nb_limit + "&op_liste=" + op_liste.join("|")  + "&bande_code=" + bande_code + "&prop_liste=" + prop_liste.join("|") + "&nat_liste=" + nat_liste.join("|") + "&status=" + status + "&avec_photo=" + avec_photo + "&sans_photo=" + sans_photo + "&zoom=" + map.getZoom() + "&west=" + map.getBounds().getWest() + "&east=" + map.getBounds().getEast() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth() + "&date=" + la_date;
+	}
 	//console.log(url);
 	return url;
  }
@@ -1210,7 +1214,7 @@ function check_no_autre_op(){
 function change_date(act,target){
 	mois_min=1;
 	annee_min=2015;
-	mois_max=11;
+	mois_max=12;
 	annee_max=2016;
 	if(act==0 && target!=undefined){
 		le_mois=parseInt(target.substr(4,2));
