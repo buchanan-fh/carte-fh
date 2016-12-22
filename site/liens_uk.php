@@ -35,8 +35,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	*/
 	$skip_photo=true;
 	
-	//$noms_tile=get_nom_tile();
-	$noms_tile=array(1);
+	$noms_tile=get_nom_tile();
 	
 	$op_liste=explode('|',$_GET['op_liste']);
 	
@@ -148,9 +147,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 					$la_ligne=fgets($le_fichier);
 					if(!empty($la_ligne)){
 						$les_champs=explode('|',$la_ligne);
-						//if(!isset($checked_links[$les_champs[10]])){
-						if(true){
-							//$checked_links[$les_champs[10]]=true;
+						if(!isset($checked_links[$les_champs[8]])){
+							$checked_links[$les_champs[8]]=true;
 							//$tab_nos_sup=explode(',',$les_champs[9]);
 							$flag_ajoute=false;
 							//for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
@@ -172,8 +170,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
 											//if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
 											if(true){
-												//if ((int)$les_champs[6] & (int)$_GET['bande_code']){
-												if(true){
+												if ((int)$les_champs[6] & (int)$_GET['bande_code']){
 													/*
 													if(count($tab_nos_sup)>1){
 														$code_lien=str_replace(',','_',$les_champs[10]);
@@ -325,12 +322,12 @@ function ComputeOutCode($p_lon,$p_lat){
 
 function get_nom_tile(){
 	$tiles=array();
-	$tiles["11"]=array(-180,1,46.7,90);
-	$tiles["12"]=array(1,4.5,46.7,90);
-	$tiles["13"]=array(4.5,180,46.7,90);
-	$tiles["21"]=array(-180,1,-90,46.7);
-	$tiles["22"]=array(1,4.5,-90,46.7);
-	$tiles["23"]=array(4.5,180,-90,46.7);	
+	$tiles["11"]=array(-180,-2,54,90);
+	$tiles["12"]=array(-2,180,54,90);
+	$tiles["21"]=array(-180,-2,52,54);
+	$tiles["22"]=array(-2,180,52,54);
+	$tiles["31"]=array(-180,-2,-90,52);
+	$tiles["32"]=array(-2,180,-90,52);	
 	$noms_tiles=array();
 	foreach($tiles as $nom_tile => $coords_tile){
 		if(overlap($coords_tile[0],$coords_tile[1],$coords_tile[2],$coords_tile[3],$_GET['west'],$_GET['east'],$_GET['north'],$_GET['south'])){

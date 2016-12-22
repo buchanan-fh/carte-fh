@@ -756,7 +756,7 @@ if(isset($_GET["photo"])){
 			<span class="clickable" id="text_fr_986" onclick="build_interface(true,'fr_986')">Wallis-et-Futuna (986)</span><br>
 			<span class="clickable" id="text_fr_987" onclick="build_interface(true,'fr_987')">Polynésie française (987)</span><br>
 			<span class="clickable" id="text_fr_988" onclick="build_interface(true,'fr_988')">Nouvelle-Calédonie (988)</span><br>
-			<span class="clickable" id="text_uk" onclick="build_interface(true,'uk')">Royaume-Uni</span>
+			<span class="clickable" id="text_uk" onclick="build_interface(true,'uk')">Royaume-Uni (BETA)</span>
 			<div class="Xquit" onclick="document.getElementById('choix_zone').style.display='none';">X</div>
 		</div>
 	</div>
