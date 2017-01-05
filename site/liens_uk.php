@@ -71,7 +71,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	
 	$checked_links=array();
 	
-	/*
+	
 	foreach($op_liste as $i_ope){
 		foreach($noms_tile as $nom_tile){
 			if(file_exists($_GET['date'].'/uk/liens_'.$nom_tile.'_'.$i_ope.'.txt')){
@@ -81,13 +81,14 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 					if(!empty($la_ligne)){
 						$les_champs=explode('|',$la_ligne);
 						if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
-							if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
+							//if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
+							if(true){
 								if((int)$les_champs[6] & (int)$_GET['bande_code']){
-									if(!isset($checked_links[$les_champs[10]])){
-										$checked_links[$les_champs[10]]=true;
+									if(!isset($checked_links[$les_champs[8]])){
+										$checked_links[$les_champs[8]]=true;
 										$tab_nos_sup=explode(',',$les_champs[9]);
-										$tab_prop_sup=explode(',',$les_champs[11]);
-										$tab_nat_sup=explode(',',trim($les_champs[12]));
+										//$tab_prop_sup=explode(',',$les_champs[11]);
+										//$tab_nat_sup=explode(',',trim($les_champs[12]));
 										for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
 											if($skip_photo || ($sans_photo && isset($liste_no_sup_photo[$tab_nos_sup[$i_sup]])==false) || ($avec_photo && isset($liste_no_sup_photo[$tab_nos_sup[$i_sup]]))){
 												if($skip_prop_sup || isset($prop_liste[$tab_prop_sup[$i_sup]])){
@@ -115,10 +116,10 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 
 	arsort($all_sup);
 	
-	*/
+	
 	$limitation_act=false;
 	$nb_limite=(int)$_GET['limit'];
-	/*
+	
 	if($nb_limite<count($all_sup) && $nb_limite>0){
 		$nb_ant_prec=0;
 		$keys=array_keys($all_sup);
@@ -134,7 +135,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		$all_sup=array_slice($all_sup,0,$i,true);
 		unset($keys);
 	}
-	*/
+	
 	
 	$all_sup_final=array();
 	$checked_links=array();
@@ -149,23 +150,21 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 						$les_champs=explode('|',$la_ligne);
 						if(!isset($checked_links[$les_champs[8]])){
 							$checked_links[$les_champs[8]]=true;
-							//$tab_nos_sup=explode(',',$les_champs[9]);
+							$tab_nos_sup=explode(',',$les_champs[9]);
 							$flag_ajoute=false;
-							//for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
-								//$code_sup='s'.$tab_nos_sup[$i_sup];
-								//if(isset($all_sup[$code_sup])){
-								if(true){
-									/*
+							for($i_sup=count($tab_nos_sup)-1;$i_sup>=0;--$i_sup){
+								$code_sup='s'.$tab_nos_sup[$i_sup];
+								if(isset($all_sup[$code_sup])){
 									if(is_numeric($all_sup[$code_sup])){
 										if(ComputeOutCode((float)$les_champs[1+2*$i_sup],(float)$les_champs[2*$i_sup])){
 											$all_sup[$code_sup]='outside';
 										}else{
-											$les_prop=explode(',',$les_champs[11]);
-											$all_sup_final[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+											//$les_prop=explode(',',$les_champs[11]);
+											//$all_sup_final[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => (int)$les_prop[$i_sup]);
+											$all_sup_final[$code_sup] = array('coords' => array((float)$les_champs[2*$i_sup],(float)$les_champs[1+2*$i_sup]), 'nb_ant' => $all_sup[$code_sup], 'prop' => 12);
 											$all_sup[$code_sup]='inside';
 										}
 									}
-									*/
 									if(!$flag_ajoute){
 										if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
 											//if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
@@ -191,7 +190,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 										}
 									}
 								}
-							//}
+							}
 						}
 					}
 				}
