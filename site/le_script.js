@@ -164,7 +164,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "12/2016";
+document.getElementById("date_select").innerHTML = "01/2017";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
@@ -1214,8 +1214,8 @@ function check_no_autre_op(){
 function change_date(act,target){
 	mois_min=1;
 	annee_min=2015;
-	mois_max=12;
-	annee_max=2016;
+	mois_max=01;
+	annee_max=2017;
 	if(act==0 && target!=undefined){
 		le_mois=parseInt(target.substr(4,2));
 		l_annee=parseInt(target.substr(0,4));

@@ -44,7 +44,7 @@ nom_exploit_fr["269"]="SPLANG";nom_exploit_fr["271"]="ATHD";nom_exploit_fr["254"
 nom_exploit_fr["248"]="SAT Consult";nom_exploit_fr["256"]="SANEF";nom_exploit_fr["257"]="NET 48";nom_exploit_fr["263"]="Latent Networks";nom_exploit_fr["250"]="NomoTech";nom_exploit_fr["272"]="Vannes agglo numérique";
 nom_exploit_fr["268"]="Dassault aviation";nom_exploit_fr["278"]="Telco OI";nom_exploit_fr["273"]="CG 08";nom_exploit_fr["274"]="Cher haut débit";nom_exploit_fr["275"]="Manche numérique";
 nom_exploit_fr["276"]="Tutor Calvados";nom_exploit_fr["277"]="McKay Brothers International";nom_exploit_fr["279"]="Manche Haut Débit";nom_exploit_fr["280"]="TWS International";nom_exploit_fr["281"]="Gers Haut Débit";
-nom_exploit_fr["282"]="Memonet";
+nom_exploit_fr["282"]="Memonet";nom_exploit_fr["286"]="M.I TELECOM";
 
 nom_exploit_uk=[];
 nom_exploit_uk["1"]="AB Internet Ltd";nom_exploit_uk["2"]="Aberdeen City Council";nom_exploit_uk["3"]="Adelphi Net1 Limited";nom_exploit_uk["4"]="Affinity Communications";nom_exploit_uk["5"]="Airband Community Internet Limited";
@@ -225,7 +225,7 @@ for(i=0;i<67;i++){
 
 liste_ope_zones=[];
 liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:["6","158_240","21_23","137"],
-	other:["2","219","242","9","262","145","260","259","215","203","251","258","261","254","249","171","223","263","277","282","26","250","160",
+	other:["2","219","242","9","262","145","260","259","215","203","251","258","261","254","249","171","223","263","277","282","26","286","250","160",
 	"236","265","225","256","248","202","218","253","185","39","170","280","272","220","238","271","164","233","244","273","194","276","181",
 	"274","239","180","163","281","243","195","176","198","257","186_247","275","279","200","182","177","245","201","165","191","264","184"]};
 liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:["162","21_23","147"], other:["2","203","171","154","218","39"]};
