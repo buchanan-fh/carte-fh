@@ -2,9 +2,12 @@
 header('Access-Control-Allow-Origin: *');
 
 $cache_file = 'cache/cache_url_photo.txt';
+$flag_file = 'cache/flag_cache_url_photo.txt';
 date_default_timezone_set('Europe/Paris');
 
-if(!file_exists($cache_file) || (filemtime($cache_file) < (time() - 60 * 10 ))) {
+if(!file_exists($flag_file) && (!file_exists($cache_file) || (filemtime($cache_file) < (time() - 60 * 10 )))) {
+	
+	file_put_contents($flag_file,'flag', LOCK_EX);
 	
 	$curl=curl_init();
 	curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/galerie_photo/ws.php?format=json&method=pwg.session.login');
@@ -53,6 +56,8 @@ if(!file_exists($cache_file) || (filemtime($cache_file) < (time() - 60 * 10 ))) 
 		}
 	}
 	file_put_contents($cache_file, serialize($tab_sup_url), LOCK_EX);
+	
+	unlink($flag_file);
 }
 
 ?>
