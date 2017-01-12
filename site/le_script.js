@@ -1385,7 +1385,7 @@ function toggle_filtres_nat_sup(){
 	}
 }
 function toggle_lim_aff(){
-	if(document.getElementById("tab_lim_aff").style.display=="table"){
+	if(!(document.getElementById("tab_lim_aff").style.display=="none")){
 		document.getElementById("tab_lim_aff").style.display="none";
 		document.getElementById("toggle_lim_aff").innerHTML="+"
 	}else{

@@ -116,7 +116,7 @@ if(isset($_GET["photo"])){
 						<td class="toggle" id="toggle_search">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="tab_search">
+				<table class="tab_col tab_cache tab_niv2" id="tab_search">
 					<tr>
 						<td colspan="2" class="ligne_simple">Par n° de support:</td>
 					</tr>
@@ -133,7 +133,7 @@ if(isset($_GET["photo"])){
 						<td class="toggle" id="toggle_filtres">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="tab_status">
+				<table class="tab_col tab_cache tab_niv2" id="tab_status">
 					<tr>
 						<td colspan="3" style="text-align:center">Liens activés<td>
 					</tr>
@@ -159,13 +159,13 @@ if(isset($_GET["photo"])){
 						<td><input type="radio" name="radio_photo" id="check_any_photo" onclick="ajax()" checked>Tout</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="shortcut_bandes">
+				<table class="tab_col tab_cache tab_niv2" id="shortcut_bandes">
 					<tr class="clickable" onclick="toggle_filtres_bandes()">
 						<td class="ligne_plus">Bandes de fréquences</td>
 						<td class="toggle" id="toggle_filtres_bandes">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache_2" id="tab_bandes">
+				<table class="tab_col tab_cache tab_niv3" id="tab_bandes">
 					<tr>
 						<td class="ligne_plus"><input type="button" id="check_all_bandes" value="Toutes" onclick="check_all_bandes()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_bande" value="Aucune" onclick="check_no_bande()"></td>
@@ -235,19 +235,19 @@ if(isset($_GET["photo"])){
 						<td>70/80 GHz</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="shortcut_prop_sup">
+				<table class="tab_col tab_cache tab_niv2" id="shortcut_prop_sup">
 					<tr class="clickable" onclick="toggle_filtres_prop_sup()">
 						<td class="ligne_plus">Propriétaires des supports</td>
 						<td class="toggle" id="toggle_filtres_prop_sup">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache_2" id="tab_prop_sup">
+				<table class="tab_col tab_cache tab_niv3" id="tab_prop_sup">
 					<tr>
 						<td class="ligne_plus"><input type="button" id="check_all_prop_sup" value="Tous" onclick="check_all_prop_sup()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_prop_sup" value="Aucun" onclick="check_no_prop_sup()"></td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache_2" id="tab_prop_sup2">
+				<table class="tab_col tab_cache tab_niv3" id="tab_prop_sup2">
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_0" onclick="ajax()" checked></td>
 						<td>Inconnu</td>
@@ -517,19 +517,19 @@ if(isset($_GET["photo"])){
 						<td>Voies navigables de France</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="shortcut_nat_sup">
+				<table class="tab_col tab_cache tab_niv2" id="shortcut_nat_sup">
 					<tr class="clickable" onclick="toggle_filtres_nat_sup()">
 						<td class="ligne_plus">Nature des supports</td>
 						<td class="toggle" id="toggle_filtres_nat_sup">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache_2" id="tab_nat_sup">
+				<table class="tab_col tab_cache tab_niv3" id="tab_nat_sup">
 					<tr>
 						<td class="ligne_plus"><input type="button" id="check_all_nat_sup" value="Toutes" onclick="check_all_nat_sup()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_nat_sup" value="Aucune" onclick="check_no_nat_sup()"></td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache_2" id="tab_nat_sup2">
+				<table class="tab_col tab_cache tab_niv3" id="tab_nat_sup2">
 					<tr>
 						<td><input type="checkbox" id="check_nat_sup_0" onclick="ajax()" checked></td>
 						<td>Sans nature</td>
@@ -682,10 +682,10 @@ if(isset($_GET["photo"])){
 				<table class="tab_col">
 					<tr class="clickable" onclick="toggle_lim_aff()">
 						<td class="ligne_plus">Limitation d'affichage</td>
-						<td class="toggle" id="toggle_lim_aff">+</td>
+						<td class="toggle" id="toggle_lim_aff">–</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="tab_lim_aff">
+				<table class="tab_col tab_niv2" id="tab_lim_aff">
 					<tr>
 						<td class="radio_limit"><input type="radio" name="nb_limit" id="limit_150" onclick="current_lim=150;ajax();"></td>
 						<td>Après 150 supports</td>
@@ -730,13 +730,13 @@ if(isset($_GET["photo"])){
 						<td class="toggle" id="toggle_autres_op" onclick="toggle_autres_ope()">+</td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="shortcut_autres_ope">
+				<table class="tab_col tab_cache tab_niv2" id="shortcut_autres_ope">
 					<tr >
 						<td class="ligne_plus"><input type="button" id="check_all_autres_op" value="Tous" onclick="check_all_autres_op()"></td>
 						<td class="ligne_plus"><input type="button" id="check_no_autre_op" value="Aucun" onclick="check_no_autre_op()"></td>
 					</tr>
 				</table>
-				<table class="tab_col tab_cache" id="tab_autres_ope"></table>
+				<table class="tab_col tab_cache tab_niv2" id="tab_autres_ope"></table>
 			</div> 
 		</div>
 		<div id="credits">

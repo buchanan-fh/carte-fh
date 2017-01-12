@@ -90,7 +90,7 @@ body {
 #choix_zone{
 	z-index:2;
 	position:absolute;
-	right:200px;
+	right:235px;
 	top:10px;
 	width:300px;
 	border:solid 1px black;
@@ -113,10 +113,11 @@ body {
 }
 .tab_cache{
 	display:none;
+}
+.tab_niv2{
 	background-color:#DFDFDF;
 }
-.tab_cache_2{
-	display:none;
+.tab_niv3{
 	background-color:#EFEFEF;
 }
 .check_cell{
