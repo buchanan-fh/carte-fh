@@ -164,7 +164,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "01/2017";
+document.getElementById("date_select").innerHTML = "04/2017";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
@@ -1214,7 +1214,7 @@ function check_no_autre_op(){
 function change_date(act,target){
 	mois_min=1;
 	annee_min=2015;
-	mois_max=01;
+	mois_max=04;
 	annee_max=2017;
 	if(act==0 && target!=undefined){
 		le_mois=parseInt(target.substr(4,2));
