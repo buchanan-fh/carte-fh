@@ -1,4 +1,4 @@
-liste_col_fr=['#FFFFFF','#FF8400','#ED0000','#0067ED','#6A6A6A','#39AC39','#E11C78','#ED3529'];
+liste_col_fr=['#FFFFFF','#FF8400','#ED0000','#0067ED','#6A6A6A','#39AC39','#E11C78','#ED3529','#CC00FF'];
 
 liste_col_uk=['#FFFFFF','#007B85','#524FA6','#0D3D73','#E60000','#969696','#39AC39'];
 
@@ -123,6 +123,7 @@ couleur_main_ope_fr[147]=liste_col_fr[6];
 couleur_main_ope_fr[278]=liste_col_fr[6];
 couleur_main_ope_fr[162]=liste_col_fr[7];
 couleur_main_ope_fr[267]=liste_col_fr[7];
+couleur_main_ope_fr[39]=liste_col_fr[8];
 
 couleur_main_ope_uk=[];
 couleur_main_ope_uk[88]=liste_col_uk[1];
@@ -141,6 +142,7 @@ couleur_proprio[42]=liste_col_fr[4];
 couleur_proprio[44]=liste_col_fr[6];
 couleur_proprio[51]=liste_col_fr[7];
 couleur_proprio[66]=liste_col_fr[6];
+couleur_proprio[32]=liste_col_fr[8];
 
 liste_reg_mod_fr=[
 	{name:"Orange",short_name:"Orange",no_expl:[21,23],color:liste_col_fr[1]},
@@ -224,17 +226,17 @@ for(i=0;i<67;i++){
 }
 
 liste_ope_zones=[];
-liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:["6","158_240","21_23","137"],
+liste_ope_zones["fr_metro"]={nom_zone:"France métropolitaine", bounds:[[41,-5.7],[51.5,10]], main:["6","158_240","21_23","137","39"],
 	other:["2","219","242","9","262","145","260","259","215","203","251","258","261","254","249","171","223","263","277","282","26","286","250","160",
-	"236","265","225","256","248","202","218","253","185","39","170","280","272","220","238","271","164","233","244","273","194","276","181",
+	"236","265","225","256","248","202","218","253","185","170","280","272","220","238","271","164","233","244","273","194","276","181",
 	"274","239","180","163","281","243","195","176","198","257","186_247","275","279","200","182","177","245","201","165","191","264","184"]};
-liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:["162","21_23","147"], other:["2","203","171","154","218","39"]};
-liste_ope_zones["fr_972"]={nom_zone:"Martinique (972)", bounds:[[14.35,-61.3],[14.9,-60.7]], main:["162","21_23","147"], other:["2","171","207","154","218","39"]};
-liste_ope_zones["fr_973"]={nom_zone:"Guyane (973)", bounds:[[2,-54.7],[5.9,-51.4]], main:["162","21_23","147"], other:["11","203","190","269","218","39"]};
-liste_ope_zones["fr_974"]={nom_zone:"La Réunion (974)", bounds:[[-21.43,55.15],[-20.83,55.9]], main:["21_23","147","193","278"], other:["2","203","208","218","39","138",]};
-liste_ope_zones["fr_975"]={nom_zone:"Saint-Pierre-et-Miquelon (975)", bounds:[[46.72,-56.50],[47.17,-56.08]], main:["21_23","148"], other:["39"]};
-liste_ope_zones["fr_976"]={nom_zone:"Mayotte (976)", bounds:[[-13.1,44.9],[-12.55,45.33]], main:["21_23","147","193","278"], other:["252","203","221","39"]};
-liste_ope_zones["fr_9778"]={nom_zone:"Saint-Barthélemy (977)/Saint-Martin (978)", bounds:[[17.87,-63.17],[18.13,-62.78]], main:["162","21_23"], other:["2","219","153","218","39"]};
+liste_ope_zones["fr_971"]={nom_zone:"Guadeloupe (971)", bounds:[[15.78,-61.9],[16.54,-60.9]], main:["162","21_23","147","39"], other:["2","203","171","154","218"]};
+liste_ope_zones["fr_972"]={nom_zone:"Martinique (972)", bounds:[[14.35,-61.3],[14.9,-60.7]], main:["162","21_23","147","39"], other:["2","171","207","154","218"]};
+liste_ope_zones["fr_973"]={nom_zone:"Guyane (973)", bounds:[[2,-54.7],[5.9,-51.4]], main:["162","21_23","147","39"], other:["11","203","190","269","218"]};
+liste_ope_zones["fr_974"]={nom_zone:"La Réunion (974)", bounds:[[-21.43,55.15],[-20.83,55.9]], main:["21_23","147","193","39","278"], other:["2","203","208","218","138",]};
+liste_ope_zones["fr_975"]={nom_zone:"Saint-Pierre-et-Miquelon (975)", bounds:[[46.72,-56.50],[47.17,-56.08]], main:["21_23","148","39"], other:[]};
+liste_ope_zones["fr_976"]={nom_zone:"Mayotte (976)", bounds:[[-13.1,44.9],[-12.55,45.33]], main:["21_23","147","193","39","278"], other:["252","203","221"]};
+liste_ope_zones["fr_9778"]={nom_zone:"Saint-Barthélemy (977)/Saint-Martin (978)", bounds:[[17.87,-63.17],[18.13,-62.78]], main:["162","21_23","39"], other:["2","219","153","218"]};
 liste_ope_zones["fr_986"]={nom_zone:"Wallis-et-Futuna (986)", bounds:[[-13.4,-176.3],[-13.17,-176.09]], main:["228"], other:[]};
 liste_ope_zones["fr_987"]={nom_zone:"Polynésie française (987)", bounds:[[-28,-155],[-7,-134]], main:["167","267","246"], other:[]};
 liste_ope_zones["fr_988"]={nom_zone:"Nouvelle-Calédonie (988)", bounds:[[-23,163.3],[-19.4,168.1]], main:["166"], other:[]};
