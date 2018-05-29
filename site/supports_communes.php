@@ -6,13 +6,13 @@ $tab_sup=array();
 
 if(isset($_GET['dept'])){
 	
-	if(file_exists("france2015.txt")){
+	if(file_exists("france2016.txt")){
 		$noms_com=array();
 		$flag_ardt=false;
 		if(strlen($_GET['dept'])==5){
 			$flag_ardt=true;
 		}
-		$le_fichier_sup=fopen("france2015.txt","r");
+		$le_fichier_sup=fopen("france2016.txt","r");
 		while(!feof($le_fichier_sup)){
 			$la_ligne=fgets($le_fichier_sup);
 			$les_champs=explode("\t",$la_ligne);

@@ -3,9 +3,9 @@ L.Control.Elevation = L.Control.extend({
         position: "topright",
         theme: "lime-theme",
         width: 600,
-        height: 175,
+        height: 200,
         margins: {
-            top: 10,
+            top: 35,
             right: 20,
             bottom: 30,
             left: 60
@@ -75,14 +75,57 @@ L.Control.Elevation = L.Control.extend({
 		var la_div_close = L.DomUtil.create("div",'clickable background',container);
 		la_div_close.style.position='absolute'
 		la_div_close.style.right='5px'
-		la_div_close.innerHTML ='<b>X</b>'
+		la_div_close.style.backgroundColor='transparent'
+		la_div_close.innerHTML='<b>X</b>'
 		la_div_close._container=container;
 		L.DomEvent.on(la_div_close,'click',this._collapse)
 		var la_div_loading = L.DomUtil.create("div",'background',container);
 		la_div_loading.innerHTML ='<img id="img_loading" style="display: none;margin-left: auto;margin-right: auto;margin-top: auto;margin-bottom: auto" src="loading.gif" alt="Chargement...">'
 		la_div_loading.style.position='absolute';
 		la_div_loading.style.marginLeft='405px';
-		la_div_loading.style.marginTop='60px';
+		la_div_loading.style.marginTop='70px';
+		var input_h1 = L.DomUtil.create("input",'background',container);
+		input_h1.id='input_h1'
+		input_h1.style.position='absolute';
+		input_h1.style.marginLeft='60px';
+		input_h1.style.marginTop='10px';
+		input_h1.style.width='30px';
+		input_h1.readOnly=true;
+		input_h1.oninput=function(){profile_input_change();};
+		var legende_h1 = L.DomUtil.create("div",'background',container);
+		legende_h1.style.position='absolute';
+		legende_h1.style.backgroundColor='transparent'
+		legende_h1.style.left='98px';
+		legende_h1.style.top='12px';
+		legende_h1.innerHTML='m (HMA)';
+		var input_h2 = L.DomUtil.create("input",'background',container);
+		input_h2.id='input_h2'
+		input_h2.style.position='absolute';
+		input_h2.style.marginLeft='698px';
+		input_h2.style.marginTop='10px';
+		input_h2.style.width='30px';
+		input_h2.readOnly=true;
+		input_h2.oninput=function(){profile_input_change();};
+		var legende_h2 = L.DomUtil.create("div",'background',container);
+		legende_h2.style.position='absolute';
+		legende_h2.style.backgroundColor='transparent'
+		legende_h2.style.left='735px';
+		legende_h2.style.top='12px';
+		legende_h2.innerHTML='m (HMA)';
+		var input_freq = L.DomUtil.create("input",'background',container);
+		input_freq.id='input_freq'
+		input_freq.style.position='absolute';
+		input_freq.style.marginLeft='405px';
+		input_freq.style.marginTop='10px';
+		input_freq.style.width='30px';
+		input_freq.readOnly=true;
+		input_freq.oninput=function(){profile_input_change();};
+		var legende_freq = L.DomUtil.create("div",'background',container);
+		legende_freq.style.position='absolute';
+		legende_freq.style.backgroundColor='transparent'
+		legende_freq.style.left='442px';
+		legende_freq.style.top='12px';
+		legende_freq.innerHTML='GHz';
 		///
 		
         this._initToggle();

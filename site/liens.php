@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 $t_start=microtime(true);
 
-$tab_dates_ok=array('201501','201502','201503','201504','201505','201506','201507','201508','201509','201510','201511','201512','201601','201602','201603','201604','201605','201606','201607','201608','201609','201610','201611','201612','201701','201702','201703','201704');
+$tab_dates_ok=array('201501','201502','201503','201504','201505','201506','201507','201508','201509','201510','201511','201512','201601','201602','201603','201604','201605','201606','201607','201608','201609','201610','201611','201612','201701','201702','201703','201704','201705','201706','201707','201708','201709','201710','201711','201712','201801','201802','201803','201804','201805');
 $short_links = array();
 $final_links = array();
 $all_sup = array();
@@ -13,7 +13,7 @@ $final_result = new StdClass();
 $cache_file = 'cache/cache_url_photo.txt';
 $lock=false;
 
-if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
+if(isset($_GET['date']) && array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 
 	if(isset($_GET["avec_photo"]) && isset($_GET["sans_photo"]) && ($_GET["avec_photo"] * $_GET["sans_photo"] == 0)){
 		$skip_photo=false;
@@ -25,7 +25,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		curl_setopt($curl,CURLOPT_URL,'https://carte-fh.lafibre.info/regen_cache_pic.php');
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_TIMEOUT_MS, 10);
+		curl_setopt($curl, CURLOPT_TIMEOUT_MS, 30);
 		$return = curl_exec($curl);
 		curl_close($curl);
 	}else{
@@ -36,7 +36,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	$op_liste=explode('|',$_GET['op_liste']);
 	if(isset($_GET['prop_liste'])){
 		$prop_liste=explode('|',$_GET['prop_liste']);
-		if(count($prop_liste)==67){
+		if(count($prop_liste)==70){
 			$skip_prop_sup=true;
 		}else{
 			$skip_prop_sup=false;
@@ -56,6 +56,18 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	}else{
 		$skip_nat_sup=true;
 	}
+	if(isset($_GET['bande_code'])){
+		$bande_code=(int)$_GET['bande_code'];
+		$skip_band=false;
+	}else{
+		$skip_band=true;
+	}
+	if(isset($_GET['status'])){
+		$status=(int)$_GET['status'];
+		$skip_status=false;
+	}else{
+		$skip_status=true;
+	}
 	
 	$checked_links=array();
 	
@@ -68,8 +80,8 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 					if(!empty($la_ligne)){
 						$les_champs=explode('|',$la_ligne);
 						if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
-							if(((int)$les_champs[7] & (int)$_GET['status'] & 3) && ((int)$les_champs[7] & (int)$_GET['status'] & 12)){
-								if((int)$les_champs[6] & (int)$_GET['bande_code']){
+							if($skip_status || ((int)$les_champs[7] & $status & 3) && ((int)$les_champs[7] & $status & 12)){
+								if($skip_band || (int)$les_champs[6] & $bande_code){
 									if(!isset($checked_links[$les_champs[10]])){
 										$checked_links[$les_champs[10]]=true;
 										$tab_nos_sup=explode(',',$les_champs[9]);
@@ -103,26 +115,35 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	arsort($all_sup);
 	
 	$limitation_act=false;
-	$nb_limite=(int)$_GET['limit'];
-	if($nb_limite<count($all_sup) && $nb_limite>0){
-		$nb_ant_prec=0;
-		$keys=array_keys($all_sup);
-		$nb_keys=count($keys);
-		for($i=0;$i<$nb_keys;++$i){
-			if($i>=$nb_limite && $all_sup[$keys[$i]]<$nb_ant_prec){
-				$limitation_act=true;
-				break;
-			}else{
-				$nb_ant_prec=$all_sup[$keys[$i]];
+	if(isset($_GET['limit'])){
+		$nb_limite=(int)$_GET['limit'];
+		if($nb_limite<count($all_sup) && $nb_limite>0){
+			$nb_ant_prec=0;
+			$keys=array_keys($all_sup);
+			$nb_keys=count($keys);
+			for($i=0;$i<$nb_keys;++$i){
+				if($i>=$nb_limite && $all_sup[$keys[$i]]<$nb_ant_prec){
+					$limitation_act=true;
+					break;
+				}else{
+					$nb_ant_prec=$all_sup[$keys[$i]];
+				}
 			}
+			$all_sup=array_slice($all_sup,0,$i,true);
+			unset($keys);
 		}
-		$all_sup=array_slice($all_sup,0,$i,true);
-		unset($keys);
+	}else{
+		$nb_limite=0;
 	}
 	
 	$all_sup_final=array();
 	$checked_links=array();
-	$d_min=7*28284/pow(2,(int)$_GET['zoom']+8);	
+	if(isset($_GET['zoom'])){
+		$d_min=7*28284/pow(2,(int)$_GET['zoom']+8);	
+		$skip_zoom=false;
+	}else{
+		$skip_zoom=true;
+	}
 	foreach($op_liste as $i_ope){
 		foreach($noms_tile as $nom_tile){
 			if(file_exists($_GET['date'].'/liens_'.$nom_tile.'_'.$i_ope.'.txt')){
@@ -149,14 +170,14 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 									}
 									if(!$flag_ajoute){
 										if(CohenSutherlandModif($les_champs[1],$les_champs[3],$les_champs[0],$les_champs[2])){
-											if (((int)$les_champs[7] & (int)$_GET['status'] & 12) && ((int)$les_champs[7] & (int)$_GET['status'] & 3)){
-												if ((int)$les_champs[6] & (int)$_GET['bande_code']){
+											if ($skip_status || ((int)$les_champs[7] & $status & 12) && ((int)$les_champs[7] & $status & 3)){
+												if ($skip_band || (int)$les_champs[6] & $bande_code){
 													if(count($tab_nos_sup)>1){
 														$code_lien=str_replace(',','_',$les_champs[10]);
 													}else{
 														$code_lien=$les_champs[10].'_';
 													}
-													if((float)$les_champs[8]>=$d_min){
+													if($skip_zoom || (float)$les_champs[8]>=$d_min){
 														$final_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
 													}else{
 														$short_links[$code_lien] = array('coords' => array(array((float)$les_champs[0],(float)$les_champs[1]),array((float)$les_champs[2],(float)$les_champs[3])), 'ope' => (int)$les_champs[4], 'syst' => (int)$les_champs[5], 'band' => (int)$les_champs[6], 'stat' => (int)$les_champs[7], 'nos_sup' => array_map('floatval',explode(',',$les_champs[9])), 'nos_ant' => array_map('floatval',explode(',',$les_champs[10])));
@@ -176,7 +197,7 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 		}
 	}
 	
-	if(((count($short_links)+count($final_links))<=(3*$nb_limite))||$nb_limite==0){
+	if($skip_zoom || $nb_limite==0 || ((count($short_links)+count($final_links))<=(3*$nb_limite))){
 		$final_links=array_merge($final_links,$short_links);
 	}else{
 		$limitation_act=true;
@@ -201,7 +222,11 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	}else{
 		$final_result->nb_ant_min = 0;
 	}
-	$final_result->ind_req = $_GET['req'];
+	if(isset($_GET['req'])){
+		$final_result->ind_req = $_GET['req'];
+	}else{
+		$final_result->ind_req = "";
+	}
 	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
 }else{
@@ -212,7 +237,11 @@ if(array_search($_GET['date'],$tab_dates_ok)!==FALSE && $lock==false){
 	$final_result->tiles = array();
 	$final_result->nb_ant_max = 0;
 	$final_result->nb_ant_min = 0;
-	$final_result->ind_req = $_GET['req'];
+	if(isset($_GET['req'])){
+		$final_result->ind_req = $_GET['req'];
+	}else{
+		$final_result->ind_req = "";
+	}
 	$final_result->ex_time = floor(1000*(microtime(true)-$t_start));
 	echo json_encode($final_result);
 }

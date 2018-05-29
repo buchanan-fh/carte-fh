@@ -31,7 +31,7 @@ if(!file_exists($flag_file) && (!file_exists($cache_file) || (filemtime($cache_f
 		curl_close($curl);
 		$obj_return = json_decode($return);
 		$pics=array_merge($pics,$obj_return->result->images);
-		$count_in_page=$obj_return->result->paging->count;
+		$count_in_page=count($obj_return->result->images);
 		$n_page+=1;
 	}while($count_in_page==500);
 	$tab_sup_url=[];

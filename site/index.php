@@ -301,6 +301,10 @@ if(isset($_GET["photo"])){
 						<td>CCI, Ch Metiers, Port Aut, Aérop</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_68" onclick="ajax()" checked></td>
+						<td>CELLNEX</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_34" onclick="ajax()" checked></td>
 						<td>Commune, communauté de commune</td>
 					</tr>
@@ -457,6 +461,10 @@ if(isset($_GET["photo"])){
 						<td>SDIS, secours, incendie</td>
 					</tr>
 					<tr>
+						<td><input type="checkbox" id="check_prop_sup_67" onclick="ajax()" checked></td>
+						<td>Service des Postes et Telecom</td>
+					</tr>
+					<tr>
 						<td><input type="checkbox" id="check_prop_sup_27" onclick="ajax()" checked></td>
 						<td>SFR</td>
 					</tr>
@@ -515,6 +523,10 @@ if(isset($_GET["photo"])){
 					<tr>
 						<td><input type="checkbox" id="check_prop_sup_35" onclick="ajax()" checked></td>
 						<td>Voies navigables de France</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" id="check_prop_sup_69" onclick="ajax()" checked></td>
+						<td>ZEOP</td>
 					</tr>
 				</table>
 				<table class="tab_col tab_cache tab_niv2" id="shortcut_nat_sup">
@@ -741,7 +753,7 @@ if(isset($_GET["photo"])){
 		</div>
 		<div id="credits">
 		<div style="text-align:center"><h3>Carte des Faisceaux Hertziens</h3><a style="display:inline-block" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="88x31.png" /></a></div><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Ce site</span> est mis à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">licence Creative Commons Attribution -  Partage dans les Mêmes Conditions 4.0 International</a>.
-		<br>Il est réalisé à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a> et <a href="https://www.data.gouv.fr">data.gouv.fr</a>.<br><br>Pour ajouter des photos d'un support à <a href="https://carte-fh.lafibre.info/galerie_photo/">la galerie</a>, suivez <a href="https://carte-fh.lafibre.info/tuto_galerie_photo/">le tutoriel</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a>, fkin007 pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.
+		<br>Il est réalisé à partir de données issues de <a href="http://www.cartoradio.fr">Cartoradio</a> et <a href="https://www.data.gouv.fr">data.gouv.fr</a>.<br><p style="text-align:center">L'hébergement est fourni à titre gracieux par <a href="https://mediactive-network.net/">Mediactive</a><br><a href="https://mediactive-network.net/"><img src="https://lafibre.info/images/pro/logo_mediactive_mini.png" align="middle"></a></p>Pour ajouter des photos d'un support à <a href="https://carte-fh.lafibre.info/galerie_photo/">la galerie</a>, suivez <a href="https://carte-fh.lafibre.info/tuto_galerie_photo/">le tutoriel</a>.<br><br>Mes remerciements à <a href="https://twitter.com/MarinMoulinier">Marin</a>, <a href="https://twitter.com/_GaLaK_">Nicolas</a>, <a href="https://twitter.com/Network_Addict">Thomas</a>, <a href="https://twitter.com/lafibreinfo">Vivien</a>, <a href="https://twitter.com/Chairdan">Vince</a>, fkin007 pour leur collaboration.<br><br>Contact, remarques, signalements de bugs: <a href="https://twitter.com/buchanan_">@buchanan_</a>, ou sur <a href=https://lafibre.info/4g/site-de-cartographie-des-faisceaux-hertziens-bugs-idees-damelioration/>lafibre.info</a>.<br><br>Retrouvez la carte du projet Crozon <a href="https://carte-fh.lafibre.info/index_crozon.php">ICI</a>
 			<div class="Xquit" onclick="affichage_credits();">X</div>
 		</div>
 		<div id="choix_zone">

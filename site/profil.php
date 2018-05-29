@@ -90,11 +90,13 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant']) &&
 			$obj_out->geometry=new stdClass();
 			$obj_out->geometry->type='LineString';
 			$obj_out->geometry->coordinates=array();
+			/*
 			if($obj_ign->elevations[0]->z < $seuil_bas_alt){
 				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,$h_sup_1);
 			}else{
 				$obj_out->geometry->coordinates[]=array($obj_ign->elevations[0]->lon,$obj_ign->elevations[0]->lat,$obj_ign->elevations[0]->z+$h_sup_1);
 			}
+			*/
 			foreach($obj_ign->elevations as $coord_point){
 				if($coord_point->z < $seuil_bas_alt){
 					$obj_out->geometry->coordinates[]=array($coord_point->lon,$coord_point->lat,0);
@@ -102,11 +104,13 @@ if(isset($_GET['date']) && isset($_GET['nos_sup']) && isset($_GET['nos_ant']) &&
 					$obj_out->geometry->coordinates[]=array($coord_point->lon,$coord_point->lat,$coord_point->z);
 				}
 			}
+			/*
 			if(end($obj_ign->elevations)->z < $seuil_bas_alt){
 				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,$h_sup_2);
 			}else{
 				$obj_out->geometry->coordinates[]=array(end($obj_ign->elevations)->lon,end($obj_ign->elevations)->lat,end($obj_ign->elevations)->z+$h_sup_2);
 			}
+			*/
 			$obj_return->elevation=$obj_out;
 		}
 		echo(json_encode($obj_return));
