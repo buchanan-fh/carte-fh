@@ -28,8 +28,8 @@ var stored_obj_gJ;
 var stored_dist;
 opacite_lien_non_lie=0.22;
 opacite_lien_meme_ope=0.6;
-//base_url="https://carte-fh.lafibre.info/";
-base_url="/";
+base_url="https://carte-fh.lafibre.info/";
+//base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
 la_div_globale = document.createElement("div");
@@ -148,8 +148,20 @@ L.control.scale().addTo(map);
 L.control.layers(base_layers,null,{position: "bottomright"}).addTo(map);
 new L.Control.Measure({localization:'fr', position: "bottomright", primaryLengthUnit: "kilometers", primaryAreaUnit: "sqmeters", activeColor: "#000000", completedColor: "#606060"}).addTo(map);
 L.control.zoom({position:"bottomright"}).addTo(map);
-var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider({maxResults: "4"});
-var searchControl = L.esri.Geocoding.geosearch({providers: [arcgisOnline], position: "bottomright", useMapBounds: "false", placeholder: "Rechercher un lieu...", title: "Rechercher un lieu"}).addTo(map);
+var provider = new GeoSearch.EsriProvider();
+var searchControl = new GeoSearch.GeoSearchControl({
+  provider: provider,
+  style: 'bar',
+  autoClose: true,
+  showMarker: false,
+  searchLabel: 'Rechercher un lieu...'
+}).addTo(map);
+searchControl.searchElement.elements.input.focus();
+searchControl.searchElement.elements.input.onblur = function() {
+    setTimeout(function(input) {
+        input.focus();
+    }, 10, this);
+};
 var el=L.control.elevation({position:'bottomleft', collapsed:true, width: 800}).addTo(map);
 
 map.on("baselayerchange", function(e){
