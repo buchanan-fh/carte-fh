@@ -28,8 +28,8 @@ var stored_obj_gJ;
 var stored_dist;
 opacite_lien_non_lie=0.22;
 opacite_lien_meme_ope=0.6;
-base_url="https://carte-fh.lafibre.info/";
-//base_url="/";
+//base_url="https://carte-fh.lafibre.info/";
+base_url="/";
 piwigo_api_url="https://carte-fh.lafibre.info/galerie_photo/ws.php";
 
 la_div_globale = document.createElement("div");
@@ -157,11 +157,11 @@ var searchControl = new GeoSearch.GeoSearchControl({
   searchLabel: 'Rechercher un lieu...'
 }).addTo(map);
 searchControl.searchElement.elements.input.focus();
-searchControl.searchElement.elements.input.onblur = function() {
+/*searchControl.searchElement.elements.input.onblur = function() {
     setTimeout(function(input) {
         input.focus();
     }, 10, this);
-};
+};*/
 var el=L.control.elevation({position:'bottomleft', collapsed:true, width: 800}).addTo(map);
 
 map.on("baselayerchange", function(e){
@@ -183,7 +183,7 @@ oms.addListener('click', function(marker){
 	build_popup_mark_s(marker,false);
 });
 
-document.getElementById("date_select").innerHTML = "05/2018";
+document.getElementById("date_select").innerHTML = "06/2018";
 
 map.on('zoomend', function() {
 	if (map.getZoom()<=9) {
@@ -1305,7 +1305,7 @@ function check_no_autre_op(){
 function change_date(act,target){
 	mois_min=1;
 	annee_min=2015;
-	mois_max=05;
+	mois_max=06;
 	annee_max=2018;
 	if(act==0 && target!=undefined){
 		le_mois=parseInt(target.substr(4,2));
